@@ -1,3 +1,3 @@
-module.exports =function (app,swig,gestorBD){
+module.exports = function (app, swig, gestorBD) {
 
 }
