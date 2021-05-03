@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block titulo %} Home {% endblock %}
+{% block contenido_principal %}
+<div class="container" style="text-align: center">
+    <h2>Bienvenido a la aplicación</h2>
+    <p>Usuario Autenticado como: {{usuario.email}}</p>
+
+    <p id="balance">Dinero actual: {{usuario.dinero}} €</p>
+
+</div>

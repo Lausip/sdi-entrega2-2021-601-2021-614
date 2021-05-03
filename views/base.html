@@ -28,8 +28,11 @@
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                {% if usuario==null %}
                 <li><a href="/registrarse"><span class="glyphicon glyphicon-user"></span> Registrate</a></li>
+                {% endif %}
                 <li><a href="/identificarse"><span class="glyphicon glyphicon-log-in"></span> Identifícate</a></li>
+
             </ul>
         </div>
     </div>
@@ -38,7 +41,6 @@
 
 
 <div class="container">
-    <div class="container">
         <script>
             var mensaje = getUrlParameter('mensaje');
             var tipoMensaje = getUrlParameter('tipoMensaje');
