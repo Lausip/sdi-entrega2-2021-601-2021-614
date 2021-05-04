@@ -5,7 +5,7 @@
 <div class="container" style="text-align: center">
     <h2>Bienvenido a la aplicación</h2>
     <p>Usuario Autenticado como: {{usuario.email}}</p>
-
+    {% if  usuario.rol== 'estandar' %}
     <p id="balance">Dinero actual: {{usuario.dinero}} €</p>
-
+    {% endif %}
 </div>

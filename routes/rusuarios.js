@@ -38,7 +38,7 @@ module.exports = function (app, swig, gestorBD) {
                 nombre: req.body.name,
                 apellido: req.body.surname,
                 dinero: 100,
-                rol: 'estandar',
+                rol: 'admin',
                 password: seguro
             };
             let criterio = {
@@ -67,7 +67,6 @@ module.exports = function (app, swig, gestorBD) {
     /**
      * Home privado del usuario:
      * Si no está identificado le manda a identificarse
-     *
      */
     app.get("/home", function (req, res) {
         if (req.session.usuario === null) {
@@ -85,5 +84,33 @@ module.exports = function (app, swig, gestorBD) {
         }
     });
 
+
+    /**
+     * Listar los usuarios de la aplicación:
+     * Si el usario que lo busca no es admin
+     */
+    app.get("/user/list", function (req, res) {
+        let usuario = req.session.usuario;
+        if (usuario.rol === 'rol_estandar') {
+            app.get("logger").error('No se puede acceder a listar ya que no usted no es admin');
+           // res.redirect("/home?mensaje=No puede acceder a esta zona de la web");
+        } else {
+            var criterio = {
+                rol: "estandar"
+            };
+            gestorBD.obtenerUsuarios(criterio, function (usuarios) {
+                if (usuarios == null) {
+                    app.get('logger').info('Listado de usuarios: error en el listado');
+                }
+                else {
+                    let respuesta = swig.renderFile('views/user/list.html', {
+                        usuarioList: usuarios
+                    });
+                    app.get('logger').info('Listado de usuarios: se va a mostrar el listado de usuarios');
+                    res.send(respuesta);
+                }
+            });
+        }
+    });
 
 }
