@@ -88,6 +88,7 @@ module.exports =function (app,swig,gestorBD){
     /**
      * Listar los usuarios de la aplicación:
      * Si el usario que lo busca no es admin
+     * No se muestra los usuarios admin
      */
     app.get("/user/list", function (req, res) {
         let usuario = req.session.usuario;
@@ -112,5 +113,40 @@ module.exports =function (app,swig,gestorBD){
             });
         }
     });
+
+    /**
+     * Elimina los usuarios seleccionados en el checkbox y lo mete en un array
+     *Si estos se eliminar tambien se eliminan todas aquellas conversaciones mensajes y ofertas relacionadas con él
+     */
+    app.post('/user/delete/', function (req, res) {
+        let ids = req.body.idsUserDelete;
+        if (!Array.isArray(ids)) {
+            let aux = ids;
+            ids = [];
+            ids.push(aux);
+        }
+        let criterio = {
+            email: {$in: ids}
+        };
+        gestorBD.eliminarUsuario(criterio, function (usuarios) {
+            if (usuarios == null) {
+                app.get('logger').error('Eliminar usuarios: no se han podido eliminar');
+            } else {
+               // let criterio = {
+              //      usuarioOferta: {$in: ids}
+              //  };
+               // gestorBD.eliminarOferta(criterio, function (ofertas) {
+                 //   if (ofertas == null) {
+                 //       app.get('logger').error("Fallo al eliminar ofertas creadas por los usuarios borrados");
+                 //   } else {
+                     app.get('logger').info('Eliminar usuarios: exito en la eliminación de usuario/s');
+                        res.redirect("/user/list" + "?mensaje=Exito en el borrado de usuario/s" +
+                            "&tipoMensaje=alert-success ");
+                 //   }
+                //});
+            }
+        });
+    })
+
 
 }
