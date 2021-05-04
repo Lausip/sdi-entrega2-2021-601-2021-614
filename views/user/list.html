@@ -1,0 +1,38 @@
+{% extends "../base.html" %} {% block titulo %} Usuarios de MyWallapop {% endblock %}
+
+{% block contenido_principal %}
+<h2>Usuarios en el sistema</h2>
+<p>Los usuarios que actualmente figuran en el sistema son los
+    siguientes:</p>
+
+<div class="table-responsive">
+    <form method="post" action="/user/delete">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Email</th>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>
+                    <input class="btn btn-info" type="submit" id="DeleteButton"
+                           value="Eliminar usuarios seleccionados"/>
+                </th>
+                <th class="col-md-1"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in usuarioList %}
+            <tr>
+                <td>{{ user.email }}</td>
+                <td>{{ user.nombre }}</td>
+                <td>{{ user.apellidos }}</td>
+                <td><input id="idsSelectedUsers" type="checkbox"
+                           name="idsSelectedUsers" value='{{user.email}}'></td>
+
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </form>
+</div>
+{% endblock %}
