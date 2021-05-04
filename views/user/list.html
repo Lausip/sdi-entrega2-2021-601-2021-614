@@ -25,9 +25,9 @@
             <tr>
                 <td>{{ user.email }}</td>
                 <td>{{ user.nombre }}</td>
-                <td>{{ user.apellidos }}</td>
-                <td><input id="idsSelectedUsers" type="checkbox"
-                           name="idsSelectedUsers" value='{{user.email}}'></td>
+                <td>{{ user.apellido }}</td>
+                <td><input id="idsUserDelete" type="checkbox"
+                           name="idsUserDelete" value='{{user.email}}'></td>
 
             </tr>
             {% endfor %}
