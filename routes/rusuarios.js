@@ -5,13 +5,13 @@ module.exports =function (app,swig,gestorBD){
      * si no lo hay vuelve al home
      */
     app.get("/registrar", function (req, res) {
-        if (req.session.usuario === undefined) {
+        if (req.session.usuario == undefined) {
         let respuesta = swig.renderFile('views/bregistro.html', {});
         app.get('logger').info('Registrarse: se va a mostrar la página de registro');
         res.send(respuesta);}
         else{
             app.get('logger').error('Registrarse: no estas en sesión')
-            res.redirect("/home");
+            res.redirect("/home?mensaje=Usted ya esta en sesión &tipoMensaje=alert-danger");
         }
     });
     /**
@@ -38,7 +38,7 @@ module.exports =function (app,swig,gestorBD){
                 nombre: req.body.name,
                 apellido: req.body.surname,
                 dinero: 100,
-                rol: 'admin',
+                rol: 'estandar',
                 password: seguro
             };
             let criterio = {
@@ -92,20 +92,36 @@ module.exports =function (app,swig,gestorBD){
      */
     app.get("/user/list", function (req, res) {
         let usuario = req.session.usuario;
-        if (usuario.rol === 'rol_estandar') {
+        if (usuario.rol == 'rol_estandar') {
             app.get("logger").error('No se puede acceder a listar ya que no usted no es admin');
-           // res.redirect("/home?mensaje=No puede acceder a esta zona de la web");
+           res.redirect("/bhome?mensaje=No puede acceder a esta zona de la web");
         } else {
             var criterio = {
-                rol: "estandar"
+                rol: "estandar",
             };
-            gestorBD.obtenerUsuarios(criterio, function (usuarios) {
+            let pg = parseInt(req.query.pg); // Es String !!!
+            if ( req.query.pg == null){ // Puede no venir el param
+                pg = 1;
+            }
+            gestorBD.obtenerUsuariosPg(criterio,pg, function (usuarios,total) {
                 if (usuarios == null) {
                     app.get('logger').info('Listado de usuarios: error en el listado');
                 }
                 else {
+                    let ultimaPg = total/4;
+                    if (total % 4 > 0 ){ // Sobran decimales
+                        ultimaPg = ultimaPg+1;
+                    }
+                    let paginas = []; // paginas mostrar
+                    for(let i = pg-2 ; i <= pg+2 ; i++){
+                        if ( i > 0 && i <= ultimaPg){
+                            paginas.push(i);
+                        }
+                    }
                     let respuesta = swig.renderFile('views/user/list.html', {
-                        usuarioList: usuarios
+                        usuarioList: usuarios,
+                        paginas:paginas,
+                        actual:pg
                     });
                     app.get('logger').info('Listado de usuarios: se va a mostrar el listado de usuarios');
                     res.send(respuesta);
