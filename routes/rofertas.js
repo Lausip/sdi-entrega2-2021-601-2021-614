@@ -119,6 +119,10 @@ module.exports = function (app, swig, gestorBD) {
             }
         });
     });
+    /**
+     * Listado de ofertas compradas por el usuario que inicio
+     * sesión en la aplicación
+     */
     app.get("/offer/buyed", function (req, res) {
         let criterio = {"comprador": gestorBD.mongo.ObjectID(req.session.usuario._id)};
         if(req.session.usuario.rol != "estandar") {

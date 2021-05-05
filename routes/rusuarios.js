@@ -148,18 +148,19 @@ module.exports = function (app, swig, gestorBD) {
             if (usuarios == null) {
                 app.get('logger').error('Eliminar usuarios: no se han podido eliminar');
             } else {
-               // let criterio = {
-              //      usuarioOferta: {$in: ids}
-              //  };
-               // gestorBD.eliminarOferta(criterio, function (ofertas) {
-                 //   if (ofertas == null) {
-                 //       app.get('logger').error("Fallo al eliminar ofertas creadas por los usuarios borrados");
-                 //   } else {
+                let criterio = {
+                    vendedor: {$in: ids}
+               };
+                gestorBD.eliminarOferta(criterio, function (ofertas) {
+                    if (ofertas == null) {
+                      app.get('logger').error("Fallo al eliminar ofertas creadas por los usuarios borrados");
+                      //Redireccionar
+                    } else {
                      app.get('logger').info('Eliminar usuarios: exito en la eliminación de usuario/s');
                         res.redirect("/user/list" + "?mensaje=Exito en el borrado de usuario/s" +
                             "&tipoMensaje=alert-success ");
-                 //   }
-                //});
+                    }
+                });
             }
         });
     })

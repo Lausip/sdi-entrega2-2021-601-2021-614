@@ -98,6 +98,29 @@ module.exports = {
         });
     },
     /**
+     * Modificar el usuario pasado como criterio
+     * @param criterio usario a cambiar
+     * @param usuario uusario nuevo
+     * @param funcionCallback
+     */
+    modificarUsuario: function (criterio, usuario, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                var collection = db.collection('usuarios');
+                collection.update(criterio, {$set: usuario}, function (err, result) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(result);
+                    }
+                    db.close();
+                });
+            }
+        });
+    },
+    /**
      * Obtener ofertas por un criterio
      * @param criterio para encontrar las ofertas
      * @param funcionCallback
@@ -146,18 +169,17 @@ module.exports = {
         });
     },
     /**
-     * Modificar el usuario pasado como criterio
-     * @param criterio usario a cambiar
-     * @param usuario uusario nuevo
+     * Elimina la oferta según el criterio pasado como parametro
+     * @param criterio
      * @param funcionCallback
      */
-    modificarUsuario: function (criterio, usuario, funcionCallback) {
+    eliminarOferta: function (criterio, funcionCallback) {
         this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
             if (err) {
                 funcionCallback(null);
             } else {
-                var collection = db.collection('usuarios');
-                collection.update(criterio, {$set: usuario}, function (err, result) {
+                var collection = db.collection('ofertas');
+                collection.remove(criterio, function (err, result) {
                     if (err) {
                         funcionCallback(null);
                     } else {
