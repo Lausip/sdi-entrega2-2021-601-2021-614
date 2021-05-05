@@ -97,6 +97,34 @@ module.exports = {
             }
         });
     },
+    /**
+     * Obtener ofertas por un criterio
+     * @param criterio para encontrar las ofertas
+     * @param funcionCallback
+     */
+    obtenerOfertas: function (criterio, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                var collection = db.collection('ofertas');
+                collection.find(criterio).toArray(function (err, ofertas) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(ofertas);
+                    }
+                    db.close();
+                });
+            }
+        });
+    },
+    /**
+     * Obtener las ofertas con paginación
+     * @param criterio el criterio para obtener las ofertas
+     * @param pg pagina
+     * @param funcionCallback
+     */
     obtenerOfertasPg: function (criterio, pg, funcionCallback) {
         this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
             if (err) {
@@ -113,6 +141,52 @@ module.exports = {
                             }
                             db.close();
                         });
+                });
+            }
+        });
+    },
+    /**
+     * Modificar el usuario pasado como criterio
+     * @param criterio usario a cambiar
+     * @param usuario uusario nuevo
+     * @param funcionCallback
+     */
+    modificarUsuario: function (criterio, usuario, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                var collection = db.collection('usuarios');
+                collection.update(criterio, {$set: usuario}, function (err, result) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(result);
+                    }
+                    db.close();
+                });
+            }
+        });
+    },
+    /**
+     * Modificar la oferta
+     * @param criterio de la oferta a modificar
+     * @param oferta a modificar
+     * @param funcionCallback
+     */
+    modificarOferta: function (criterio, oferta, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                var collection = db.collection('ofertas');
+                collection.update(criterio, {$set: oferta}, function (err, result) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(result);
+                    }
+                    db.close();
                 });
             }
         });
