@@ -39,18 +39,21 @@
                     </ul>
                 </li>
                 {% endif %}
-
-                <li id="offers-2" class="dropdown">
+                {% if  usuario.rol== 'estandar' %}
+                <li id="offers-menu" class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <span>Gestionar ofertas</span>
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
                         <li id="ofertas"><a href="/offer/list">Ver Ofertas</a></li>
+                        <li id="ofertasCompradas"><a href="/offer/buyed">Ver Ofertas Compradas</a></li>
                     </ul>
+                    {% endif %}
+                    {% endif %}
                 </li>
             </ul>
-            {% endif %}
+
             <ul class="nav navbar-nav navbar-right">
                 {% if usuario==null %}
                 <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Registrate</a></li>
