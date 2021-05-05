@@ -23,7 +23,7 @@ app.use(function(req, res, next) {
     // Debemos especificar todas las headers que se aceptan. Content-Type , token
    next();
 });
-
+//Realizar Encriptaciones Token
 let jwt = require('jsonwebtoken');
 app.set('jwt',jwt);
 
@@ -124,6 +124,36 @@ routerAdmin.use(function (req, res, next) {
 });
 //Aplicamos el router
 app.use("/user/*", routerUsuarioAdmin);
+
+var routerUsuarioToken = express.Router();
+routerUsuarioToken.use(function (req, res, next) {
+
+    var token = req.headers['token'] || req.body.token || req.query.token;
+    if (token != null) {
+        jwt.verify(token, 'secreto', function (err, infoToken) {
+            if (err || (Date.now() / 1000 - infoToken.tiempo) > 24000) {
+                res.status(403); // Forbidden
+                res.json({
+                    acceso: false,
+                    error: 'Token invalido o caducado'
+                });
+
+            } else {
+                res.usuario = infoToken.usuario;
+                next();
+            }
+        });
+
+    } else {
+        res.status(403); // Forbidden
+        res.json({
+            acceso: false,
+            mensaje: 'No hay Token'
+        });
+    }
+});
+//Router api
+app.use('/api/offer/*', routerApiToken)
 
 //Rutas controladores
 require("./routes/rusuarios.js")(app, swig, gestorBD);
