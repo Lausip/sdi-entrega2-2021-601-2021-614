@@ -108,8 +108,8 @@ module.exports = function (app, swig, gestorBD) {
                     app.get('logger').info('Listado de usuarios: error en el listado');
                 }
                 else {
-                    let ultimaPg = total/4;
-                    if (total % 4 > 0 ){ // Sobran decimales
+                    let ultimaPg = total/5;
+                    if (total % 5 > 0 ){ // Sobran decimales
                         ultimaPg = ultimaPg+1;
                     }
                     let paginas = []; // paginas mostrar
@@ -150,20 +150,49 @@ module.exports = function (app, swig, gestorBD) {
             } else {
                 let criterio = {
                     vendedor: {$in: ids}
-               };
+                };
                 gestorBD.eliminarOferta(criterio, function (ofertas) {
                     if (ofertas == null) {
-                      app.get('logger').error("Fallo al eliminar ofertas creadas por los usuarios borrados");
-                      //Redireccionar
+                        app.get('logger').error("Fallo al eliminar ofertas creadas por los usuarios borrados");
+                        //Redireccionar
                     } else {
-                     app.get('logger').info('Eliminar usuarios: exito en la eliminación de usuario/s');
-                        res.redirect("/user/list" + "?mensaje=Exito en el borrado de usuario/s" +
-                            "&tipoMensaje=alert-success ");
+                        var criterio = {
+                            rol: "estandar",
+                        };
+                        let pg = parseInt(req.query.pg); // Es String !!!
+                        if (req.query.pg == null) { // Puede no venir el param
+                            pg = 1;
+                        }
+                        gestorBD.obtenerUsuariosPg(criterio, pg, function (usuarios, total) {
+                            if (usuarios == null) {
+                                app.get('logger').info('Listado de usuarios: error en el listado');
+                            } else {
+                                let ultimaPg = total / 5;
+                                if (total % 5 > 0) { // Sobran decimales
+                                    ultimaPg = ultimaPg + 1;
+                                }
+                                let paginas = []; // paginas mostrar
+                                for (let i = pg - 2; i <= pg + 2; i++) {
+                                    if (i > 0 && i <= ultimaPg) {
+                                        paginas.push(i);
+                                    }
+                                }
+                                let respuesta = swig.renderFile('views/user/list.html', {
+                                    usuarioList: usuarios,
+                                    paginas: paginas,
+                                    actual: pg
+                                });
+                                app.get('logger').info('Eliminar usuarios: exito en la eliminación de usuario/s');
+                                res.redirect("/user/list" + "?mensaje=Exito en el borrado de usuario/s" +
+                                    "&tipoMensaje=alert-success ");
+                            }
+                        });
                     }
+
                 });
             }
         });
-    })
+    });
 
 
 }
