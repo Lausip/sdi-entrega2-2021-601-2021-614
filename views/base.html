@@ -39,11 +39,21 @@
                     </ul>
                 </li>
                 {% endif %}
-                {% endif %}
+
+                <li id="offers-2" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <span>Gestionar ofertas</span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li id="ofertas"><a href="/offer/list">Ver Ofertas</a></li>
+                    </ul>
+                </li>
             </ul>
+            {% endif %}
             <ul class="nav navbar-nav navbar-right">
                 {% if usuario==null %}
-                <li><a href="/registrar"><span class="glyphicon glyphicon-user"></span> Registrate</a></li>
+                <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Registrate</a></li>
                 {% endif %}
                 <li><a href="/identificarse"><span class="glyphicon glyphicon-log-in"></span> Identifícate</a></li>
 
@@ -74,6 +84,13 @@
                     decodeURIComponent(results[1].replace(/\+/g, ' '));
             };
         </script>
+    {% if  usuario!=undefined %}
+    <div class="text-right">
+    <p>Usuario Autenticado como: {{usuario.email}}</p>
+    {% if  usuario.rol== 'estandar' %}
+    <p id="balance">Dinero actual: {{usuario.dinero}} €</p>
+    </div>
+    {% endif %}{% endif %}
     <!-- Contenido -->
     {% block contenido_principal %}
     <!-- Posible contenido por defecto -->
