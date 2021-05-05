@@ -5,6 +5,12 @@ module.exports = function (app, swig, gestorBD) {
      * Se mira si el usario inicio sesion
      */
     app.get("/offer/list", function (req, res) {
+        //HAY QUE HACER?
+        if(req.session.usuario.rol != "estandar") {
+            app.get("logger").error(req.session.usuario.email + ": no es estandar no puede entrar en la lista de compra");
+            res.redirect("/home?mensaje=Usted no es usuario estandar no puede entrar&tipoMensaje=alert-danger");
+        }
+
         if(req.session.usuario==undefined || req.session.usuario === null){
             app.get("logger").error('Usuario no esta en sesión y querido entrar al listado de ofertas');
             res.redirect("/identificarse?mensaje=Usuario no esta en sesión&tipoMensaje=alert-danger");
@@ -59,6 +65,11 @@ module.exports = function (app, swig, gestorBD) {
      * además si el usario no esta identificado redirige al incio de sesión
      */
     app.get('/offer/buy/:id', function (req, res) {
+        //HAY QUE HACER?
+        if(req.session.usuario.rol != "estandar") {
+            app.get("logger").error(req.session.usuario.email + ": no es estandar no puede entrar en la lista de compra");
+            res.redirect("/home?mensaje=Usted no es usuario estandar no puede entrar&tipoMensaje=alert-danger");
+        }
         if(req.session.usuario==undefined || req.session.usuario === null){
             app.get("logger").error('Usuario no esta en sesión y querido entrar al listado de ofertas');
             res.redirect("/identificarse?mensaje=Usuario no esta en sesión&tipoMensaje=alert-danger");
@@ -108,5 +119,29 @@ module.exports = function (app, swig, gestorBD) {
             }
         });
     });
+    app.get("/offer/buyed", function (req, res) {
+        let criterio = {"comprador": gestorBD.mongo.ObjectID(req.session.usuario._id)};
+        if(req.session.usuario.rol != "estandar") {
+            app.get("logger").error(req.session.usuario.email + ": no es estandar no puede entrar en la lista de compra");
+            res.redirect("/home?mensaje=Usted no es usuario estandar no puede entrar&tipoMensaje=alert-danger");
+        }
+        if(req.session.usuario==undefined){
+            app.get("logger").error("No esta identificado");
+            res.redirect("/identificarse?mensaje=Usted no esta identificado&tipoMensaje=alert-danger");
+        }
+            gestorBD.obtenerOfertas(criterio, function (ofertas) {
+                if (ofertas == null) {
+                    app.get("logger").error(req.session.usuario.email + ":Error al realizar el listado de ofertas");
+                    res.redirect("/home?mensaje=Error al realizar el listado de ofertas&tipoMensaje=alert-danger");
+                } else {
+                    var respuesta = swig.renderFile('views/offer/listOffersBuyed.html',
+                        {
+                            ofertaList: ofertas,
+                            usuario: req.session.usuario
+                        });
+                    res.send(respuesta);
+                }
+            });
+         });
 
 };
