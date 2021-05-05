@@ -4,9 +4,9 @@ module.exports =function (app,swig,gestorBD){
      * Muestra la página de registro si hay usuario en sesión,
      * si no lo hay vuelve al home
      */
-    app.get("/registrar", function (req, res) {
+    app.get("/signup", function (req, res) {
         if (req.session.usuario == undefined) {
-        let respuesta = swig.renderFile('views/bregistro.html', {});
+        let respuesta = swig.renderFile('views/bsignup.html', {});
         app.get('logger').info('Registrarse: se va a mostrar la página de registro');
         res.send(respuesta);}
         else{
@@ -18,16 +18,16 @@ module.exports =function (app,swig,gestorBD){
      * Permite el registro de un usuario si todo va bien
      * si no se explica el error
      */
-    app.post('/registrar', function (req, res) {
+    app.post('/signup', function (req, res) {
         app.get('logger').info('Usuario se va a registrar');
         if (req.body.name === undefined || req.body.name === '' || req.body.surname === undefined || req.body.surname === ''
             || req.body.password === undefined || req.body.password === '' || req.body.repassword === undefined || req.body.repassword === ''
             || req.body.email === undefined || req.body.email === '') {
-            res.redirect("/registrar?mensaje=Es necesario completar todos los campos&tipoMensaje=alert-danger")
+            res.redirect("/signup?mensaje=Es necesario completar todos los campos&tipoMensaje=alert-danger")
             app.get('logger').error('Es necesario completar todos los campos');
 
         } else if (req.body.password !== req.body.repassword) {
-            res.redirect("/registrar?mensaje=Las contraseñas deben ser iguales&tipoMensaje=alert-danger")
+            res.redirect("/signup?mensaje=Las contraseñas deben ser iguales&tipoMensaje=alert-danger")
             app.get('logger').error('Las contraseñas deben ser iguales');
 
         } else {
@@ -47,12 +47,12 @@ module.exports =function (app,swig,gestorBD){
             gestorBD.obtenerUsuarios(criterio, function (usuarios) {
                 if (usuarios != null && usuarios.length !== 0) {
                     app.get("logger").error('El email ya está registrado');
-                    res.redirect("/registrar?mensaje=El email ya está registrado&tipoMensaje=alert-danger");
+                    res.redirect("/signup?mensaje=El email ya está registrado&tipoMensaje=alert-danger");
                 } else {
                     gestorBD.insertarUsuario(usuario, function (id) {
                         if (id === undefined) {
                             app.get("logger").error('Error al registrar al usuarios');
-                            res.redirect("/registrar?mensaje=Error al registrar usuario&tipoMensaje=alert-danger")
+                            res.redirect("/signup?mensaje=Error al registrar usuario&tipoMensaje=alert-danger")
                         } else {
                             req.session.usuario = usuario;
                             app.get("logger").info('Usuario registrado como ' + req.body.email);
@@ -71,7 +71,7 @@ module.exports =function (app,swig,gestorBD){
     app.get("/home", function (req, res) {
         if (req.session.usuario === null) {
             app.get("logger").error('Usuario no identificado ha intentado entrar en zona privada');
-            res.redirect("/identificarse");
+            res.redirect("/identificarse?mensaje=Usuario no identificado &tipoMensaje=alert-danger");
         }
          else {
              app.get("logger").info('Usuario ha entrado a su zona privada');
@@ -92,7 +92,7 @@ module.exports =function (app,swig,gestorBD){
      */
     app.get("/user/list", function (req, res) {
         let usuario = req.session.usuario;
-        if (usuario.rol == 'rol_estandar') {
+        if (usuario.rol == 'estandar') {
             app.get("logger").error('No se puede acceder a listar ya que no usted no es admin');
            res.redirect("/bhome?mensaje=No puede acceder a esta zona de la web");
         } else {

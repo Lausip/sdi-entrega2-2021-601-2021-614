@@ -58,6 +58,7 @@ app.set('crypto',crypto);
 
 //Rutas controladores
 require("./routes/rusuarios.js")(app, swig, gestorBD);
+require("./routes/rofertas.js")(app, swig, gestorBD);
 
 //Puerto
 app.set('port',8081);
