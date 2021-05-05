@@ -5,17 +5,6 @@ module.exports = function (app, swig, gestorBD) {
      * Se mira si el usario inicio sesion
      */
     app.get("/offer/list", function (req, res) {
-        //HAY QUE HACER?
-        if(req.session.usuario.rol != "estandar") {
-            app.get("logger").error(req.session.usuario.email + ": no es estandar no puede entrar en la lista de compra");
-            res.redirect("/home?mensaje=Usted no es usuario estandar no puede entrar&tipoMensaje=alert-danger");
-        }
-
-        if(req.session.usuario==undefined || req.session.usuario === null){
-            app.get("logger").error('Usuario no esta en sesión y querido entrar al listado de ofertas');
-            res.redirect("/identificarse?mensaje=Usuario no esta en sesión&tipoMensaje=alert-danger");
-        }
-        else {
             var criterio = {};
             let busqueda = req.query.busqueda;
             if (busqueda != null && busqueda != "" && busqueda != undefined) {
@@ -56,7 +45,6 @@ module.exports = function (app, swig, gestorBD) {
                     res.send(respuesta);
                 }
             });
-        }
     });
     /**
      * Compras la oferta pasada como id,
@@ -65,15 +53,6 @@ module.exports = function (app, swig, gestorBD) {
      * además si el usario no esta identificado redirige al incio de sesión
      */
     app.get('/offer/buy/:id', function (req, res) {
-        //HAY QUE HACER?
-        if(req.session.usuario.rol != "estandar") {
-            app.get("logger").error(req.session.usuario.email + ": no es estandar no puede entrar en la lista de compra");
-            res.redirect("/home?mensaje=Usted no es usuario estandar no puede entrar&tipoMensaje=alert-danger");
-        }
-        if(req.session.usuario==undefined || req.session.usuario === null){
-            app.get("logger").error('Usuario no esta en sesión y querido entrar al listado de ofertas');
-            res.redirect("/identificarse?mensaje=Usuario no esta en sesión&tipoMensaje=alert-danger");
-        }
         let criterio = {
             "_id": gestorBD.mongo.ObjectID(req.params.id)
         };
@@ -100,7 +79,6 @@ module.exports = function (app, swig, gestorBD) {
                         app.get("logger").error('Error al comprar la oferta');
                         //redireccionar
                     } else {
-
                         criterio = {"email": req.session.usuario.email};
                         let nuevoSaldo = req.session.usuario.dinero - ofertas[0].precio;
                         let usuarioModificado = {"dinero": nuevoSaldo};
@@ -125,14 +103,6 @@ module.exports = function (app, swig, gestorBD) {
      */
     app.get("/offer/buyed", function (req, res) {
         let criterio = {"comprador": gestorBD.mongo.ObjectID(req.session.usuario._id)};
-        if(req.session.usuario.rol != "estandar") {
-            app.get("logger").error(req.session.usuario.email + ": no es estandar no puede entrar en la lista de compra");
-            res.redirect("/home?mensaje=Usted no es usuario estandar no puede entrar&tipoMensaje=alert-danger");
-        }
-        if(req.session.usuario==undefined){
-            app.get("logger").error("No esta identificado");
-            res.redirect("/identificarse?mensaje=Usted no esta identificado&tipoMensaje=alert-danger");
-        }
             gestorBD.obtenerOfertas(criterio, function (ofertas) {
                 if (ofertas == null) {
                     app.get("logger").error(req.session.usuario.email + ":Error al realizar el listado de ofertas");

@@ -5,14 +5,10 @@ module.exports = function (app, swig, gestorBD) {
      * si no lo hay vuelve al home
      */
     app.get("/signup", function (req, res) {
-        if (req.session.usuario == undefined) {
         let respuesta = swig.renderFile('views/bsignup.html', {});
         app.get('logger').info('Registrarse: se va a mostrar la página de registro');
-        res.send(respuesta);}
-        else{
-            app.get('logger').error('Registrarse: no estas en sesión')
-            res.redirect("/home?mensaje=Usted ya esta en sesión &tipoMensaje=alert-danger");
-        }
+        res.send(respuesta);
+
     });
     /**
      * Permite el registro de un usuario si todo va bien
@@ -69,19 +65,14 @@ module.exports = function (app, swig, gestorBD) {
      * Si no está identificado le manda a identificarse
      */
     app.get("/home", function (req, res) {
-        if (req.session.usuario === null) {
-            app.get("logger").error('Usuario no identificado ha intentado entrar en zona privada');
-            res.redirect("/identificarse?mensaje=Usuario no identificado &tipoMensaje=alert-danger");
-        }
-         else {
-             app.get("logger").info('Usuario ha entrado a su zona privada');
+        app.get("logger").info('Usuario ha entrado a su zona privada');
         var respuesta = swig.renderFile('views/bhome.html',
             {
                 usuario: req.session.usuario
             });
             res.send(respuesta);
 
-        }
+
     });
 
 
@@ -91,11 +82,7 @@ module.exports = function (app, swig, gestorBD) {
      * No se muestra los usuarios admin
      */
     app.get("/user/list", function (req, res) {
-        let usuario = req.session.usuario;
-        if (usuario.rol == 'estandar') {
-            app.get("logger").error('No se puede acceder a listar ya que no usted no es admin');
-           res.redirect("/bhome?mensaje=No puede acceder a esta zona de la web");
-        } else {
+            let usuario = req.session.usuario;
             var criterio = {
                 rol: "estandar",
             };
@@ -127,7 +114,6 @@ module.exports = function (app, swig, gestorBD) {
                     res.send(respuesta);
                 }
             });
-        }
     });
 
     /**

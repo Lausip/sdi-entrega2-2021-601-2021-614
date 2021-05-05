@@ -56,6 +56,75 @@ app.set('db','mongodb://admin:sdi@tiendamusica-shard-00-00.nq3br.mongodb.net:270
 app.set('clave','abcdefg');
 app.set('crypto',crypto);
 
+//Router de sesion
+var routerUsuarioSession = express.Router();
+routerUsuarioSession.use(function (req, res, next) {
+    console.log("routerUsuarioSession");
+    if (req.session.usuario) {
+        logger.info('Usuario logeado accede a '+ req.originalUrl);
+        next();
+    } else {
+        logger.warn("Usuario no identificado intenta aceeder a" + req.originalUrl);
+        res.redirect("/identificarse?mensaje=El usuario actual no esta en sesión" +
+            "&tipoMensaje=alert-danger");
+    }
+});
+
+//Aplicamos el router
+app.use("/home", routerUsuarioSession);
+//DESCONECTARSE TB
+app.use("/offer/*", routerUsuarioSession);
+app.use("/user/*", routerUsuarioSession);
+
+//Roter de usuario de no identificado
+var routerUsuarioNoSession = express.Router();
+routerUsuarioNoSession.use(function (req, res, next) {
+    console.log("routerUsuarioNoSession");
+    if (!req.session.usuario) {
+        logger.info('Usuario no logeado intenta acceder '+ req.originalUrl);
+        next();
+    } else {
+        logger.warn('User logged in tries to access '+ req.originalUrl);
+        res.redirect("/home?mensaje=El usuario actual ya esta en sesión" +
+            "&tipoMensaje=alert-danger");
+    }
+});
+//Aplicamos el router
+app.use("/signup", routerUsuarioNoSession);
+//IDENTIFICARSE TB
+
+//Roter de usuario de estandar
+
+var routerEstandar = express.Router();
+routerEstandar.use(function (req, res, next) {
+    if (req.session.usuario.rol === 'estandar') {
+        logger.info('El usuario'+ req.session.usuario.email +'va al siguiente enlace '+ req.originalUrl);
+        next();
+    } else {
+        logger.warn(' El usuario'+req.session.usuario.email +' es no es válido ya que no es estandar ');
+        res.redirect("/home?mensaje=Usted no es un usuario estandar"+
+            "&tipoMensaje=alert-danger");
+    }
+});
+//Aplicamos el router
+app.use("/offer/*", routerUsuarioEstandar);
+//FALTA CHAT
+
+var routerAdmin = express.Router();
+routerAdmin.use(function (req, res, next) {
+    if (eq.session.usuario.rol == "admin") {
+        logger.info('El administrador va al siguiente enlace '+ req.originalUrl);
+        next();
+    } else {
+        logger.warn("El usuario" + req.session.usuario.email + "que es estandar intenta entrar a una opcion"
+            + req.originalUrl);
+        res.redirect("/home?mensaje=El usuario" + req.session.usuario.email + "que es estandar intenta entrar a una opcion"
+            + req.originalUrl+"&tipoMensaje=alert-danger");
+    }
+});
+//Aplicamos el router
+app.use("/user/*", routerUsuarioAdmin);
+
 //Rutas controladores
 require("./routes/rusuarios.js")(app, swig, gestorBD);
 require("./routes/rofertas.js")(app, swig, gestorBD);
