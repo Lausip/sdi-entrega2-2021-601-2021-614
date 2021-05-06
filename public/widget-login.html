@@ -42,8 +42,12 @@
                 },
                 error: function(error){
                     Cookies.remove('token');
+                    $("#div-errores").remove();
+                    let errores = error.responseJSON.error;
+                    if (errores != null && errores.length>0) {
                     $("#widget-login")
-                        .prepend("<div class='alert alert-danger'>Usuario no encontrado</div>");
+                        .prepend("<div id = 'div-errores' class='alert alert-danger'>El usuario puesto no coincide con niguno</div>");
+                    }
                 }
             });
         });
