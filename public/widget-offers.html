@@ -9,7 +9,7 @@
     <h2>Ofertas disponibles en la aplicación</h2>
     <table class="table table-hover"
            id="tableOffers">
-        <thead>
+        <thead class="table-dark">
         <tr>
             <th>Título</th>
             <th>Descripción</th>
@@ -30,6 +30,7 @@
     window.history.pushState("", "", "/homeRest.html?w=oferta");
     var ofertas;
     cargarOfertas();
+
     function cargarOfertas() {
         $("#tablaCuerpo").html("");
         $.ajax({
@@ -37,7 +38,7 @@
             type: "GET",
             data: {},
             dataType: 'json',
-            headers: {"token": token, "email":email},
+            headers: {"token": token,"email":Cookies.get('email')},
             success: function (respuesta) {
                 ofertas = respuesta;
                 actualizarTablaOfertas(ofertas);
@@ -52,15 +53,15 @@
         $("#tablaCuerpo").empty(); // Vaciar la tabla
         for (i = 0; i < ofertasMostrar.length; i++) {
             $("#tablaCuerpo").append(
-                "<tr id=" + ofertasMostrar[i]._id + ">" +
                 "<td>" + ofertasMostrar[i].titulo + "</td>" +
                 "<td>" + ofertasMostrar[i].descripcion + "</td>" +
                 "<td>" + ofertasMostrar[i].precio + "</td>" +
-                "<td>" + ofertasMostrar[i].vendedor + "</td>" +
+                "<td class='tdemail'>" + ofertasMostrar[i].vendedor + "</td>" +
                 "<td>" +
-                "<a onclick=conversacion('"+ ofertasMostrar[i].vendedor._id+"')>Conversación</a><br>" +
-                "</td>" +
-                "</tr>");
+                "<a style=\"cursor: pointer;\" class='en-" + ofertasMostrar[i].title + "' onclick=chat('" + ofertasMostrar[i]._id + "','" + ofertasMostrar[i].vendedor + "','"
+                + ofertasMostrar[i].email + "')>Contactar</a><br>" +
+                "</td>"
+                )
 
         }
     }
