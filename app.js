@@ -21,7 +21,7 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Methods", "POST, GET, DELETE, UPDATE, PUT");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, token");
     // Debemos especificar todas las headers que se aceptan. Content-Type , token
-   next();
+    next();
 });
 //Realizar Encriptaciones Token
 let jwt = require('jsonwebtoken');
@@ -107,7 +107,7 @@ routerEstandar.use(function (req, res, next) {
     }
 });
 //Aplicamos el router
-app.use("/offer/*", routerUsuarioEstandar);
+app.use("/offer/*", routerEstandar);
 //FALTA CHAT
 
 var routerAdmin = express.Router();
@@ -123,7 +123,7 @@ routerAdmin.use(function (req, res, next) {
     }
 });
 //Aplicamos el router
-app.use("/user/*", routerUsuarioAdmin);
+app.use("/user/*", routerAdmin);
 
 var routerUsuarioToken = express.Router();
 routerUsuarioToken.use(function (req, res, next) {
@@ -153,7 +153,7 @@ routerUsuarioToken.use(function (req, res, next) {
     }
 });
 //Router api
-app.use('/api/offer/*', routerApiToken)
+app.use('/api/offer/*', routerUsuarioToken);
 
 //Rutas controladores
 require("./routes/rusuarios.js")(app, swig, gestorBD);

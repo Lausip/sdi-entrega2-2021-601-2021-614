@@ -60,6 +60,41 @@ module.exports = function (app, swig, gestorBD) {
             })
         }
     });
+
+    /**
+     * Muestra la página de identificación.
+     */
+    app.get("/login", function(req, res) {
+        let respuesta = swig.renderFile('views/bidentificacion.html', {});
+        app.get('logger').info('Identificarse: se va a mostrar la página de identificación.');
+        res.send(respuesta);
+    });
+
+    /**
+     * Permite el inicio de sesión del usuario si todo va bien,
+     * si no, muestra el error.
+     */
+    app.post("/login", function(req, res) {
+        let seguro = app.get("crypto").createHmac('sha256', app.get('clave'))
+            .update(req.body.password).digest('hex');
+        let criterio = {
+            email : req.body.email,
+            password : seguro
+        }
+        gestorBD.obtenerUsuarios(criterio, function(usuarios) {
+            if (usuarios == null || usuarios.length == 0) {
+                req.session.usuario = null;
+                app.get("logger").error('Error al identificar al usuario');
+                res.redirect("/login?mensaje=Email o password incorrecto&tipoMensaje=alert-danger");
+            } else {
+                req.session.usuario = usuarios[0];
+                delete req.session.usuario.password;
+                app.get("logger").info('Usuario identificado como ' + req.body.email);
+                res.redirect("/home");
+            }
+        });
+    });
+
     /**
      * Home privado del usuario:
      * Si no está identificado le manda a identificarse
@@ -70,9 +105,7 @@ module.exports = function (app, swig, gestorBD) {
             {
                 usuario: req.session.usuario
             });
-            res.send(respuesta);
-
-
+        res.send(respuesta);
     });
 
 
@@ -82,38 +115,38 @@ module.exports = function (app, swig, gestorBD) {
      * No se muestra los usuarios admin
      */
     app.get("/user/list", function (req, res) {
-            let usuario = req.session.usuario;
-            var criterio = {
-                rol: "estandar",
-            };
-            let pg = parseInt(req.query.pg); // Es String !!!
-            if ( req.query.pg == null){ // Puede no venir el param
-                pg = 1;
+        let usuario = req.session.usuario;
+        var criterio = {
+            rol: "estandar",
+        };
+        let pg = parseInt(req.query.pg); // Es String !!!
+        if ( req.query.pg == null){ // Puede no venir el param
+            pg = 1;
+        }
+        gestorBD.obtenerUsuariosPg(criterio,pg, function (usuarios,total) {
+            if (usuarios == null) {
+                app.get('logger').info('Listado de usuarios: error en el listado');
             }
-            gestorBD.obtenerUsuariosPg(criterio,pg, function (usuarios,total) {
-                if (usuarios == null) {
-                    app.get('logger').info('Listado de usuarios: error en el listado');
+            else {
+                let ultimaPg = total/5;
+                if (total % 5 > 0 ){ // Sobran decimales
+                    ultimaPg = ultimaPg+1;
                 }
-                else {
-                    let ultimaPg = total/5;
-                    if (total % 5 > 0 ){ // Sobran decimales
-                        ultimaPg = ultimaPg+1;
+                let paginas = []; // paginas mostrar
+                for(let i = pg-2 ; i <= pg+2 ; i++){
+                    if ( i > 0 && i <= ultimaPg){
+                        paginas.push(i);
                     }
-                    let paginas = []; // paginas mostrar
-                    for(let i = pg-2 ; i <= pg+2 ; i++){
-                        if ( i > 0 && i <= ultimaPg){
-                            paginas.push(i);
-                        }
-                    }
-                    let respuesta = swig.renderFile('views/user/list.html', {
-                        usuarioList: usuarios,
-                        paginas:paginas,
-                        actual:pg
-                    });
-                    app.get('logger').info('Listado de usuarios: se va a mostrar el listado de usuarios');
-                    res.send(respuesta);
                 }
-            });
+                let respuesta = swig.renderFile('views/user/list.html', {
+                    usuarioList: usuarios,
+                    paginas:paginas,
+                    actual:pg
+                });
+                app.get('logger').info('Listado de usuarios: se va a mostrar el listado de usuarios');
+                res.send(respuesta);
+            }
+        });
     });
 
     /**

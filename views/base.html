@@ -28,7 +28,7 @@
                 <li id="home"><a href="/">Home</a></li>
 
                 {% if  usuario!== undefined %}
-                 {% if  usuario.rol== 'admin' %}
+                {% if  usuario.rol== 'admin' %}
                 <li id="users-menu" class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <span>Gestionar usuarios</span>
@@ -57,8 +57,11 @@
             <ul class="nav navbar-nav navbar-right">
                 {% if usuario==null %}
                 <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Registrate</a></li>
+                <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Identifícate</a></li>
                 {% endif %}
-                <li><a href="/identificarse"><span class="glyphicon glyphicon-log-in"></span> Identifícate</a></li>
+                {% if usuario!==null %}
+                <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Cierra sesión</a></li>
+                {% endif %}
 
             </ul>
         </div>
@@ -68,30 +71,30 @@
 
 
 <div class="container">
-        <script>
-            var mensaje = getUrlParameter('mensaje');
-            var tipoMensaje = getUrlParameter('tipoMensaje');
-            if (mensaje != "") {
-                if (tipoMensaje == "") {
-                    tipoMensaje = 'alert-info';
-                }
-                $(".container")
-                    .append("<div class='alert " + tipoMensaje + "'>" + mensaje + " </div>");
+    <script>
+        var mensaje = getUrlParameter('mensaje');
+        var tipoMensaje = getUrlParameter('tipoMensaje');
+        if (mensaje != "") {
+            if (tipoMensaje == "") {
+                tipoMensaje = 'alert-info';
             }
+            $(".container")
+                .append("<div class='alert " + tipoMensaje + "'>" + mensaje + " </div>");
+        }
 
-            function getUrlParameter(name) {
-                name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-                var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-                var results = regex.exec(location.search);
-                return results === null ? '' :
-                    decodeURIComponent(results[1].replace(/\+/g, ' '));
-            };
-        </script>
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' :
+                decodeURIComponent(results[1].replace(/\+/g, ' '));
+        };
+    </script>
     {% if  usuario!=undefined %}
     <div class="text-right">
-    <p>Usuario Autenticado como: {{usuario.email}}</p>
-    {% if  usuario.rol== 'estandar' %}
-    <p id="balance">Dinero actual: {{usuario.dinero}} €</p>
+        <p>Usuario Autenticado como: {{usuario.email}}</p>
+        {% if  usuario.rol== 'estandar' %}
+        <p id="balance">Dinero actual: {{usuario.dinero}} €</p>
     </div>
     {% endif %}{% endif %}
     <!-- Contenido -->
@@ -99,6 +102,6 @@
     <!-- Posible contenido por defecto -->
     {% endblock %}
 
-  </div>
+</div>
 </body>
 </html>
