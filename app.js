@@ -71,8 +71,7 @@ routerUsuarioSession.use(function (req, res, next) {
 });
 
 //Aplicamos el router
-app.use("/home", routerUsuarioSession);
-//DESCONECTARSE TB
+app.use("/logout", routerUsuarioSession);
 app.use("/offer/*", routerUsuarioSession);
 app.use("/user/*", routerUsuarioSession);
 
@@ -91,7 +90,7 @@ routerUsuarioNoSession.use(function (req, res, next) {
 });
 //Aplicamos el router
 app.use("/signup", routerUsuarioNoSession);
-//IDENTIFICARSE TB
+app.use("/login", routerUsuarioNoSession);
 
 //Roter de usuario de estandar
 
@@ -158,6 +157,7 @@ app.use('/api/offer/*', routerUsuarioToken);
 //Rutas controladores
 require("./routes/rusuarios.js")(app, swig, gestorBD);
 require("./routes/rofertas.js")(app, swig, gestorBD);
+require("./routes/rapiwallapop.js")(app, swig, gestorBD);
 
 //Puerto
 app.set('port',8081);
