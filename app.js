@@ -65,7 +65,7 @@ routerUsuarioSession.use(function (req, res, next) {
         next();
     } else {
         logger.warn("Usuario no identificado intenta aceeder a" + req.originalUrl);
-        res.redirect("/identificarse?mensaje=El usuario actual no esta en sesión" +
+        res.redirect("/login?mensaje=El usuario actual no esta en sesión" +
             "&tipoMensaje=alert-danger");
     }
 });

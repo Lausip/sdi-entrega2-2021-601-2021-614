@@ -96,6 +96,15 @@ module.exports = function (app, swig, gestorBD) {
     });
 
     /**
+     * Cierra la sesión del usuario y lo redirige a la vista de identifiación.
+     */
+    app.get("/logout", function(req, res) {
+        req.session.usuario = null;
+        app.get('logger').info('Cerrar sesión: se va a cerrar sesión y mostrar la página de identificación.');
+        res.redirect("/login");
+    });
+
+    /**
      * Home privado del usuario:
      * Si no está identificado le manda a identificarse
      */
