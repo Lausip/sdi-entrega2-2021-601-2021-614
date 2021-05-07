@@ -120,6 +120,30 @@ module.exports = {
             }
         });
     },
+
+    /**
+     * Insertar una nueva oferta
+     * @param oferta a insertar
+     * @param funcionCallback
+     */
+    insertarOferta : function(oferta, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                let collection = db.collection('ofertas');
+                collection.insertOne(oferta, function(err, result) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(result.ops[0]._id);
+                    }
+                    db.close();
+                });
+            }
+        });
+    },
+
     /**
      * Obtener ofertas por un criterio
      * @param criterio para encontrar las ofertas
@@ -130,7 +154,7 @@ module.exports = {
             if (err) {
                 funcionCallback(null);
             } else {
-                var collection = db.collection('ofertas');
+                let collection = db.collection('ofertas');
                 collection.find(criterio).toArray(function (err, ofertas) {
                     if (err) {
                         funcionCallback(null);
@@ -153,7 +177,7 @@ module.exports = {
             if (err) {
                 funcionCallback(null);
             } else {
-                var collection = db.collection('ofertas');
+                let collection = db.collection('ofertas');
                 collection.count(function (err, count) {
                     collection.find(criterio).skip((pg - 1) * 5).limit(5)
                         .toArray(function (err, ofertas) {
@@ -178,7 +202,7 @@ module.exports = {
             if (err) {
                 funcionCallback(null);
             } else {
-                var collection = db.collection('ofertas');
+                let collection = db.collection('ofertas');
                 collection.remove(criterio, function (err, result) {
                     if (err) {
                         funcionCallback(null);
@@ -201,7 +225,7 @@ module.exports = {
             if (err) {
                 funcionCallback(null);
             } else {
-                var collection = db.collection('ofertas');
+                let collection = db.collection('ofertas');
                 collection.update(criterio, {$set: oferta}, function (err, result) {
                     if (err) {
                         funcionCallback(null);

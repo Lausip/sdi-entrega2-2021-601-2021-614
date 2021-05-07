@@ -1,6 +1,64 @@
 module.exports = function (app, swig, gestorBD) {
 
     /**
+     * Envía a la vista de agregar oferta.
+     */
+    app.get('/offer/add', function (req, res) {
+        if (req.session.usuario == null) {
+            app.get("logger").info('Error: el usuario no está identificado.');
+            res.redirect("/login");
+            return;
+        }
+        let respuesta = swig.renderFile('views/offer/add.html', { });
+        res.send(respuesta);
+    });
+
+    /**
+     * Procesa la petición enviada por el formulario de agregar oferta.
+     */
+    app.post("/offer", function (req, res) {
+        if (req.session.usuario == null) {
+            res.redirect("/login");
+            return;
+        }
+
+        let oferta = {
+            titulo : req.body.titulo,
+            detalle : req.body.detalle,
+            precio : req.body.precio,
+            autor: req.session.usuario.email
+        }
+        gestorBD.insertarOferta(oferta, function(id) {
+            if (id == null) {
+                app.get("logger").info('Error al agregar la oferta');
+                res.redirect("/offer/add?mensaje=Error al agregar la oferta&tipoMensaje=alert-danger");
+            } else {
+                app.get("logger").info('Oferta agregada');
+                res.redirect("/offer/myList");
+            }
+        });
+    });
+
+    /**
+     * Muestra la lista de ofertas del usuario.
+     */
+    app.get('/offer/myList', function (req, res) {
+        let criterio = { autor : req.session.usuario.email };
+        gestorBD.obtenerOfertas(criterio, function(ofertas) {
+            if (ofertas == null) {
+                app.get("logger").error('Error: no se han podido listar las ofertas.');
+                res.redirect("/offer/myList?mensaje=Error al mostrar las ofertas&tipoMensaje=alert-danger");
+            } else {
+                let respuesta = swig.renderFile('views/offer/myList.html',
+                    {
+                        ofertas : ofertas
+                    });
+                res.send(respuesta);
+            }
+        });
+    });
+
+    /**
      * Lista todas las ofertas del myWallapop
      * Se mira si el usario inicio sesion
      */
