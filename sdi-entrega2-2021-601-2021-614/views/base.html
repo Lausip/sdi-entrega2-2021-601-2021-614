@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block titulo %} MyWallapop {% endblock %}</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    {% block scripts %} {% endblock %}
+</head>
+<body>
+
+
+<!-- Barra de Navegación superior -->
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!-- <img src="/img/logo.png" alt="logo"/> -->
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li id="home"><a href="/">Home</a></li>
+
+                {% if  usuario!== undefined %}
+                {% if  usuario.rol== 'admin' %}
+                <li id="users-menu" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <span>Gestionar usuarios</span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li id="usuarios"><a href="/user/list">Ver Usuarios</a></li>
+                    </ul>
+                </li>
+                {% endif %}
+                {% if  usuario.rol== 'estandar' %}
+                <li id="offers-menu" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <span>Gestionar ofertas</span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li id="ofertas"><a href="/offer/list">Ver Ofertas</a></li>
+                        <li id="ofertasCompradas"><a href="/offer/buyed">Ver Ofertas Compradas</a></li>
+                    </ul>
+                    {% endif %}
+                    {% endif %}
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                {% if usuario==null %}
+                <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Registrate</a></li>
+                <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Identifícate</a></li>
+                {% endif %}
+                {% if usuario!==null %}
+                <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Cierra sesión</a></li>
+                {% endif %}
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+<div class="container">
+    <script>
+        var mensaje = getUrlParameter('mensaje');
+        var tipoMensaje = getUrlParameter('tipoMensaje');
+        if (mensaje != "") {
+            if (tipoMensaje == "") {
+                tipoMensaje = 'alert-info';
+            }
+            $(".container")
+                .append("<div class='alert " + tipoMensaje + "'>" + mensaje + " </div>");
+        }
+
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' :
+                decodeURIComponent(results[1].replace(/\+/g, ' '));
+        };
+    </script>
+    {% if  usuario!=undefined %}
+    <div class="text-right">
+        <p>Usuario Autenticado como: {{usuario.email}}</p>
+        {% if  usuario.rol== 'estandar' %}
+        <p id="balance">Dinero actual: {{usuario.dinero}} €</p>
+    </div>
+    {% endif %}{% endif %}
+    <!-- Contenido -->
+    {% block contenido_principal %}
+    <!-- Posible contenido por defecto -->
+    {% endblock %}
+
+</div>
+</body>
+</html>
