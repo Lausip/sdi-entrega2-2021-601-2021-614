@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block cuerpo %}
+<div class="container" style="text-align: center">
+  <h2>ERROR</h2>
+  {% if !errorType %}
+  <p>Se ha producido un error inesperado</p>
+  {% else %}
+  <p>{{errorType}}</p>
+  {% endif %}
+</div>
+{% endblock %}

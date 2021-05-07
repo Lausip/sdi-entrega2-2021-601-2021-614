@@ -41,14 +41,14 @@ module.exports = function(app,swig, gestorBD) {
         };
         gestorBD.obtenerOfertas(criterio, function (ofertas) {
             if (ofertas == null || ofertas.length === 0) {
-                logger.error(" API:Error a la hora de listas las ofertas ");
+                app.get("logger").error(" API:Error a la hora de listas las ofertas ");
                 res.status(500);
                 res.json({
-                    error: "se ha producido un error"
+                    error: "API:Error a la hora de listas las ofertas "
 
                 });
             } else {
-              logger.info("API: usuario ha listado las ofertas");
+                app.get("logger").info("API: usuario ha listado las ofertas");
                 res.status(200);
                 res.send(JSON.stringify(ofertas));
 

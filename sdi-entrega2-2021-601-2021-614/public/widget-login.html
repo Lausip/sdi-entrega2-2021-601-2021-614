@@ -37,6 +37,7 @@
                 success: function(respuesta){
                     console.log(respuesta.token);
                     token = respuesta.token;
+                    email= $("#email").val();
                     Cookies.set('token', respuesta.token);
                     $("#contenedor-principal").load("widget-offers.html");
                 },

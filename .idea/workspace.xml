@@ -2,7 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4ecf0e4a-6dc5-44ad-bd67-6efa5f842caa" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/views/error.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sdi-entrega2-test-2021-601-2021-614/src/test/java/com/uniovi/WallapopTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sdi-entrega2-test-2021-601-2021-614/src/test/java/com/uniovi/pageobjects/PO_AddOfferView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sdi-entrega2-test-2021-601-2021-614/src/test/java/com/uniovi/pageobjects/PO_HomeView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sdi-entrega2-test-2021-601-2021-614/src/test/java/com/uniovi/pageobjects/PO_ListUserView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sdi-entrega2-test-2021-601-2021-614/src/test/java/com/uniovi/pageobjects/PO_LoginView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sdi-entrega2-test-2021-601-2021-614/src/test/java/com/uniovi/pageobjects/PO_NavBarView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sdi-entrega2-test-2021-601-2021-614/src/test/java/com/uniovi/pageobjects/PO_NavView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sdi-entrega2-test-2021-601-2021-614/src/test/java/com/uniovi/pageobjects/PO_PrivateView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sdi-entrega2-test-2021-601-2021-614/src/test/java/com/uniovi/pageobjects/PO_Properties.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sdi-entrega2-test-2021-601-2021-614/src/test/java/com/uniovi/pageobjects/PO_RegisterView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sdi-entrega2-test-2021-601-2021-614/src/test/java/com/uniovi/pageobjects/PO_View.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sdi-entrega2-test-2021-601-2021-614/src/test/java/com/uniovi/util/SeleniumUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/public/homeRest.html" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/public/homeRest.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/public/widget-login.html" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/public/widget-login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/routes/rapiwallapop.js" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/routes/rapiwallapop.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12,8 +29,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="JavaScript File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -47,7 +64,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614-nodejs" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -68,7 +85,7 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="app.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="app.js" working-dir="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614-nodejs">
+    <configuration name="app.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="app.js" working-dir="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614">
       <method v="2" />
     </configuration>
     <recent_temporary>
@@ -107,6 +124,10 @@
       <workItem from="1620343561599" duration="3758000" />
       <workItem from="1620347364161" duration="446000" />
       <workItem from="1620347827843" duration="1501000" />
+      <workItem from="1620402981559" duration="74000" />
+      <workItem from="1620403466943" duration="229000" />
+      <workItem from="1620403882223" duration="7616000" />
+      <workItem from="1620418340771" duration="3931000" />
     </task>
     <task id="LOCAL-00001" summary="Estructura base">
       <created>1619440935435</created>
