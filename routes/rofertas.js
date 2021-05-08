@@ -17,22 +17,23 @@ module.exports = function (app, swig, gestorBD) {
      * Procesa la petición enviada por el formulario de agregar oferta.
      */
     app.post("/offer", function (req, res) {
-        if (req.session.usuario == null) {
-            res.redirect("/login");
-            return;
-        }
-
         let oferta = {
             titulo : req.body.titulo,
             detalle : req.body.detalle,
             precio : req.body.precio,
-            autor: req.session.usuario.email
+            autor : req.session.usuario.email,
+            fecha : req.body.fecha,
+            destacada : req.body.destacada,
+            comprada : false
         }
         gestorBD.insertarOferta(oferta, function(id) {
             if (id == null) {
                 app.get("logger").info('Error al agregar la oferta');
                 res.redirect("/offer/add?mensaje=Error al agregar la oferta&tipoMensaje=alert-danger");
             } else {
+                if (oferta.destacada) {
+                    req.session.usuario.dinero -= 20;
+                }
                 app.get("logger").info('Oferta agregada');
                 res.redirect("/offer/myList");
             }
@@ -46,14 +47,31 @@ module.exports = function (app, swig, gestorBD) {
         let criterio = { autor : req.session.usuario.email };
         gestorBD.obtenerOfertas(criterio, function(ofertas) {
             if (ofertas == null) {
-                app.get("logger").error('Error: no se han podido listar las ofertas.');
+                app.get("logger").info('Error: no se han podido listar las ofertas.');
                 res.redirect("/offer/myList?mensaje=Error al mostrar las ofertas&tipoMensaje=alert-danger");
             } else {
                 let respuesta = swig.renderFile('views/offer/myList.html',
                     {
                         ofertas : ofertas
                     });
+                app.get("logger").info('Las ofrtas del usuario han sido listadas correctamente.');
                 res.send(respuesta);
+            }
+        });
+    });
+
+    /**
+     * Elimina la oferta con el id seleccionado.
+     */
+    app.get('/offer/delete/:id', function (req, res) {
+        let criterio = {"_id" : gestorBD.mongo.ObjectID(req.params.id)};
+        gestorBD.eliminarOferta(criterio, function (ofertas) {
+            if (ofertas == null) {
+                app.get("logger").info('Error: no se ha podido eliminar la oferta.');
+                res.redirect("/offer/myList?mensaje=Error al eliminar la oferta seleccionada&tipoMensaje=alert-danger");
+            } else {
+                app.get("logger").info('La oferta ha sido eliminada correctamente.');
+                res.redirect("/offer/myList");
             }
         });
     });

@@ -12,13 +12,14 @@
             <th>Precio</th>
             <th class="col-md-1"></th>
             <th class="col-md-1"></th>
+            <th class="col-md-1"></th>
         </tr>
         </thead>
         <tbody>
         {% for oferta in ofertas %}
         <tr>
             <td>{{ oferta.titulo }}</td>
-            <td>{{ oferta.descripcion }}</td>
+            <td>{{ oferta.detalle }}</td>
             <td>{{ oferta.precio }}</td>
             <td>
                 {%if !oferta.comprada %}
@@ -29,16 +30,16 @@
                 {%endif%}
             </td>
             <td>
-                {%if oferta.comprada && oferta.destacada %}
-                <button>No destacar</button>
+                {%if !oferta.comprada && oferta.destacada %}
+                <a href="">No destacar</a>
                 {%endif%}
-                {%if oferta.comprada && !oferta.destacada %}
-                <button>Destacar</button>
+                {%if !oferta.comprada && !oferta.destacada %}
+                <a href="">Destacar</a>
                 {%endif%}
             </td>
             <td>
                 {%if !oferta.comprada %}
-                <a href="">Eliminar</a>
+                <a href="/offer/delete/{{ oferta._id.toString() }}">Eliminar</a>
                 {%endif%}
             </td>
 
