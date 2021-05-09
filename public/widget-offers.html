@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ofertas</title>
+</head>
+<body>
+<div class="table-responsive" id="widget-offers">
+    <h2>Ofertas disponibles en la aplicación</h2>
+    <table class="table table-hover"
+           id="tableOffers">
+        <thead class="table-dark">
+        <tr>
+            <th>Título</th>
+            <th>Descripción</th>
+            <th>Precio</th>
+            <th>Vendedor</th>
+            <th class="col-md-1"></th>
+        </tr>
+        </thead>
+        <tbody id="tablaCuerpo">
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
+
+<script>
+    window.history.pushState("", "", "/homeRest.html?w=oferta");
+    var ofertas;
+    cargarOfertas();
+
+    function cargarOfertas() {
+        $("#tablaCuerpo").html("");
+        $.ajax({
+            url: URLbase + "/offer/list",
+            type: "GET",
+            data: {},
+            dataType: 'json',
+            headers: {"token": token,"email":Cookies.get('email')},
+            success: function (respuesta) {
+                ofertas = respuesta;
+                actualizarTablaOfertas(ofertas);
+            },
+            error: function (error) {
+                $("#contenedor-principal").load("widget-login.html");
+            }
+        });
+    }
+
+    function actualizarTablaOfertas(ofertasMostrar) {
+        $("#tablaCuerpo").empty(); // Vaciar la tabla
+        for (i = 0; i < ofertasMostrar.length; i++) {
+            $("#tablaCuerpo").append(
+                "<td>" + ofertasMostrar[i].titulo + "</td>" +
+                "<td>" + ofertasMostrar[i].descripcion + "</td>" +
+                "<td>" + ofertasMostrar[i].precio + "</td>" +
+                "<td class='tdemail'>" + ofertasMostrar[i].vendedor + "</td>" +
+                "<td>" +
+                "<a style=\"cursor: pointer;\" class='en-" + ofertasMostrar[i].title + "' onclick=chat('" + ofertasMostrar[i]._id + "','" + ofertasMostrar[i].vendedor + "','"
+                + ofertasMostrar[i].email + "')>Contactar</a><br>" +
+                "</td>"
+                )
+
+        }
+    }
+
+</script>
