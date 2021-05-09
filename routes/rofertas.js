@@ -32,10 +32,20 @@ module.exports = function (app, swig, gestorBD) {
                 res.redirect("/offer/add?mensaje=Error al agregar la oferta&tipoMensaje=alert-danger");
             } else {
                 if (oferta.destacada) {
-                    req.session.usuario.dinero -= 20;
+                    modificarSaldoUsuario(req.session.usuario, -20, function (nuevoSaldo) {
+                        if (nuevoSaldo == null) {
+                            app.get("logger").info('Error al realizar el pago.');
+                            res.redirect("/offer/myList?mensaje=Error al realizar el pago.&tipoMensaje=alert-danger");
+                        } else if (nuevoSaldo < 0) {
+                            app.get("logger").info('Error: el usuario no dispone del suficiente saldo.');
+                            res.redirect("/offer/myList?mensaje=Error: no dispone del suficiente saldo.&tipoMensaje=alert-danger");
+                        } else {
+                            req.session.usuario.dinero = nuevoSaldo;
+                            app.get("logger").info('Oferta agregada correctamente.');
+                            res.redirect("/offer/myList");
+                        }
+                    });
                 }
-                app.get("logger").info('Oferta agregada');
-                res.redirect("/offer/myList");
             }
         });
     });
@@ -56,6 +66,92 @@ module.exports = function (app, swig, gestorBD) {
                     });
                 app.get("logger").info('Las ofrtas del usuario han sido listadas correctamente.');
                 res.send(respuesta);
+            }
+        });
+    });
+
+    /**
+     * Destaca la oferta con el id seleccionado.
+     */
+    app.get('/offer/destacar/:id', function(req, res) {
+        let criterio = {"_id" : gestorBD.mongo.ObjectID(req.params.id)};
+        gestorBD.obtenerOfertas(criterio, function (ofertas) {
+            if (ofertas == null || ofertas.length !== 1) {
+                app.get("logger").info('Error: no se ha encontrado la oferta seleccionada.');
+                res.redirect("/offer/myList?mensaje=Error al encontrar la oferta seleccionada&tipoMensaje=alert-danger");
+            } else if (ofertas[0].autor !== req.session.usuario.email) {
+                app.get("logger").info('Error: la oferta seleccionada no es de la propiedad del usuario.');
+                res.redirect("/offer/myList?mensaje=Error: la oferta seleccionada no es de su propiedad&tipoMensaje=alert-danger");
+            } else if (ofertas[0].destacada) {
+                app.get("logger").info('Error: la oferta seleccionada ya está destacada.');
+                res.redirect("/offer/myList?mensaje=Error: la oferta seleccionada ya está destacada.&tipoMensaje=alert-danger");
+            } else {
+                let oferta = {
+                    "destacada": true
+                };
+                gestorBD.modificarOferta(criterio, oferta, function (result) {
+                    if (result == null) {
+                        app.get("logger").info('Error al destacar la oferta');
+                        res.redirect("/offer/myList?mensaje=Error al destacar la oferta.&tipoMensaje=alert-danger");
+                    } else {
+                        modificarSaldoUsuario(req.session.usuario, -20, function (nuevoSaldo) {
+                            if (nuevoSaldo == null) {
+                                app.get("logger").info('Error al realizar el pago.');
+                                res.redirect("/offer/myList?mensaje=Error al realizar el pago.&tipoMensaje=alert-danger");
+                            } else if (nuevoSaldo < 0) {
+                                app.get("logger").info('Error: el usuario no dispone del suficiente saldo.');
+                                res.redirect("/offer/myList?mensaje=Error: no dispone del suficiente saldo.&tipoMensaje=alert-danger");
+                            } else {
+                                req.session.usuario.dinero = nuevoSaldo;
+                                app.get("logger").info("La oferta ha sido destacada con éxito.");
+                                res.redirect("/offer/myList");
+                            }
+                        });
+                    }
+                });
+            }
+        });
+
+    });
+
+
+
+    /**
+     * Marca como no destacada la oferta con el id seleccionado.
+     */
+    app.get('/offer/nodestacar/:id', function(req, res) {
+        let criterio = {"_id" : gestorBD.mongo.ObjectID(req.params.id)};
+        gestorBD.obtenerOfertas(criterio, function (ofertas) {
+            if (ofertas == null || ofertas.length !== 1) {
+                app.get("logger").info('Error: no se ha encontrado la oferta seleccionada.');
+                res.redirect("/offer/myList?mensaje=Error al encontrar la oferta seleccionada&tipoMensaje=alert-danger");
+            } else if (ofertas[0].autor !== req.session.usuario.email) {
+                app.get("logger").info('Error: la oferta seleccionada no es de la propiedad del usuario.');
+                res.redirect("/offer/myList?mensaje=Error: la oferta seleccionada no es de su propiedad&tipoMensaje=alert-danger");
+            } else if (!ofertas[0].destacada) {
+                app.get("logger").info('Error: la oferta seleccionada ya está no destacada.');
+                res.redirect("/offer/myList?mensaje=Error: la oferta seleccionada ya está no destacada.&tipoMensaje=alert-danger");
+            } else {
+                let oferta = {
+                    "destacada": false
+                };
+                gestorBD.modificarOferta(criterio, oferta, function (result) {
+                    if (result == null) {
+                        app.get("logger").info('Error al no destacar la oferta');
+                        res.redirect("/offer/myList?mensaje=Error al no destacar la oferta.&tipoMensaje=alert-danger");
+                    } else {
+                        modificarSaldoUsuario(req.session.usuario, 20, function (nuevoSaldo) {
+                            if (nuevoSaldo == null) {
+                                app.get("logger").info('Error al realizar el pago.');
+                                res.redirect("/offer/myList?mensaje=Error al realizar el pago.&tipoMensaje=alert-danger");
+                            } else {
+                                req.session.usuario.dinero = nuevoSaldo;
+                                app.get("logger").info("La oferta ha sido no destacada con éxito.");
+                                res.redirect("/offer/myList");
+                            }
+                        });
+                    }
+                });
             }
         });
     });
@@ -193,5 +289,31 @@ module.exports = function (app, swig, gestorBD) {
                 }
             });
          });
+
+    /**
+     * Función que incrementa al usuario el valor solicitado (puede ser negativo).
+     * @param usuario a modificar.
+     * @param saldoIncrementar valor a incrementar (puede ser negativo para decrementar).
+     * @param funcionCallback
+     */
+    function modificarSaldoUsuario(usuario, saldoIncrementar, funcionCallback) {
+        let nuevoSaldo = usuario.dinero + saldoIncrementar;
+        if (nuevoSaldo < 0) {
+            funcionCallback(-1);
+        }
+
+        let criterio = {"email" : usuario.email};
+        let usuarioModificado = {
+            "dinero" : nuevoSaldo
+        }
+
+        gestorBD.modificarUsuario(criterio, usuarioModificado, function (result) {
+            if (result == null) {
+                funcionCallback(null);
+            } else {
+                funcionCallback(nuevoSaldo);
+            }
+        });
+    }
 
 };
