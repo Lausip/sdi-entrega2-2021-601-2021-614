@@ -17,13 +17,15 @@ import com.uniovi.tests.pageobjects.*;
 //Ordenamos las pruebas por el nombre del método
 @FixMethodOrder(MethodSorters.NAME_ASCENDING) 
 public class SdiEntrega2Tests {
-	// Parámetros de Laura
-	static String PathFirefox65 = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
-	static String Geckdriver024 = "C:\\Users\\laura\\Escritorio\\Uni\\3-Uni\\2Semestre\\SDI\\LAB\\Sesion05\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
-
-    // Parámetros de Rut
+	//En Windows (Debe ser la versión 65.0.1 y desactivar las actualizacioens automáticas)):
 	//static String PathFirefox65 = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
-    //static String Geckdriver024 = "C:\\Users\\rualg\\OneDrive\\Escritorio\\SDI\\Práctica5\\PL-SDI-Sesión5-material\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
+	//static String Geckdriver024 = "C:\\Path\\geckodriver024win64.exe";
+	//En MACOSX (Debe ser la versión 65.0.1 y desactivar las actualizacioens automáticas):
+	static String PathFirefox65 = "/Applications/Firefox 2.app/Contents/MacOS/firefox-bin";
+	//static String PathFirefox64 = "/Applications/Firefox.app/Contents/MacOS/firefox-bin";
+	static String Geckdriver024 = "/Users/delacal/Documents/SDI1718/firefox/geckodriver024mac";
+	//static String Geckdriver022 = "/Users/delacal/Documents/SDI1718/firefox/geckodriver023mac";
+	//Común a Windows y a MACOSX
 	static WebDriver driver = getDriver(PathFirefox65, Geckdriver024); 
 	static String URL = "https://localhost:8081";
 
@@ -47,7 +49,6 @@ public class SdiEntrega2Tests {
 	@BeforeClass 
 	static public void begin() {
 		//COnfiguramos las pruebas.
-
 		//Fijamos el timeout en cada opción de carga de una vista. 2 segundos.
 		PO_View.setTimeout(3);
 
