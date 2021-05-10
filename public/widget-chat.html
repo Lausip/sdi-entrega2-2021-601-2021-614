@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat</title>
+</head>
+<body>
+<div class="table-responsive" id="widget-contactar">
+    <h2 id="cabeceraChat"></h2>
+    <table class="table table-hover" id="tablaChat">
+        <thead class="table-dark">
+        <tr>
+            <th class="col-md-1"></th>
+            <th class="col-md-1"></th>
+        </tr>
+        </thead>
+        <tbody id="tablaCuerpo">
+        </tbody>
+    </table>
+    <form>
+        <input type="text" id="textoMensaje"/>
+        <button id="enviarMensaje" onclick="enviarMensaje()">Enviar</button>
+    </form>
+</div>
+
+</body>
+</html>
+
+<script>
+    window.history.pushState("", "", "/homeRest.html?w=chat");
+    var mensajes;
+    cargarChat();
+
+    function cargarChat() {
+        $("#tablaCuerpo").html("");
+        $.ajax({
+            url: URLbase + "/chat/" + idChatSeleccionado,
+            type: "GET",
+            data: {},
+            dataType: 'json',
+            headers: {"token": token},
+            success: function (respuesta) {
+                mensajes = respuesta;
+                actualizarChat(mensajes);
+            },
+            error: function (error) {
+                $("#contenedor-principal").load("widget-login.html");
+            }
+        });
+    }
+
+    function actualizarChat(mensajesMostrar) {
+        $("#tablaCuerpo").empty(); // Vaciar la tabla
+        for (i = 0; i < mensajesMostrar.length; i++) {
+            $("#tablaCuerpo").append(
+                "<td>"
+                + "<p>"
+                + mensajesMostrar[i].texto
+                + mensajesMostrar[i].fecha.toString()
+                + "</p>" +
+                "</td>"
+            );
+        }
+    }
+
+    function enviarMensaje() {
+        var mensaje = $("#textoMensaje").valueAsString;
+        $.ajax({
+            url: URLbase + "/chat/" + idChatSeleccionado,
+            type: "POST",
+            data: {
+                mensaje: mensaje,
+            },
+            dataType: 'json',
+            headers: {"token": token},
+            success: function (respuesta) {
+
+            },
+            error: function (error) {
+                $("#contenedor-principal").load("widget-login.html");
+            }
+        });
+    }
+
+</script>

@@ -54,7 +54,7 @@
         for (i = 0; i < ofertasMostrar.length; i++) {
             $("#tablaCuerpo").append(
                 "<td>" + ofertasMostrar[i].titulo + "</td>" +
-                "<td>" + ofertasMostrar[i].descripcion + "</td>" +
+                "<td>" + ofertasMostrar[i].detalle + "</td>" +
                 "<td>" + ofertasMostrar[i].precio + "</td>" +
                 "<td class='tdemail'>" + ofertasMostrar[i].vendedor + "</td>" +
                 "<td>" +
@@ -64,6 +64,11 @@
                 )
 
         }
+    }
+
+    function chat( _id ) {
+        idOfertaSeleccionada = _id;
+        $( "#contenedor-principal" ).load( "widget-contactar.html");
     }
 
 </script>
