@@ -5,4 +5,40 @@
 <div class="container" style="text-align: center">
     <h2>Bienvenido a la aplicación</h2>
 </div>
+
+<h2>Ofertas destacadas</h2>
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Título</th>
+            <th>Detalle</th>
+            <th>Precio</th>
+            <th class="col-md-1"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for oferta in ofertaList %}
+        <tr>
+            <td>{{ oferta.titulo }}</td>
+            <td>{{ oferta.detalle }}</td>
+            <td>{{ oferta.precio }}</td>
+            <td>
+                {%if !oferta.comprada && oferta.autor != usuario.email %}
+                <a href="/offer/buy/{{ oferta._id.toString() }}">Comprar</a> <br>
+                {%endif%}
+                {%if !oferta.comprada && oferta.autor == usuario.email %}
+                <p>No vendida</p>
+                {%endif%}
+                {%if oferta.comprada %}
+                <p style="color: #ff0000">Vendida</p>
+                {%endif%}
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
 {% endblock %}

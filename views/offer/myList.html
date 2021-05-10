@@ -31,10 +31,10 @@
             </td>
             <td>
                 {%if !oferta.comprada && oferta.destacada %}
-                <a href="/offer/nodestacar/{{ oferta._id.toString() }}">No destacar</a>
+                <a href="/offer/normal/{{ oferta._id.toString() }}">Destacada</a>
                 {%endif%}
                 {%if !oferta.comprada && !oferta.destacada %}
-                <a href="/offer/destacar/{{ oferta._id.toString() }}">Destacar</a>
+                <a href="/offer/destacar/{{ oferta._id.toString() }}">Normal</a>
                 {%endif%}
             </td>
             <td>
