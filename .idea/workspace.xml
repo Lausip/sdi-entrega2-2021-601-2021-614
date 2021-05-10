@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4ecf0e4a-6dc5-44ad-bd67-6efa5f842caa" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdi-entrega2-test-2021-601-2021-614/.project" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-test-2021-601-2021-614/.project" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdi-entrega2-test-2021-601-2021-614/src/com/uniovi/tests/SdiEntrega2Tests.java" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-test-2021-601-2021-614/src/com/uniovi/tests/SdiEntrega2Tests.java" afterDir="false" />
-    </list>
+    <list default="true" id="4ecf0e4a-6dc5-44ad-bd67-6efa5f842caa" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -113,7 +109,7 @@
       <workItem from="1620403466943" duration="229000" />
       <workItem from="1620403882223" duration="7616000" />
       <workItem from="1620418340771" duration="3931000" />
-      <workItem from="1620664906336" duration="2243000" />
+      <workItem from="1620664906336" duration="2605000" />
     </task>
     <task id="LOCAL-00001" summary="Estructura base">
       <created>1619440935435</created>
@@ -283,7 +279,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620666053409</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Nuevos tests?">
+      <created>1620667189279</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1620667189279</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -338,6 +341,7 @@
     <MESSAGE value="Restructurado3.0" />
     <MESSAGE value="Restructurado4.0" />
     <MESSAGE value="Nuevos tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="Nuevos tests" />
+    <MESSAGE value="Nuevos tests?" />
+    <option name="LAST_COMMIT_MESSAGE" value="Nuevos tests?" />
   </component>
 </project>
