@@ -71,8 +71,7 @@ module.exports = function (app, swig, gestorBD) {
             }
             else {
                 let oferta = {
-                    "comprador": gestorBD.mongo.ObjectID(req.session.usuario._id),
-                    "comprada":true
+                    "comprador": gestorBD.mongo.ObjectID(req.session.usuario.email),
                 };
                 gestorBD.modificarOferta(criterio, oferta, function (result) {
                     if (result == null) {
@@ -102,7 +101,7 @@ module.exports = function (app, swig, gestorBD) {
      * sesión en la aplicación
      */
     app.get("/offer/buyed", function (req, res) {
-        let criterio = {"comprador": gestorBD.mongo.ObjectID(req.session.usuario._id)};
+        let criterio = {"comprador": gestorBD.mongo.ObjectID(req.session.usuario.email)};
             gestorBD.obtenerOfertas(criterio, function (ofertas) {
                 if (ofertas == null) {
                     app.get("logger").error(req.session.usuario.email + ":Error al realizar el listado de ofertas");

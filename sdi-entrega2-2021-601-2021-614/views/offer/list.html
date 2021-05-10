@@ -37,10 +37,10 @@
             <td>{{ oferta.descripcion }}</td>
             <td>{{ oferta.precio }}</td>
             <td>
-                {%if !oferta.comprada %}
+                {%if oferta.comprador == "" || oferta.comprador== null%}
                 <a href="/offer/buy/{{ oferta._id.toString() }}">Comprar</a> <br>
                 {%endif%}
-                {%if oferta.comprada %}
+                {%if oferta.comprador!="" && oferta.comprador!=null%}
                 <p style="color: #ff0000">Vendida</p>
                 {%endif%}
             </td>
