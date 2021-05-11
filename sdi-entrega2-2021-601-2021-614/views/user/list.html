@@ -14,7 +14,7 @@
                 <th>Nombre</th>
                 <th>Apellidos</th>
                 <th>
-                    <input class="btn btn-info" type="submit" id="DeleteButton"
+                    <input class="btn btn-info" type="submit" id="deleteButton"
                            value="Eliminar usuarios seleccionados"/>
                 </th>
                 <th class="col-md-1"></th>
@@ -26,9 +26,8 @@
                 <td>{{ user.email }}</td>
                 <td>{{ user.nombre }}</td>
                 <td>{{ user.apellido }}</td>
-                <td><input id="idsUserDelete" type="checkbox"
-                           name="idsUserDelete" value='{{user.email}}'></td>
-
+                <td><input id="deleteUsersCheckbox" type="checkbox"
+                           name="deleteUsersCheckbox" value='{{user.email}}'></td>
             </tr>
             {% endfor %}
             </tbody>

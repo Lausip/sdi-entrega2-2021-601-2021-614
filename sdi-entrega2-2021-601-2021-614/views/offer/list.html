@@ -10,7 +10,7 @@
                 <input type="text" class="search-query form-control"
                        placeholder="Título de la oferta" name="busqueda"/>
                 <span class="input-group-btn">
-<button class="btn" type="submit">
+<button class="btn" type="submit" name="searchOfferButton">
 <span class="glyphicon glyphicon-search"></span>
 </button>
 </span>
@@ -21,7 +21,7 @@
 
 <h2>Ofertas disponibles</h2>
 <div class="table-responsive">
-    <table class="table table-hover">
+    <table class="table table-hover" id="tableOffers">
         <thead>
         <tr>
             <th>Título</th>
@@ -34,7 +34,7 @@
         {% for oferta in ofertaList %}
         <tr>
             <td>{{ oferta.titulo }}</td>
-            <td>{{ oferta.descripcion }}</td>
+            <td>{{ oferta.detalle }}</td>
             <td>{{ oferta.precio }}</td>
             <td>
                 {%if oferta.comprador == "" || oferta.comprador== null%}

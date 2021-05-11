@@ -37,8 +37,8 @@ public class SdiEntrega2Tests {
 	// "C:\\Users\\rualg\\OneDrive\\Escritorio\\SDI\\Práctica5\\PL-SDI-Sesión5-material\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
 
 	static WebDriver driver = getDriver(PathFirefox65, Geckdriver024);
-	static String URL = "https://localhost:8081";
-	static String URLApi = "http://localhost:8081/homeRest.html";
+	static String URL = "https://localhost:8081/";
+	static String URLApi = "https://localhost:8081/homeRest.html";
 
 	public static WebDriver getDriver(String PathFirefox, String Geckdriver) {
 		System.setProperty("webdriver.firefox.bin", PathFirefox);
@@ -153,7 +153,7 @@ public class SdiEntrega2Tests {
 	public void setUp() {
 		// Iniciamos la base de datos y vamos a la url
 		initdb();
-		driver.navigate().to(URL);
+//		driver.navigate().to(URL);
 
 	}
 
@@ -184,184 +184,386 @@ public class SdiEntrega2Tests {
 	@Test
 	public void PR01() {
 		// Vamos al formulario de registro
-		driver.navigate().to(URL + "/signup");
+		driver.navigate().to(URL + "signup");
 		// Rellenamos el formulario.
 		PO_RegisterView.fillForm(driver, "laura@mail.com", "Laura", "Vigil", "123456", "123456");
 		PO_View.checkElement(driver, "text", "Bienvenido a la aplicación");
+		// Finalmente, nos desconectamos.
+		PO_PrivateView.logout(driver);
 	}
 
-	// PR02. Sin hacer /
+	// PR02.Registro de Usuario con datos inválidos (email, nombre y apellidos
+	// vacíos)
 	@Test
 	public void PR02() {
-		assertTrue("PR02 sin hacer", false);
+		// Vamos al formulario de registro
+		driver.navigate().to(URL + "signup");
+		// 1 Email vacio
+		// Rellenamos el formulario.
+		PO_RegisterView.fillForm(driver, "", "Laura", "Vigil Laruelo", "123456", "123456");
+		PO_View.checkElement(driver, "text", "Es necesario completar todos los campos");
+		// 2 nombre vacio
+		// Rellenamos el formulario.
+		PO_RegisterView.fillForm(driver, "laura@email.com", "", "Vigil Laruelo", "123456", "123456");
+		PO_View.checkElement(driver, "text", "Es necesario completar todos los campos");
+		// 3 apellidos vacio
+		// Rellenamos el formulario.
+		PO_RegisterView.fillForm(driver, "laura@email.com", "Laura", "", "123456", "123456");
+		PO_View.checkElement(driver, "text", "Es necesario completar todos los campos");
+
 	}
 
-	// PR03. Sin hacer /
+	// PR03.Registro de Usuario con datos inválidos (repetición de contraseña
+	// inválida).
 	@Test
 	public void PR03() {
-		assertTrue("PR03 sin hacer", false);
+		driver.navigate().to(URL + "signup");
+		// Rellenamos el formulario.
+		PO_RegisterView.fillForm(driver, "laura@email.com", "Laura", "Vigil Laruelo", "123456", "1234");
+		PO_View.checkElement(driver, "text", "Las contraseñas deben ser iguales");
+
 	}
 
-	// PR04. Sin hacer /
+	// PR04. Registro de Usuario con datos inválidos (email existente).
 	@Test
 	public void PR04() {
-		assertTrue("PR04 sin hacer", false);
+		driver.navigate().to(URL + "signup");
+		// Rellenamos el formulario.
+		PO_RegisterView.fillForm(driver, "pepe@email.com", "Pepe", "Alvarez Gutierrez", "123456", "123456");
+		PO_View.checkElement(driver, "text", "El email ya está registrado");
+
 	}
 
-	// PR05. Sin hacer /
-	@Test
-	public void PR05() {
-		assertTrue("PR05 sin hacer", false);
-	}
-
-	// PR06. Sin hacer /
-	@Test
-	public void PR06() {
-		assertTrue("PR06 sin hacer", false);
-	}
-
-	// PR07. Sin hacer /
-	@Test
-	public void PR07() {
-		assertTrue("PR07 sin hacer", false);
-	}
-
-	// PR08. Sin hacer /
-	@Test
-	public void PR08() {
-		assertTrue("PR08 sin hacer", false);
-	}
-
-	// PR09. Sin hacer /
-	@Test
-	public void PR09() {
-		assertTrue("PR09 sin hacer", false);
-	}
-
-	// PR10. Sin hacer /
-	@Test
-	public void PR10() {
-		assertTrue("PR10 sin hacer", false);
-	}
-
-	// PR11. Sin hacer /
+//
+//	// PR05. Sin hacer /
+//	@Test
+//	public void PR05() {
+//		assertTrue("PR05 sin hacer", false);
+//	}
+//
+//	// PR06. Sin hacer /
+//	@Test
+//	public void PR06() {
+//		assertTrue("PR06 sin hacer", false);
+//	}
+//
+//	// PR07. Sin hacer /
+//	@Test
+//	public void PR07() {
+//		assertTrue("PR07 sin hacer", false);
+//	}
+//
+//	// PR08. Sin hacer /
+//	@Test
+//	public void PR08() {
+//		assertTrue("PR08 sin hacer", false);
+//	}
+//
+//	// PR09. Sin hacer /
+//	@Test
+//	public void PR09() {
+//		assertTrue("PR09 sin hacer", false);
+//	}
+//
+//	// PR10. Sin hacer /
+//	@Test
+//	public void PR10() {
+//		assertTrue("PR10 sin hacer", false);
+//	}
+//
+	// PR11. Mostrar el listado de usuarios y comprobar que se muestran todos los
+	// que existen en el
+	// sistema
 	@Test
 	public void PR11() {
-		assertTrue("PR11 sin hacer", false);
+		// Vamos a la vista de la lista de usuarios como admin
+		PO_PrivateView.userList(driver, "admin@email.com", "123456");
+		// Comprobamos cuantos usarios hay
+		List<WebElement> elementos2 = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr",
+				PO_View.getTimeout());
+		assertTrue(elementos2.size() == 5);
+		// Finalmente, nos desconectamos.
+		PO_PrivateView.logout(driver);
 	}
 
-	// PR12. Sin hacer /
+	// PR12. ] Ir a la lista de usuarios, borrar el primer usuario de la lista,
+	// comprobar que la lista se
+	// actualiza y dicho usuario desaparece.
 	@Test
 	public void PR12() {
-		assertTrue("PR12 sin hacer", false);
+		// Vamos a la vista de la lista de usuarios como admin
+		PO_PrivateView.userList(driver, "admin@email.com", "123456");
+		// Seleccionamos el checkbox del primero los usuarios de la lista.
+		// Viendo que se cargar los primeros 5
+		List<WebElement> elementos = PO_View.checkElement(driver, "text", "García del Monte");
+		elementos = driver.findElements(By.name("deleteUsersCheckbox"));
+		elementos.get(0).click();
+		// Hacemos click en el botón de Eliminar.
+		WebElement button = driver.findElement(By.id("deleteButton"));
+		button.click();
+		// Esperamos a que vuelva a cargar la página.
+		elementos = PO_View.checkElement(driver, "text", "García del Monte");
+		// Comprobamos que el usuario ya no está en la lista.
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "pepe@email.com", PO_View.getTimeout());
+		// Finalmente, nos desconectamos.
+		PO_PrivateView.logout(driver);
 	}
 
-	// PR13. Sin hacer /
+	// PR13. Ir a la lista de usuarios, borrar el último usuario de la lista,
+	// comprobar que la lista se
+	// actualiza y dicho usuario desaparece.
 	@Test
 	public void PR13() {
-		assertTrue("PR13 sin hacer", false);
+		// Vamos a la vista de la lista de usuarios como admin
+		PO_PrivateView.userList(driver, "admin@email.com", "123456");
+		// Seleccionamos el checkbox del primero los usuarios de la lista.
+		// Viendo que se cargar los primeros 5
+		List<WebElement> elementos = PO_View.checkElement(driver, "text", "García del Monte");
+		elementos = driver.findElements(By.name("deleteUsersCheckbox"));
+		elementos.get(elementos.size() - 1).click();
+		// Hacemos click en el botón de Eliminar.
+		WebElement button = driver.findElement(By.id("deleteButton"));
+		button.click();
+		// Esperamos a que vuelva a cargar la página.
+		elementos = PO_View.checkElement(driver, "text", "González Almonte");
+		// Comprobamos que el usuario ya no está en la lista.
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "fernando@email.com", PO_View.getTimeout());
+		// Finalmente, nos desconectamos.
+		PO_PrivateView.logout(driver);
 	}
 
-	// PR14. Sin hacer /
+	// PR14.Ir a la lista de usuarios, borrar 3 usuarios, comprobar que la lista se
+	// actualiza y dichos
+	// usuarios desaparecen
 	@Test
 	public void PR14() {
-		assertTrue("PR14 sin hacer", false);
+		// Vamos a la vista de la lista de usuarios como admin
+		PO_PrivateView.userList(driver, "admin@email.com", "123456");
+		// Seleccionamos el checkbox del primero los usuarios de la lista.
+		// Esperamos a que se muestre hasta el último usuario.
+		List<WebElement> elementos = PO_View.checkElement(driver, "text", "García del Monte");
+		elementos = driver.findElements(By.name("deleteUsersCheckbox"));
+		elementos.get(1).click();
+		elementos.get(2).click();
+		elementos.get(3).click();
+
+		// Hacemos click en el botón de Eliminar.
+		WebElement button = driver.findElement(By.id("deleteButton"));
+		button.click();
+
+		// Esperamos a que vuelva a cargar la página.
+		elementos = PO_View.checkElement(driver, "text", "García del Monte");
+
+		// Comprobamos que los usuarios ya no está en la lista.
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "juana@email.com", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "alberto@email.com", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "susana@email.com", PO_View.getTimeout());
+
+		// Finalmente, nos desconectamos.
+		PO_PrivateView.logout(driver);
 	}
 
-	// PR15. Sin hacer /
-	@Test
-	public void PR15() {
-		assertTrue("PR15 sin hacer", false);
-	}
-
-	// PR16. Sin hacer /
-	@Test
-	public void PR16() {
-		assertTrue("PR16 sin hacer", false);
-	}
-
-	// PR017. Sin hacer /
-	@Test
-	public void PR17() {
-		assertTrue("PR17 sin hacer", false);
-	}
-
-	// PR18. Sin hacer /
-	@Test
-	public void PR18() {
-		assertTrue("PR18 sin hacer", false);
-	}
-
-	// PR19. Sin hacer /
-	@Test
-	public void PR19() {
-		assertTrue("PR19 sin hacer", false);
-	}
-
-	// P20. Sin hacer /
+//	// PR15. Sin hacer /
+//	@Test
+//	public void PR15() {
+//		assertTrue("PR15 sin hacer", false);
+//	}
+//
+//	// PR16. Sin hacer /
+//	@Test
+//	public void PR16() {
+//		assertTrue("PR16 sin hacer", false);
+//	}
+//
+//	// PR017. Sin hacer /
+//	@Test
+//	public void PR17() {
+//		assertTrue("PR17 sin hacer", false);
+//	}
+//
+//	// PR18. Sin hacer /
+//	@Test
+//	public void PR18() {
+//		assertTrue("PR18 sin hacer", false);
+//	}
+//
+//	// PR19. Sin hacer /
+//	@Test
+//	public void PR19() {
+//		assertTrue("PR19 sin hacer", false);
+//	}
+//
+	// P20. Hacer una búsqueda con el campo vacío y comprobar que se muestra la
+	// página que
+	// corresponde con el listado de las ofertas existentes en el sistema
 	@Test
 	public void PR20() {
-		assertTrue("PR20 sin hacer", false);
+		PO_PrivateView.offerList(driver, "alberto@email.com", "123456");
+		WebElement buscar = driver.findElement(By.name("busqueda"));
+		buscar.click();
+		buscar.clear();
+		buscar.sendKeys("");
+		buscar.click();
+		List<WebElement> elementos;
+		for (int i = 0; i <= 1; i++) {
+			elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
+			assertTrue(elementos.size() == 5);
+			driver.findElements(By.xpath("//a[contains(@class, 'page-link')]")).get(i + 1).click();
+		}
+		driver.findElements(By.xpath("//a[contains(@class, 'page-link')]")).get(2).click();
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
+		assertTrue(elementos.size() == 2);
+
 	}
 
-	// PR21. Sin hacer /
+	// PR21. Hacer una búsqueda escribiendo en el campo un texto que no exista y
+	// comprobar que se
+	// muestra la página que corresponde, con la lista de ofertas vacía.
 	@Test
 	public void PR21() {
-		assertTrue("PR21 sin hacer", false);
+		PO_PrivateView.offerList(driver, "alberto@email.com", "123456");
+		WebElement buscar = driver.findElement(By.name("busqueda"));
+		buscar.click();
+		buscar.clear();
+		buscar.sendKeys("hello");
+		driver.findElement(By.className("btn")).click();
+		assertTrue(driver.findElements(By.xpath("//table[@id='tableOffers']/tbody/tr")).size() == 0);
 	}
 
-	// PR22. Sin hacer /
+	// PR22. Hacer una búsqueda escribiendo en el campo un texto en minúscula o
+	// mayúscula y
+	// comprobar que se muestra la página que corresponde, con la lista de ofertas
+	// que contengan
+	// dicho texto, independientemente que el título esté almacenado en minúsculas o
+	// mayúscula
 	@Test
 	public void PR22() {
-		assertTrue("PR22 sin hacer", false);
+		PO_PrivateView.offerList(driver, "alberto@email.com", "123456");
+		WebElement buscar = driver.findElement(By.name("busqueda"));
+		buscar.click();
+		buscar.clear();
+		buscar.sendKeys("VEST");
+		driver.findElement(By.className("btn")).click();
+		assertTrue(driver.findElements(By.xpath("//table[@id='tableOffers']/tbody/tr")).size() == 1);
+		// Comprobamos que la oferta ahora está en la lista de ofertas compradas.
+		SeleniumUtils.textoPresentePagina(driver, "Vestido");
+		SeleniumUtils.textoPresentePagina(driver, "Vestido azul");
+		SeleniumUtils.textoPresentePagina(driver, "20");
+		// Finalmente, nos desconectamos.
+		PO_PrivateView.logout(driver);
 	}
 
-	// PR23. Sin hacer /
+	// PR23.Sobre una búsqueda determinada (a elección de desarrollador), comprar
+	// una oferta que deja un saldo positivo en el contador del comprobador. Y
+	// comprobar que el
+	// contador se actualiza correctamente en la vista del comprador.
 	@Test
 	public void PR23() {
-		assertTrue("PR23 sin hacer", false);
+		PO_PrivateView.offerList(driver, "susana@email.com", "123456");
+		// Buscamos el texto "vest" en el buscador.
+		PO_PrivateView.searchOffer(driver, "VES");
+		// Esperamos a que aparezca el Vestido y pinchamos en su enlace de Comprar.
+		List<WebElement> elementos = PO_View.checkElement(driver, "free",
+				"//td[contains(text(), 'Vestido')]/following-sibling::*/a[contains(@href, 'offer/buy')]");
+		elementos.get(0).click();
+		// Vamos a la lista de compras para ver que está comprada
+
+		PO_NavView.clickDropdownMenuOption(driver, "offers-dropdown", "offers-menu", "offer/buyed");
+		// Comprobamos que la oferta ahora está en la lista de ofertas compradas.
+		SeleniumUtils.textoPresentePagina(driver, "Vestido");
+		SeleniumUtils.textoPresentePagina(driver, "Vestido azul");
+		SeleniumUtils.textoPresentePagina(driver, "susana@email.com");
+		// Se ha restado el precio en 20 euros
+		SeleniumUtils.textoPresentePagina(driver, "60");
+
+		// Finalmente, nos desconectamos.
+		PO_PrivateView.logout(driver);
 	}
 
-	// PR24. Sin hacer /
+	// PR24. Sobre una búsqueda determinada (a elección de desarrollador), comprar
+	// una oferta que
+	// deja un saldo 0 en el contador del comprobador. Y comprobar que el contador
+	// se actualiza
+	// correctamente en la vista del comprador.
+
 	@Test
 	public void PR24() {
-		assertTrue("PR24 sin hacer", false);
+		// Vamos a la página de ofertas
+		PO_PrivateView.offerList(driver, "juana@email.com", "123456");
+		// Buscamos el texto "vest" en el buscador.
+		PO_PrivateView.searchOffer(driver, "VES");
+		// Esperamos a que aparezca el Vestido y pinchamos en su enlace de Comprar.
+		List<WebElement> elementos = PO_View.checkElement(driver, "free",
+				"//td[contains(text(), 'Vestido')]/following-sibling::*/a[contains(@href, 'offer/buy')]");
+		elementos.get(0).click();
+		// Vamos a la lista de compras para ver que está comprada
+
+		PO_NavView.clickDropdownMenuOption(driver, "offers-dropdown", "offers-menu", "offer/buyed");
+		// Comprobamos que la oferta ahora está en la lista de ofertas compradas.
+		SeleniumUtils.textoPresentePagina(driver, "Vestido");
+		SeleniumUtils.textoPresentePagina(driver, "Vestido azul");
+		SeleniumUtils.textoPresentePagina(driver, "juana@email.com");
+		// Se ha restado el precio en 20 euros y se queda en 0
+		SeleniumUtils.textoPresentePagina(driver, "0");
 	}
 
 	// PR25. Sin hacer /
 	@Test
 	public void PR25() {
-		assertTrue("PR25 sin hacer", false);
+		// Vamos a la página de ofertas
+		PO_PrivateView.offerList(driver, "alberto@email.com", "123456");
+		// Buscamos el texto "vest" en el buscador.
+		PO_PrivateView.searchOffer(driver, "VES");
+		// Esperamos a que aparezca el Vestido y pinchamos en su enlace de Comprar.
+		List<WebElement> elementos = PO_View.checkElement(driver, "free",
+				"//td[contains(text(), 'Vestido')]/following-sibling::*/a[contains(@href, 'offer/buy')]");
+		elementos.get(0).click();
+		// Vemos que nos sale un mensaje de que no tenemos saldo para comprarlo
+		SeleniumUtils.textoPresentePagina(driver, "Saldo insuficiente");
+
 	}
 
-	// PR26. Sin hacer /
+	// PR26. Ir a la opción de ofertas compradas del usuario y mostrar la lista.
+	// Comprobar que
+	// aparecen las ofertas que deben aparecer.
 	@Test
 	public void PR26() {
-		assertTrue("PR26 sin hacer", false);
+		// Vamos a la página de ofertas compradas
+		PO_PrivateView.offerListBought(driver, "pepe@email.com", "123456");
+		// Comprobamos que las ofertas compradas están en la lista.
+		SeleniumUtils.textoPresentePagina(driver, "Pato");
+		SeleniumUtils.textoPresentePagina(driver, "Pato de goma");
+		SeleniumUtils.textoPresentePagina(driver, "alberto@email.com");
+		SeleniumUtils.textoPresentePagina(driver, "Zapatos");
+		SeleniumUtils.textoPresentePagina(driver, "Zapatos de baile");
+		SeleniumUtils.textoPresentePagina(driver, "fernando@email.com");
+
+		// Finalmente, nos desconectamos.
+		PO_PrivateView.logout(driver);
 	}
 
-	// PR27. Sin hacer /
-	@Test
-	public void PR27() {
-		assertTrue("PR27 sin hacer", false);
-	}
-
-	// PR029. Sin hacer /
-	@Test
-	public void PR29() {
-		assertTrue("PR29 sin hacer", false);
-	}
-
-	// PR030. Sin hacer /
-	@Test
-	public void PR30() {
-		assertTrue("PR30 sin hacer", false);
-	}
-
-	// PR031. Sin hacer /
-	@Test
-	public void PR31() {
-		assertTrue("PR31 sin hacer", false);
-	}
+//	// PR27. Sin hacer /
+//	@Test
+//	public void PR27() {
+//		assertTrue("PR27 sin hacer", false);
+//	}
+//
+//	// PR029. Sin hacer /
+//	@Test
+//	public void PR29() {
+//		assertTrue("PR29 sin hacer", false);
+//	}
+//
+//	// PR030. Sin hacer /
+//	@Test
+//	public void PR30() {
+//		assertTrue("PR30 sin hacer", false);
+//	}
+//
+//	// PR031. Sin hacer /
+//	@Test
+//	public void PR31() {
+//		assertTrue("PR31 sin hacer", false);
+//	}
 
 }

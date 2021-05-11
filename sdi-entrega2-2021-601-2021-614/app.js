@@ -111,7 +111,7 @@ app.use("/offer/*", routerEstandar);
 
 var routerAdmin = express.Router();
 routerAdmin.use(function (req, res, next) {
-    if (eq.session.usuario.rol == "admin") {
+    if (req.session.usuario.rol == "admin") {
         logger.info('El administrador va al siguiente enlace '+ req.originalUrl);
         next();
     } else {
@@ -161,7 +161,10 @@ require("./routes/rapiwallapop.js")(app, swig, gestorBD);
 
 //Puerto
 app.set('port',8081);
-app.listen(app.get('port'), function () {
+https.createServer({
+    key: fs.readFileSync('certificates/alice.key'),
+    cert: fs.readFileSync('certificates/alice.crt')
+}, app).listen(app.get('port'), function () {
     console.log("Servidor activo");
 });
 

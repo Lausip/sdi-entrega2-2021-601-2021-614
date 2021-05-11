@@ -16,9 +16,9 @@ module.exports = function (app, swig, gestorBD) {
      */
     app.post('/signup', function (req, res) {
         app.get('logger').info('Usuario se va a registrar');
-        if (req.body.name === undefined || req.body.name === '' || req.body.surname === undefined || req.body.surname === ''
-            || req.body.password === undefined || req.body.password === '' || req.body.repassword === undefined || req.body.repassword === ''
-            || req.body.email === undefined || req.body.email === '') {
+        if (req.body.name == undefined || req.body.name == '' || req.body.surname == undefined || req.body.surname == ''
+            || req.body.password == undefined || req.body.password == '' || req.body.repassword == undefined || req.body.repassword == ''
+            || req.body.email == undefined || req.body.email == '') {
             res.redirect("/signup?mensaje=Es necesario completar todos los campos&tipoMensaje=alert-danger")
             app.get('logger').error('Es necesario completar todos los campos');
 
@@ -163,7 +163,7 @@ module.exports = function (app, swig, gestorBD) {
      *Si estos se eliminar tambien se eliminan todas aquellas conversaciones mensajes y ofertas relacionadas con él
      */
     app.post('/user/delete/', function (req, res) {
-        let ids = req.body.idsUserDelete;
+        let ids = req.body.deleteUsersCheckbox;
         if (!Array.isArray(ids)) {
             let aux = ids;
             ids = [];

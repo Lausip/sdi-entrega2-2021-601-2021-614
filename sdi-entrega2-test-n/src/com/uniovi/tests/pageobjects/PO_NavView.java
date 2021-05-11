@@ -32,20 +32,22 @@ public class PO_NavView  extends PO_View{
 	}
 
 	/**
-	 * Selecciona el enlace de idioma correspondiente al texto textLanguage 
-	 * @param driver: apuntando al navegador abierto actualmente.
-	 * @param textLanguage: el texto que aparece en el enlace de idioma ("English" o "Spanish")
+	 * Simula el click en una opcion de menu
+	 * @param driver
+	 * @param menuButtonId es el id del boton que despliega el menu dropdown
+	 * @param menuId es el id del menu dropdown
+	 * @param optionId es el enlace la opcion del menu dropdown sobre la que quieres hacer click
 	 */
-	public static void changeIdiom(WebDriver driver, String textLanguage) {
-		//clickamos la opci√≥n Idioma.
-		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "btnLanguage", getTimeout());		
+	public static void clickDropdownMenuOption(WebDriver driver, String menuButtonId, String menuId, String optionId) {
+		// Pinchamos en la opciÛn de gestiÛn de usuarios del men˙.
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, "+"'"+menuId+"'"+")]/a");
 		elementos.get(0).click();
-		//Esperamos a que aparezca el men√∫ de opciones.
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "languageDropdownMenuButton", getTimeout());
-		//SeleniumUtils.esperarSegundos(driver, 2);
-		//CLickamos la opci√≥n Ingl√©s partiendo de la opci√≥n Espa√±ol
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", textLanguage, getTimeout());
+		
+		// Pinchamos en la opciÛn de lista de usuarios.
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,"+"'"+optionId+"'"+")]");
 		elementos.get(0).click();
 	}
+
+
 
 }

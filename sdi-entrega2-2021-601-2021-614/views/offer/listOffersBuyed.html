@@ -14,10 +14,12 @@
             </thead>
             <tbody class="table-light">
             {% for oferta in ofertaList %}
+            <tr>
                 <td>{{oferta.titulo}}</td>
-                <td>{{oferta.descripcion}}</td>
+                <td>{{oferta.detalle}}</td>
                 <td>{{oferta.precio}}€</td>
-                <td>{{oferta.vendedor}}</td>
+                <td>{{oferta.autor}}</td>
+            </tr>
             {% endfor %}
             </tbody>
         </table>

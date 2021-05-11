@@ -1,11 +1,13 @@
 module.exports = function (app, swig, gestorBD) {
 
     /**
-     * Lista todas las ofertas del myWallapop
+     * Lista todas las ofertas del myWallapop menos la del usuario que inicia sesión
      * Se mira si el usario inicio sesion
      */
     app.get("/offer/list", function (req, res) {
-            var criterio = {};
+            var criterio = {
+                autor: {$ne: req.session.usuario.email}
+            };
             let busqueda = req.query.busqueda;
             if (busqueda != null && busqueda != "" && busqueda != undefined) {
                 app.get("logger").error(req.session.usuario.email+' ha realizado una busqueda de una oferta con busqueda '+busqueda);
@@ -18,6 +20,7 @@ module.exports = function (app, swig, gestorBD) {
             if (req.query.pg == null) {
                 pg = 1;
             }
+
             gestorBD.obtenerOfertasPg(criterio, pg, function (ofertas, total) {
                 if (ofertas == null) {
                     app.get("logger").error('Error de listado de ofertas');
@@ -61,7 +64,7 @@ module.exports = function (app, swig, gestorBD) {
                 app.get("logger").error('Error al comprar la oferta');
                 res.redirect("/offer/list?mensaje=Error al comprar la oferta&tipoMensaje=alert-danger");
             }
-            if (ofertas[0].comprada){
+            if (ofertas[0].comprador!=null || ofertas[0].comprador!=""){
                 app.get("logger").error('Error al comprar la oferta, ya está comprada');
                 res.redirect("/offer/list?mensaje=Oferta ya comprada&tipoMensaje=alert-danger");
             }
@@ -71,7 +74,7 @@ module.exports = function (app, swig, gestorBD) {
             }
             else {
                 let oferta = {
-                    "comprador": gestorBD.mongo.ObjectID(req.session.usuario.email),
+                    "comprador": req.session.usuario.email,
                 };
                 gestorBD.modificarOferta(criterio, oferta, function (result) {
                     if (result == null) {
@@ -101,7 +104,7 @@ module.exports = function (app, swig, gestorBD) {
      * sesión en la aplicación
      */
     app.get("/offer/buyed", function (req, res) {
-        let criterio = {"comprador": gestorBD.mongo.ObjectID(req.session.usuario.email)};
+        let criterio = {"comprador": req.session.usuario.email};
             gestorBD.obtenerOfertas(criterio, function (ofertas) {
                 if (ofertas == null) {
                     app.get("logger").error(req.session.usuario.email + ":Error al realizar el listado de ofertas");
