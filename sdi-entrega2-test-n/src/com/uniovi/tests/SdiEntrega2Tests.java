@@ -286,7 +286,7 @@ public class SdiEntrega2Tests {
 		PO_PrivateView.logout(driver);
 	}
 
-	// PR12. ] Ir a la lista de usuarios, borrar el primer usuario de la lista,
+	// PR12. Ir a la lista de usuarios, borrar el primer usuario de la lista,
 	// comprobar que la lista se
 	// actualiza y dicho usuario desaparece.
 	@Test
@@ -399,11 +399,7 @@ public class SdiEntrega2Tests {
 	@Test
 	public void PR20() {
 		PO_PrivateView.offerList(driver, "alberto@email.com", "123456");
-		WebElement buscar = driver.findElement(By.name("busqueda"));
-		buscar.click();
-		buscar.clear();
-		buscar.sendKeys("");
-		buscar.click();
+		PO_PrivateView.searchOffer(driver, "");
 		List<WebElement> elementos;
 		for (int i = 0; i <= 1; i++) {
 			elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
@@ -422,11 +418,7 @@ public class SdiEntrega2Tests {
 	@Test
 	public void PR21() {
 		PO_PrivateView.offerList(driver, "alberto@email.com", "123456");
-		WebElement buscar = driver.findElement(By.name("busqueda"));
-		buscar.click();
-		buscar.clear();
-		buscar.sendKeys("hello");
-		driver.findElement(By.className("btn")).click();
+		PO_PrivateView.searchOffer(driver, "hello");
 		assertTrue(driver.findElements(By.xpath("//table[@id='tableOffers']/tbody/tr")).size() == 0);
 	}
 
@@ -439,11 +431,7 @@ public class SdiEntrega2Tests {
 	@Test
 	public void PR22() {
 		PO_PrivateView.offerList(driver, "alberto@email.com", "123456");
-		WebElement buscar = driver.findElement(By.name("busqueda"));
-		buscar.click();
-		buscar.clear();
-		buscar.sendKeys("VEST");
-		driver.findElement(By.className("btn")).click();
+		PO_PrivateView.searchOffer(driver, "VES");
 		assertTrue(driver.findElements(By.xpath("//table[@id='tableOffers']/tbody/tr")).size() == 1);
 		// Comprobamos que la oferta ahora está en la lista de ofertas compradas.
 		SeleniumUtils.textoPresentePagina(driver, "Vestido");
@@ -524,8 +512,7 @@ public class SdiEntrega2Tests {
 	}
 
 	// PR26. Ir a la opción de ofertas compradas del usuario y mostrar la lista.
-	// Comprobar que
-	// aparecen las ofertas que deben aparecer.
+	// Comprobar que aparecen las ofertas que deben aparecer.
 	@Test
 	public void PR26() {
 		// Vamos a la página de ofertas compradas
@@ -554,16 +541,56 @@ public class SdiEntrega2Tests {
 //		assertTrue("PR29 sin hacer", false);
 //	}
 //
-//	// PR030. Sin hacer /
-//	@Test
-//	public void PR30() {
-//		assertTrue("PR30 sin hacer", false);
-//	}
-//
-//	// PR031. Sin hacer /
-//	@Test
-//	public void PR31() {
-//		assertTrue("PR31 sin hacer", false);
-//	}
+	// PR030.Inicio de sesión con datos válidos
+	@Test
+	public void PR30() {
+		// Vamos al formulario para loguearnos
+		// Rellenamos el formulario
+		PO_LoginView.login(driver, "pepe@email.com", "123456",URLApi);
+		//Espremos que cargue la página
+		SeleniumUtils.EsperaCargaPagina(driver, "id", "tableOffers", 4000);
+		//Miramos que estamos en la página de ofertas de la página
+		SeleniumUtils.textoPresentePagina(driver, "Ofertas disponibles en la aplicación");
+	}
+
+	// PR031.Inicio de sesión con datos inválidos (email existente, pero contraseña incorrecta)
+	@Test
+	public void PR31() {
+		PO_LoginView.login(driver, "pepe@email.com", "123",URLApi);
+		//Miramos que sale el error
+		SeleniumUtils.EsperaCargaPagina(driver, "text", "Las", 5000);
+		SeleniumUtils.textoPresentePagina(driver, "Las credenciales introducidas no son correctas");
+		
+	}
+
+	// PR032. Inicio de sesión con datos válidos (campo email o contraseña vacíos).
+	@Test
+	public void PR32() {
+		PO_LoginView.login(driver, "", "123456",URLApi);
+		//Miramos que sale el error
+		SeleniumUtils.EsperaCargaPagina(driver, "text", "No", 5000);
+		SeleniumUtils.textoPresentePagina(driver, "No puede haber campos vacios");
+		
+	}
+	
+	// PR033.Mostrar el listado de ofertas disponibles y comprobar que se muestran todas las que 
+	//existen, menos las del usuario identificado
+	@Test
+	public void PR33() {
+		PO_LoginView.login(driver, "alberto@email.com", "123456",URLApi);
+		//Miramos que estan las ofertas deseadas
+		SeleniumUtils.EsperaCargaPagina(driver, "text", "Título", 300);
+		List<WebElement> elementos;
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
+		assertTrue(elementos.size() == 12);
+		//Miramos que no estan las suyas
+		SeleniumUtils.textoNoPresentePagina(driver, "Pato");
+		SeleniumUtils.textoNoPresentePagina(driver, "Tienda");
+		SeleniumUtils.textoNoPresentePagina(driver, "Vestido");
+	
+		
+		
+	}
+
 
 }

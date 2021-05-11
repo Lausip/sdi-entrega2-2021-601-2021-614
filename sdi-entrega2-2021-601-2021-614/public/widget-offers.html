@@ -30,6 +30,7 @@
     window.history.pushState("", "", "/homeRest.html?w=oferta");
     var ofertas;
     cargarOfertas();
+
     function cargarOfertas() {
         $("#tablaCuerpo").html("");
         $.ajax({
@@ -37,7 +38,7 @@
             type: "GET",
             data: {},
             dataType: 'json',
-            headers: {"token": token, "email":email},
+            headers: {"token": token, "email": email},
             success: function (respuesta) {
                 ofertas = respuesta;
                 actualizarTablaOfertas(ofertas);
@@ -54,11 +55,11 @@
             $("#tablaCuerpo").append(
                 "<tr id=" + ofertasMostrar[i]._id + ">" +
                 "<td>" + ofertasMostrar[i].titulo + "</td>" +
-                "<td>" + ofertasMostrar[i].descripcion + "</td>" +
-                "<td>" + ofertasMostrar[i].precio + "</td>" +
-                "<td>" + ofertasMostrar[i].vendedor + "</td>" +
+                "<td>" + ofertasMostrar[i].detalle + "</td>" +
+                "<td>" + ofertasMostrar[i].precio + " €" + "</td>" +
+                "<td>" + ofertasMostrar[i].autor + "</td>" +
                 "<td>" +
-                "<a onclick=conversacion('"+ ofertasMostrar[i].vendedor._id+"')>Conversación</a><br>" +
+                "<a onclick=conversacion('" + ofertasMostrar[i].autor._id + "')>Conversación</a><br>" +
                 "</td>" +
                 "</tr>");
 

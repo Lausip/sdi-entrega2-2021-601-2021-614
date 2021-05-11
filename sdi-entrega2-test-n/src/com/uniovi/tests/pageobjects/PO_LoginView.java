@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import com.uniovi.tests.util.SeleniumUtils;
+
 public class PO_LoginView extends PO_NavView {
 
 	static public void fillForm(WebDriver driver, String dnip, String passwordp) {
@@ -22,6 +24,7 @@ public class PO_LoginView extends PO_NavView {
 	
 	static public void login(WebDriver driver, String dnip, String passwordp,String url) {
 		driver.navigate().to(url);
+
 		fillForm( driver, dnip, passwordp);
 		
 	}

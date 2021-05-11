@@ -26,7 +26,6 @@ module.exports = function (app, swig, gestorBD) {
                     app.get("logger").error('Error de listado de ofertas');
 
                 } else {
-                console.log(total);
                     var ultimaPg = total / 5;
                     if (total % 5 > 0) { // Sobran decimales
                         ultimaPg = ultimaPg + 1;
@@ -64,7 +63,7 @@ module.exports = function (app, swig, gestorBD) {
                 app.get("logger").error('Error al comprar la oferta');
                 res.redirect("/offer/list?mensaje=Error al comprar la oferta&tipoMensaje=alert-danger");
             }
-            if (ofertas[0].comprador!=null || ofertas[0].comprador!=""){
+            if (ofertas[0].comprador!=null && ofertas[0].comprador!=""){
                 app.get("logger").error('Error al comprar la oferta, ya está comprada');
                 res.redirect("/offer/list?mensaje=Oferta ya comprada&tipoMensaje=alert-danger");
             }

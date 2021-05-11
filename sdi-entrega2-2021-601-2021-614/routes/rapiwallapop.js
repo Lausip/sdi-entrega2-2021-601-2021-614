@@ -1,4 +1,4 @@
-module.exports = function(app,swig, gestorBD) {
+module.exports = function (app, swig, gestorBD) {
     /**
      * Metodo que autentifica al usuario:
      * Si los campos son vacios
@@ -10,10 +10,19 @@ module.exports = function(app,swig, gestorBD) {
             email: req.body.email,
             password: seguro
         };
+        if (req.body.email == "" || req.body.password == "") {
+            res.status(401);
+            app.get("logger").error("API: Campos vacios");
+            res.json({
+                autenticado: false,
+                error: "No puede haber campos vacios"
+            })
+            return;
+        }
         gestorBD.obtenerUsuarios(criterio, function (usuarios) {
             if (usuarios == null || usuarios.length === 0) {
                 res.status(401);
-                app.get("logger").error("API: Usted no esta logeado con credendiales malas: " + criterio.email);
+                app.get("logger").error("API: Usted esta logeadose con credendiales malas: " + criterio.email);
                 res.json({
                     autenticado: false,
                     error: "Las credenciales introducidas no son correctas"
@@ -22,7 +31,7 @@ module.exports = function(app,swig, gestorBD) {
                 let ttoken = app.get('jwt').sign(
                     {usuario: criterio.email, id: usuarios[0]._id, tiempo: Date.now() / 1000},
                     "secreto");
-                app.get("logger").info("API;"+criterio.email + " se loguea en la apliación");
+                app.get("logger").info("API;" + criterio.email + " se loguea en la apliación");
                 res.status(200);
                 res.json({
                     autenticado: true,
@@ -37,7 +46,7 @@ module.exports = function(app,swig, gestorBD) {
      */
     app.get("/api/offer/list", function (req, res) {
         let criterio = {
-            vendedor: {$ne: res.headers.email}
+            autor: {$ne: res.usuario}
         };
         gestorBD.obtenerOfertas(criterio, function (ofertas) {
             if (ofertas == null || ofertas.length === 0) {
