@@ -1,4 +1,4 @@
-module.exports = function (app, swig, gestorBD) {
+module.exports = function(app,swig, gestorBD) {
     /**
      * Metodo que autentifica al usuario:
      * Si los campos son vacios

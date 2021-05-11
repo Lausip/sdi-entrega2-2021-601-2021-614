@@ -1,0 +1,51 @@
+{% extends "../base.html" %} {% block titulo %} Listado de ofertas {% endblock %}
+
+{% block contenido_principal %}
+
+<h2>Mis ofertas</h2>
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Título</th>
+            <th>Descripción</th>
+            <th>Precio</th>
+            <th class="col-md-1"></th>
+            <th class="col-md-1"></th>
+            <th class="col-md-1"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for oferta in ofertas %}
+        <tr>
+            <td>{{ oferta.titulo }}</td>
+            <td>{{ oferta.detalle }}</td>
+            <td>{{ oferta.precio }}</td>
+            <td>
+                {%if !oferta.comprada %}
+                <p>No vendida</p>
+                {%endif%}
+                {%if oferta.comprada %}
+                <p style="color: #ff0000">Vendida</p>
+                {%endif%}
+            </td>
+            <td>
+                {%if !oferta.comprada && oferta.destacada %}
+                <a href="/offer/normal/{{ oferta._id.toString() }}">Destacada</a>
+                {%endif%}
+                {%if !oferta.comprada && !oferta.destacada %}
+                <a href="/offer/destacar/{{ oferta._id.toString() }}">Normal</a>
+                {%endif%}
+            </td>
+            <td>
+                {%if !oferta.comprada %}
+                <a href="/offer/delete/{{ oferta._id.toString() }}">Eliminar</a>
+                {%endif%}
+            </td>
+
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>

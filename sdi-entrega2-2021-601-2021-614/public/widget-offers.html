@@ -59,11 +59,17 @@
                 "<td>" + ofertasMostrar[i].precio + " €" + "</td>" +
                 "<td>" + ofertasMostrar[i].autor + "</td>" +
                 "<td>" +
-                "<a onclick=conversacion('" + ofertasMostrar[i].autor._id + "')>Conversación</a><br>" +
-                "</td>" +
-                "</tr>");
+                "<a style=\"cursor: pointer;\" class='en-" + ofertasMostrar[i].title + "' onclick=chat('" + ofertasMostrar[i]._id + "','" + ofertasMostrar[i].vendedor + "','"
+                + ofertasMostrar[i].email + "')>Contactar</a><br>" +
+                "</td>"
+                )
 
         }
+    }
+
+    function chat( _id ) {
+        idOfertaSeleccionada = _id;
+        $( "#contenedor-principal" ).load( "widget-contactar.html");
     }
 
 </script>

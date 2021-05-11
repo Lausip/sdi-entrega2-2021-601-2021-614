@@ -105,16 +105,35 @@ module.exports = function (app, swig, gestorBD) {
     });
 
     /**
-     * Home privado del usuario:
-     * Si no está identificado le manda a identificarse
+     * Home privado del usuario.
      */
     app.get("/home", function (req, res) {
-        app.get("logger").info('Usuario ha entrado a su zona privada');
+        let criterio = {"destacada" : true};
+        //let criterio = {};
+        gestorBD.obtenerOfertas(criterio, function (ofertas) {
+            if (ofertas == null) {
+                app.get("logger").error("Error al obtener el listado de ofertas destacadas.");
+                res.redirect("/home?mensaje=Error al obtener el listado de ofertas destacadas.&tipoMensaje=alert-danger");
+            } else {
+                let respuesta = swig.renderFile('views/bhome.html',
+                    {
+                        ofertaList: ofertas,
+                        usuario: req.session.usuario
+                    });
+                app.get("logger").info('Usuario ha entrado a su zona privada.');
+                res.send(respuesta);
+            }
+        });
+
+
+        /*
         var respuesta = swig.renderFile('views/bhome.html',
             {
                 usuario: req.session.usuario
             });
         res.send(respuesta);
+        */
+        //res.redirect("/offer/destacadas");
     });
 
 
