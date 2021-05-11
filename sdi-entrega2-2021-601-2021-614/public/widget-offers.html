@@ -59,7 +59,7 @@
                 "<td>" + ofertasMostrar[i].precio + " €" + "</td>" +
                 "<td>" + ofertasMostrar[i].autor + "</td>" +
                 "<td>" +
-                "<a style=\"cursor: pointer;\" class='en-" + ofertasMostrar[i].titulo + "' onclick=chat('" + ofertasMostrar[i]._id + "','" + ofertasMostrar[i].autor + "','"
+                "<a style=\"cursor: pointer;\" class='en-" + ofertasMostrar[i].title + "' onclick=chat('" + ofertasMostrar[i]._id + "','" + ofertasMostrar[i].vendedor + "','"
                 + ofertasMostrar[i].email + "')>Contactar</a><br>" +
                 "</td>"
                 )
@@ -69,7 +69,7 @@
 
     function chat( _id ) {
         idOfertaSeleccionada = _id;
-        $( "#contenedor-principal" ).load( "widget-contactar.html");
+        $( "#contenedor-principal" ).load( "widget-chat.html");
     }
 
 </script>

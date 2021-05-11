@@ -29,12 +29,36 @@
 <script>
     window.history.pushState("", "", "/homeRest.html?w=chat");
     var mensajes;
+    var chat;
+
+    crearObtenerChatPorOfertaUsuario();
     cargarChat();
+
+    function crearObtenerChatPorOfertaUsuario() {
+        $("#tablaCuerpo").html("");
+        $.ajax({
+            url: URLbase + "/offer/chat/" + idOfertaSeleccionada,
+            type: "GET",
+            data: {},
+            dataType: 'json',
+            headers: {"token": token},
+            success: function (respuesta) {
+                chat = respuesta;
+                cargarChat();
+                //actualizarChat(chat);
+                //mensajes = respuesta;
+                //actualizarChat(mensajes);
+            },
+            error: function (error) {
+                $("#contenedor-principal").load("widget-login.html");
+            }
+        });
+    }
 
     function cargarChat() {
         $("#tablaCuerpo").html("");
         $.ajax({
-            url: URLbase + "/chat/" + idChatSeleccionado,
+            url: URLbase + "/offer/chat/load/" + chat._id,
             type: "GET",
             data: {},
             dataType: 'json',
@@ -56,6 +80,7 @@
                 "<td>"
                 + "<p>"
                 + mensajesMostrar[i].texto
+                + "</p><p>"
                 + mensajesMostrar[i].fecha.toString()
                 + "</p>" +
                 "</td>"
@@ -66,15 +91,19 @@
     function enviarMensaje() {
         var mensaje = $("#textoMensaje").valueAsString;
         $.ajax({
-            url: URLbase + "/chat/" + idChatSeleccionado,
+            url: URLbase + "/offer/chat/" + chat._id,
             type: "POST",
             data: {
-                mensaje: mensaje,
+                chat: chat,
+                ofertaId: idOfertaSeleccionada,
+                texto: mensaje
             },
             dataType: 'json',
             headers: {"token": token},
             success: function (respuesta) {
-
+                cargarChat();
+                //idChatSeleccionado = respuesta.id;
+                //$("#contenedor-principal").load("widget-chat.html");
             },
             error: function (error) {
                 $("#contenedor-principal").load("widget-login.html");
