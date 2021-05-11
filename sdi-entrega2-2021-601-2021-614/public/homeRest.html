@@ -22,12 +22,11 @@
             <!-- <a href="/home"><img src="/img/user.png" alt="logo"/></a>-->
         </div>
 
-
         <div class="collapse navbar-collapse" id="myNavbar">
 
-            <ul class="nav navbar-nav navbar-right">
-
-
+            <ul class="nav navbar-nav navbar-left">
+                <li><a onclick=getOfertas()>Lista de Ofertas</a></li>
+                <li><a onclick=getConversaciones()>Conversaciones del usuario</a></li>
                 <li><span
                         class="glyphicon glyphicon-email"
                         id="navemail"></span></li>
@@ -44,8 +43,20 @@
     var token;
     var URLbase = "https://localhost:8081/api";
     var email;
-
     $("#contenedor-principal").load("widget-login.html");
+    /**
+     * Ofertas del usuario
+     */
+    function getOfertas(){
+        $( "#contenedor-principal" ).load( "widget-offers.html");
+    }
+    /**
+     * OConversaciones del usuario
+     */
+    function getConversaciones(){
+    //    $( "#contenedor-principal" ).load( "widget-chat?.html");
+    }
+
 
     if (Cookies.get('token') != null) {
         token = Cookies.get('token');
@@ -57,9 +68,9 @@
         if (w === "ofertas") {
             $("#contenedor-principal").load("widget-offers.html");
         }
-        //  if ( w === "chats"){
-        //      $( "#contenedor-principal" ).load("widget-chats.html");
-        // }
+          if ( w === "chats"){
+              $( "#contenedor-principal" ).load("widget-chats.html");
+         }
     }
 </script>
 
