@@ -60,7 +60,7 @@ app.set('crypto',crypto);
 var routerUsuarioSession = express.Router();
 routerUsuarioSession.use(function (req, res, next) {
     console.log("routerUsuarioSession");
-    if (req.session.usuario) {
+    if (req.session.usuario!=null) {
         logger.info('Usuario logeado accede a '+ req.originalUrl);
         next();
     } else {
@@ -78,12 +78,12 @@ app.use("/user/*", routerUsuarioSession);
 //Roter de usuario de no identificado
 var routerUsuarioNoSession = express.Router();
 routerUsuarioNoSession.use(function (req, res, next) {
-    console.log("routerUsuarioNoSession");
-    if (!req.session.usuario) {
+    //console.log("routerUsuarioNoSession");
+    if (req.session.usuario==null) {
         logger.info('Usuario no logeado intenta acceder '+ req.originalUrl);
         next();
     } else {
-        logger.warn('User logged in tries to access '+ req.originalUrl);
+        logger.warn('Usuario logeado intenda acceder a  '+ req.originalUrl);
         res.redirect("/home?mensaje=El usuario actual ya esta en sesión" +
             "&tipoMensaje=alert-danger");
     }
@@ -111,7 +111,7 @@ app.use("/offer/*", routerEstandar);
 
 var routerAdmin = express.Router();
 routerAdmin.use(function (req, res, next) {
-    if (req.session.usuario.rol == "admin") {
+    if (req.session.usuario.rol === "admin") {
         logger.info('El administrador va al siguiente enlace '+ req.originalUrl);
         next();
     } else {

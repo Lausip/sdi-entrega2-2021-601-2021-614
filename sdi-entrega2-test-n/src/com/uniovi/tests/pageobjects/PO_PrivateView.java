@@ -30,7 +30,7 @@ public class PO_PrivateView extends PO_NavView{
 	}
 
 	public static void userList(WebDriver driver, String nombre, String pass) {
-		PO_LoginView.login(driver, nombre, pass,"https://localhost:8081/login");
+		PO_LoginView.login(driver, nombre, pass,"login");
 		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "users-menu", PO_View.getTimeout());
 		elementos.get(0).click();
 		elementos = SeleniumUtils.EsperaCargaPagina(driver, "@href", "/user/list", PO_View.getTimeout());
@@ -39,17 +39,17 @@ public class PO_PrivateView extends PO_NavView{
 	}
 
 	public static void logout(WebDriver driver) {
-		driver.navigate().to("https://localhost:8081/logout");
+		PO_LoginView.logout(driver);
 		
 	}
 
 	public static void offerList(WebDriver driver, String nombre, String pass) {
-		PO_LoginView.login(driver, nombre, pass,"https://localhost:8081/login");
+		PO_LoginView.login(driver, nombre, pass,"login");
 		PO_NavView.clickDropdownMenuOption(driver, "offers-dropdown", "offers-menu", "offer/list");
 		
 	}
 	public static void offerListBought(WebDriver driver, String nombre, String pass) {
-		PO_LoginView.login(driver, nombre, pass,"https://localhost:8081/login");
+		PO_LoginView.login(driver, nombre, pass,"login");
 		PO_NavView.clickDropdownMenuOption(driver, "offers-dropdown", "offers-menu", "offer/buyed");
 		
 	}

@@ -147,13 +147,14 @@ public class SdiEntrega2Tests {
 		database = mongoClient.getDatabase("myFirstDatabase");
 		removeDataTest();
 		insertData();
+	
 	}
 
 	@Before
 	public void setUp() {
 		// Iniciamos la base de datos y vamos a la url
 		initdb();
-//		driver.navigate().to(URL);
+		driver.navigate().to(URL);
 
 	}
 
@@ -184,7 +185,7 @@ public class SdiEntrega2Tests {
 	@Test
 	public void PR01() {
 		// Vamos al formulario de registro
-		driver.navigate().to(URL + "signup");
+		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
 		// Rellenamos el formulario.
 		PO_RegisterView.fillForm(driver, "laura@mail.com", "Laura", "Vigil", "123456", "123456");
 		PO_View.checkElement(driver, "text", "Bienvenido a la aplicación");
@@ -197,7 +198,7 @@ public class SdiEntrega2Tests {
 	@Test
 	public void PR02() {
 		// Vamos al formulario de registro
-		driver.navigate().to(URL + "signup");
+		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
 		// 1 Email vacio
 		// Rellenamos el formulario.
 		PO_RegisterView.fillForm(driver, "", "Laura", "Vigil Laruelo", "123456", "123456");
@@ -217,7 +218,8 @@ public class SdiEntrega2Tests {
 	// inválida).
 	@Test
 	public void PR03() {
-		driver.navigate().to(URL + "signup");
+		// Vamos al formulario de registro
+		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
 		// Rellenamos el formulario.
 		PO_RegisterView.fillForm(driver, "laura@email.com", "Laura", "Vigil Laruelo", "123456", "1234");
 		PO_View.checkElement(driver, "text", "Las contraseñas deben ser iguales");
@@ -227,7 +229,8 @@ public class SdiEntrega2Tests {
 	// PR04. Registro de Usuario con datos inválidos (email existente).
 	@Test
 	public void PR04() {
-		driver.navigate().to(URL + "signup");
+		// Vamos al formulario de registro
+		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
 		// Rellenamos el formulario.
 		PO_RegisterView.fillForm(driver, "pepe@email.com", "Pepe", "Alvarez Gutierrez", "123456", "123456");
 		PO_View.checkElement(driver, "text", "El email ya está registrado");
@@ -546,7 +549,7 @@ public class SdiEntrega2Tests {
 	public void PR30() {
 		// Vamos al formulario para loguearnos
 		// Rellenamos el formulario
-		PO_LoginView.login(driver, "pepe@email.com", "123456",URLApi);
+		PO_LoginView.loginRest(driver, "pepe@email.com", "123456");
 		//Espremos que cargue la página
 		SeleniumUtils.EsperaCargaPagina(driver, "id", "tableOffers", 4000);
 		//Miramos que estamos en la página de ofertas de la página
@@ -556,7 +559,7 @@ public class SdiEntrega2Tests {
 	// PR031.Inicio de sesión con datos inválidos (email existente, pero contraseña incorrecta)
 	@Test
 	public void PR31() {
-		PO_LoginView.login(driver, "pepe@email.com", "123",URLApi);
+		PO_LoginView.loginRest(driver, "pepe@email.com", "123");
 		//Miramos que sale el error
 		SeleniumUtils.EsperaCargaPagina(driver, "text", "Las", 5000);
 		SeleniumUtils.textoPresentePagina(driver, "Las credenciales introducidas no son correctas");
@@ -566,7 +569,7 @@ public class SdiEntrega2Tests {
 	// PR032. Inicio de sesión con datos válidos (campo email o contraseña vacíos).
 	@Test
 	public void PR32() {
-		PO_LoginView.login(driver, "", "123456",URLApi);
+		PO_LoginView.loginRest(driver, "", "123456");
 		//Miramos que sale el error
 		SeleniumUtils.EsperaCargaPagina(driver, "text", "No", 5000);
 		SeleniumUtils.textoPresentePagina(driver, "No puede haber campos vacios");
@@ -577,7 +580,7 @@ public class SdiEntrega2Tests {
 	//existen, menos las del usuario identificado
 	@Test
 	public void PR33() {
-		PO_LoginView.login(driver, "alberto@email.com", "123456",URLApi);
+		PO_LoginView.loginRest(driver, "alberto@email.com", "123456");
 		//Miramos que estan las ofertas deseadas
 		SeleniumUtils.EsperaCargaPagina(driver, "text", "Título", 300);
 		List<WebElement> elementos;

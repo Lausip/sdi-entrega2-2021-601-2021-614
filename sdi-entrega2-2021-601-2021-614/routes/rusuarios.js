@@ -64,7 +64,7 @@ module.exports = function (app, swig, gestorBD) {
     /**
      * Muestra la página de identificación.
      */
-    app.get("/login", function(req, res) {
+    app.get("/login", function (req, res) {
         let respuesta = swig.renderFile('views/bidentificacion.html', {});
         app.get('logger').info('Identificarse: se va a mostrar la página de identificación.');
         res.send(respuesta);
@@ -74,14 +74,14 @@ module.exports = function (app, swig, gestorBD) {
      * Permite el inicio de sesión del usuario si todo va bien,
      * si no, muestra el error.
      */
-    app.post("/login", function(req, res) {
+    app.post("/login", function (req, res) {
         let seguro = app.get("crypto").createHmac('sha256', app.get('clave'))
             .update(req.body.password).digest('hex');
         let criterio = {
-            email : req.body.email,
-            password : seguro
+            email: req.body.email,
+            password: seguro
         }
-        gestorBD.obtenerUsuarios(criterio, function(usuarios) {
+        gestorBD.obtenerUsuarios(criterio, function (usuarios) {
             if (usuarios == null || usuarios.length == 0) {
                 req.session.usuario = null;
                 app.get("logger").error('Error al identificar al usuario');
@@ -98,7 +98,7 @@ module.exports = function (app, swig, gestorBD) {
     /**
      * Cierra la sesión del usuario y lo redirige a la vista de identifiación.
      */
-    app.get("/logout", function(req, res) {
+    app.get("/logout", function (req, res) {
         req.session.usuario = null;
         app.get('logger').info('Cerrar sesión: se va a cerrar sesión y mostrar la página de identificación.');
         res.redirect("/login");
@@ -108,7 +108,7 @@ module.exports = function (app, swig, gestorBD) {
      * Home privado del usuario.
      */
     app.get("/home", function (req, res) {
-        let criterio = {"destacada" : true};
+        let criterio = {"destacada": true};
         //let criterio = {};
         gestorBD.obtenerOfertas(criterio, function (ofertas) {
             if (ofertas == null) {
@@ -143,35 +143,35 @@ module.exports = function (app, swig, gestorBD) {
      * No se muestra los usuarios admin
      */
     app.get("/user/list", function (req, res) {
-        let usuario = req.session.usuario;
+        console.log(req.session.usuario);
         var criterio = {
             rol: "estandar",
         };
-        let pg = parseInt(req.query.pg); // Es String !!!
-        if ( req.query.pg == null){ // Puede no venir el param
+        let pg = parseInt(req.query.pg);
+        if (req.query.pg == null) {
             pg = 1;
         }
-        gestorBD.obtenerUsuariosPg(criterio,pg, function (usuarios,total) {
+        gestorBD.obtenerUsuariosPg(criterio, pg, function (usuarios, total) {
             if (usuarios == null) {
-                app.get('logger').info('Listado de usuarios: error en el listado');
-            }
-            else {
-                let ultimaPg = total/5;
-                if (total % 5 > 0 ){ // Sobran decimales
-                    ultimaPg = ultimaPg+1;
+                app.get('logger').info(req.session.usuario.email + ':ha realizado un listado de usuarios: error en el listado');
+            } else {
+                let ultimaPg = total / 5;
+                if (total % 5 > 0) { // Sobran decimales
+                    ultimaPg = ultimaPg + 1;
                 }
                 let paginas = []; // paginas mostrar
-                for(let i = pg-2 ; i <= pg+2 ; i++){
-                    if ( i > 0 && i <= ultimaPg){
+                for (let i = pg - 2; i <= pg + 2; i++) {
+                    if (i > 0 && i <= ultimaPg) {
                         paginas.push(i);
                     }
                 }
                 let respuesta = swig.renderFile('views/user/list.html', {
                     usuarioList: usuarios,
-                    paginas:paginas,
-                    actual:pg
+                    paginas: paginas,
+                    actual: pg,
+                    usuario:req.session.usuario
                 });
-                app.get('logger').info('Listado de usuarios: se va a mostrar el listado de usuarios');
+                app.get('logger').info(req.session.usuario.email + ' ha realizado un listado de usuarios: se va a mostrar el listado de usuarios');
                 res.send(respuesta);
             }
         });
@@ -193,47 +193,21 @@ module.exports = function (app, swig, gestorBD) {
         };
         gestorBD.eliminarUsuario(criterio, function (usuarios) {
             if (usuarios == null) {
-                app.get('logger').error('Eliminar usuarios: no se han podido eliminar');
+                app.get('logger').error(req.session.usuario.email + ':Eliminar usuarios: no se han podido eliminar');
             } else {
                 let criterio = {
-                    vendedor: {$in: ids}
+                    autor: {$in: ids}
                 };
                 gestorBD.eliminarOferta(criterio, function (ofertas) {
                     if (ofertas == null) {
-                        app.get('logger').error("Fallo al eliminar ofertas creadas por los usuarios borrados");
+                        app.get('logger').error(req.session.usuario.email + "Fallo al eliminar ofertas creadas por los usuarios borrados");
                         //Redireccionar
                     } else {
-                        var criterio = {
-                            rol: "estandar",
-                        };
-                        let pg = parseInt(req.query.pg); // Es String !!!
-                        if (req.query.pg == null) { // Puede no venir el param
-                            pg = 1;
-                        }
-                        gestorBD.obtenerUsuariosPg(criterio, pg, function (usuarios, total) {
-                            if (usuarios == null) {
-                                app.get('logger').info('Listado de usuarios: error en el listado');
-                            } else {
-                                let ultimaPg = total / 5;
-                                if (total % 5 > 0) { // Sobran decimales
-                                    ultimaPg = ultimaPg + 1;
-                                }
-                                let paginas = []; // paginas mostrar
-                                for (let i = pg - 2; i <= pg + 2; i++) {
-                                    if (i > 0 && i <= ultimaPg) {
-                                        paginas.push(i);
-                                    }
-                                }
-                                let respuesta = swig.renderFile('views/user/list.html', {
-                                    usuarioList: usuarios,
-                                    paginas: paginas,
-                                    actual: pg
-                                });
-                                app.get('logger').info('Eliminar usuarios: exito en la eliminación de usuario/s');
-                                res.redirect("/user/list" + "?mensaje=Exito en el borrado de usuario/s" +
-                                    "&tipoMensaje=alert-success ");
-                            }
-                        });
+
+                        app.get('logger').info(req.session.usuario.email + 'Eliminar usuarios: exito en la eliminación de usuario/s');
+                        res.redirect("/user/list" + "?mensaje=Exito en el borrado de usuario/s" +
+                            "&tipoMensaje=alert-success ");
+
                     }
 
                 });

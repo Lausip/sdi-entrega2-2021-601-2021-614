@@ -5,7 +5,9 @@ module.exports = function (app, swig, gestorBD) {
      */
     app.get('/offer/add', function (req, res) {
         app.get("logger").info('Acceso a la vista de agregar oferta.');
-        let respuesta = swig.renderFile('views/offer/add.html', { });
+        let respuesta = swig.renderFile('views/offer/add.html', {
+            usuario:req.session.usuario
+        });
         res.send(respuesta);
     });
 
@@ -35,7 +37,8 @@ module.exports = function (app, swig, gestorBD) {
                 autor: req.session.usuario.email,
                 fecha: req.body.fecha,
                 destacada: req.body.destacada,
-                comprada: false
+                comprada: false,
+                usuario:req.session.usuario
             }
             gestorBD.insertarOferta(oferta, function (id) {
                 if (id == null) {

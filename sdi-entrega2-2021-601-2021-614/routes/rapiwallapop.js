@@ -49,7 +49,7 @@ module.exports = function(app,swig, gestorBD) {
             autor: {$ne: res.usuario}
         };
         gestorBD.obtenerOfertas(criterio, function (ofertas) {
-            if (ofertas == null || ofertas.length === 0) {
+            if (ofertas == null || ofertas.length == 0) {
                 app.get("logger").error(" API:Error a la hora de listas las ofertas ");
                 res.status(500);
                 res.json({
