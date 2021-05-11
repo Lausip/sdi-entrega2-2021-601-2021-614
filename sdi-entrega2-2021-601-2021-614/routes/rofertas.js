@@ -26,7 +26,7 @@ module.exports = function (app, swig, gestorBD) {
                     app.get("logger").error('Error de listado de ofertas');
 
                 } else {
-
+                console.log(total);
                     var ultimaPg = total / 5;
                     if (total % 5 > 0) { // Sobran decimales
                         ultimaPg = ultimaPg + 1;
