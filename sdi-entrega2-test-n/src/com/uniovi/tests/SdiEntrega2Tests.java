@@ -28,13 +28,13 @@ public class SdiEntrega2Tests {
 	static MongoClient mongoClient;
 	static MongoDatabase database;
 
-	// Parámetros de Laura
-//	static String PathFirefox65 = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
-//	static String Geckdriver024 = "C:\\Users\\laura\\Escritorio\\Uni\\3-Uni\\2Semestre\\SDI\\LAB\\Sesion05\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
-
-	// Parámetros de Rut
+	// Parï¿½metros de Laura
 	static String PathFirefox65 = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
-	static String Geckdriver024 = "C:\\Users\\rualg\\OneDrive\\Escritorio\\SDI\\Práctica5\\PL-SDI-Sesión5-material\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
+	static String Geckdriver024 = "C:\\Users\\laura\\Escritorio\\Uni\\3-Uni\\2Semestre\\SDI\\LAB\\Sesion05\\PL-SDI-Sesiï¿½n5-material\\geckodriver024win64.exe";
+
+	// Parï¿½metros de Rut
+	//static String PathFirefox65 = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
+	//static String Geckdriver024 = "C:\\Users\\rualg\\OneDrive\\Escritorio\\SDI\\Prï¿½ctica5\\PL-SDI-Sesiï¿½n5-material\\PL-SDI-Sesiï¿½n5-material\\geckodriver024win64.exe";
 
 	static WebDriver driver = getDriver(PathFirefox65, Geckdriver024);
 	static String URL = "https://localhost:8081/";
@@ -58,35 +58,35 @@ public class SdiEntrega2Tests {
 	}
 
 	/**
-	 * Metodo que añade los datos a las deiferetnes tablas de la base de datos
+	 * Metodo que aï¿½ade los datos a las deiferetnes tablas de la base de datos
 	 */
 	public static void insertData() {
-		// Añadimos los usuarios
+		// Aï¿½adimos los usuarios
 		MongoCollection<Document> col = database.getCollection("usuarios");
 		col.insertOne(new Document().append("email", "admin@email.com").append("nombre", "Admin")
-				.append("apellido", "de la Aplicación").append("dinero", 3000).append("rol", "admin")
+				.append("apellido", "de la Aplicaciï¿½n").append("dinero", 3000).append("rol", "admin")
 				.append("password", "6fabd6ea6f1518592b7348d84a51ce97b87e67902aa5a9f86beea34cd39a6b4a"));
 		col.insertOne(new Document().append("email", "pepe@email.com").append("nombre", "Pepe")
-				.append("apellido", "Álvarez Pérez").append("dinero", 100.0).append("rol", "estandar")
+				.append("apellido", "ï¿½lvarez Pï¿½rez").append("dinero", 100.0).append("rol", "estandar")
 				.append("password", "6fabd6ea6f1518592b7348d84a51ce97b87e67902aa5a9f86beea34cd39a6b4a"));
 		col.insertOne(new Document().append("email", "juana@email.com").append("nombre", "Juana")
-				.append("apellido", "Álvarez Fernández").append("dinero", 20.0).append("rol", "estandar")
+				.append("apellido", "ï¿½lvarez Fernï¿½ndez").append("dinero", 20.0).append("rol", "estandar")
 				.append("password", "6fabd6ea6f1518592b7348d84a51ce97b87e67902aa5a9f86beea34cd39a6b4a"));
 		col.insertOne(new Document().append("email", "alberto@email.com").append("nombre", "Alberto")
-				.append("apellido", "Rodríguez Álvarez").append("dinero", 0.0).append("rol", "estandar")
+				.append("apellido", "Rodrï¿½guez ï¿½lvarez").append("dinero", 0.0).append("rol", "estandar")
 				.append("password", "6fabd6ea6f1518592b7348d84a51ce97b87e67902aa5a9f86beea34cd39a6b4a"));
 		col.insertOne(new Document().append("email", "susana@email.com").append("nombre", "Susana")
-				.append("apellido", "González Almonte").append("dinero", 80.0).append("rol", "estandar")
+				.append("apellido", "Gonzï¿½lez Almonte").append("dinero", 80.0).append("rol", "estandar")
 				.append("password", "6fabd6ea6f1518592b7348d84a51ce97b87e67902aa5a9f86beea34cd39a6b4a"));
 		col.insertOne(new Document().append("email", "fernando@email.com").append("nombre", "Fernando Manuel")
-				.append("apellido", "García del Monte").append("dinero", 10.0).append("rol", "estandar")
+				.append("apellido", "Garcï¿½a del Monte").append("dinero", 10.0).append("rol", "estandar")
 				.append("password", "6fabd6ea6f1518592b7348d84a51ce97b87e67902aa5a9f86beea34cd39a6b4a"));
 		col = database.getCollection("ofertas");
 		// Ofertas de Pepe
 		col.insertOne(new Document().append("titulo", "Juguete").append("detalle", "Juguete infantil")
 				.append("precio", 10.0).append("autor", "pepe@email.com").append("fecha", new Date())
 				.append("comprador", "").append("destacada", false));
-		col.insertOne(new Document().append("titulo", "Patinete").append("detalle", "Patinete eléctrico")
+		col.insertOne(new Document().append("titulo", "Patinete").append("detalle", "Patinete elï¿½ctrico")
 				.append("precio", 280.0).append("autor", "pepe@email.com").append("fecha", new Date())
 				.append("comprador", "juana@email.com").append("destacada", false));
 		col.insertOne(new Document().append("titulo", "Rotuladores").append("detalle", "Rotuladores de colores")
@@ -100,7 +100,7 @@ public class SdiEntrega2Tests {
 		col.insertOne(new Document().append("titulo", "Saco").append("detalle", "Saco de dormir").append("precio", 11.0)
 				.append("autor", "juana@email.com").append("fecha", new Date()).append("comprador", "susana@email.com")
 				.append("destacada", false));
-		col.insertOne(new Document().append("titulo", "Balón").append("detalle", "Balón de baloncesto")
+		col.insertOne(new Document().append("titulo", "Balï¿½n").append("detalle", "Balï¿½n de baloncesto")
 				.append("precio", 10.0).append("autor", "juana@email.com").append("fecha", new Date())
 				.append("comprador", "susana@email.com").append("destacada", false));
 
@@ -111,11 +111,11 @@ public class SdiEntrega2Tests {
 		col.insertOne(new Document().append("titulo", "Vestido").append("detalle", "Vestido azul")
 				.append("precio", 20.0).append("autor", "alberto@email.com").append("fecha", new Date())
 				.append("comprador", "").append("destacada", false));
-		col.insertOne(new Document().append("titulo", "Tienda").append("detalle", "Tienda de campaña")
+		col.insertOne(new Document().append("titulo", "Tienda").append("detalle", "Tienda de campaï¿½a")
 				.append("precio", 80.0).append("autor", "alberto@email.com").append("fecha", new Date())
 				.append("comprador", "").append("destacada", false));
 		// Ofertas Susana
-		col.insertOne(new Document().append("titulo", "Caja").append("detalle", "Caja de cartón azul")
+		col.insertOne(new Document().append("titulo", "Caja").append("detalle", "Caja de cartï¿½n azul")
 				.append("precio", 5.0).append("autor", "susana@email.com").append("fecha", new Date())
 				.append("comprador", "fernando@email.com").append("destacada", false));
 		col.insertOne(new Document().append("titulo", "Bicicleta").append("detalle", "Bicicleta infantil")
@@ -166,7 +166,7 @@ public class SdiEntrega2Tests {
 	@BeforeClass
 	static public void begin() {
 		// Configuramos las pruebas.
-		// Fijamos el timeout en cada opción de carga de una vista. 2 segundos.
+		// Fijamos el timeout en cada opciï¿½n de carga de una vista. 2 segundos.
 		PO_View.setTimeout(3);
 
 	}
@@ -179,20 +179,20 @@ public class SdiEntrega2Tests {
 
 	// ***** TESTS ******
 
-	// PR01.Registro de Usuario con datos válidos
+	// PR01.Registro de Usuario con datos vï¿½lidos
 	@Test
 	public void PR01() {
 		// Vamos al formulario de registro
 		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
 		// Rellenamos el formulario.
-		PO_RegisterView.fillForm(driver, "laura@mail.com", "Laura", "Vigil", "123456", "123456");
-		PO_View.checkElement(driver, "text", "Bienvenido a la aplicación");
+		PO_RegisterView.fillForm(driver, "laura@email.com", "Laura", "Vigil", "123456", "123456");
+		PO_View.checkElement(driver, "text", "Bienvenido a la aplicaciï¿½n");
 		// Finalmente, nos desconectamos.
 		PO_PrivateView.logout(driver);
 	}
 
-	// PR02.Registro de Usuario con datos inválidos (email, nombre y apellidos
-	// vacíos)
+	// PR02.Registro de Usuario con datos invï¿½lidos (email, nombre y apellidos
+	// vacï¿½os)
 	@Test
 	public void PR02() {
 		// Vamos al formulario de registro
@@ -211,90 +211,90 @@ public class SdiEntrega2Tests {
 		PO_View.checkElement(driver, "text", "Es necesario completar todos los campos");
 	}
 
-	// PR03.Registro de Usuario con datos inválidos (repetición de contraseña
-	// inválida).
+	// PR03.Registro de Usuario con datos invï¿½lidos (repeticiï¿½n de contraseï¿½a
+	// invï¿½lida).
 	@Test
 	public void PR03() {
 		// Vamos al formulario de registro
 		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
 		// Rellenamos el formulario.
 		PO_RegisterView.fillForm(driver, "laura@email.com", "Laura", "Vigil Laruelo", "123456", "1234");
-		PO_View.checkElement(driver, "text", "Las contraseñas deben ser iguales");
+		PO_View.checkElement(driver, "text", "Las contraseï¿½as deben ser iguales");
 	}
 
-	// PR04. Registro de Usuario con datos inválidos (email existente).
+	// PR04. Registro de Usuario con datos invï¿½lidos (email existente).
 	@Test
 	public void PR04() {
 		// Vamos al formulario de registro
 		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
 		// Rellenamos el formulario.
 		PO_RegisterView.fillForm(driver, "pepe@email.com", "Pepe", "Alvarez Gutierrez", "123456", "123456");
-		PO_View.checkElement(driver, "text", "El email ya está registrado");
+		PO_View.checkElement(driver, "text", "El email ya estï¿½ registrado");
 	}
 
 
-	// PR05. Inicio de sesión con datos válidos.
+	// PR05. Inicio de sesiï¿½n con datos vï¿½lidos.
 	@Test
 	public void PR05() {
-		// Vamos al formulario de login e iniciamos sesión
+		// Vamos al formulario de login e iniciamos sesiï¿½n
 		PO_PrivateView.login(driver, "alberto@email.com", "123456");
-		// Comprobamos que se ha iniciado correctamente y se muestra la página principal.
+		// Comprobamos que se ha iniciado correctamente y se muestra la pï¿½gina principal.
 		SeleniumUtils.textoPresentePagina(driver, "alberto@email.com");
-		SeleniumUtils.textoPresentePagina(driver, "Bienvenido a la aplicación");
+		SeleniumUtils.textoPresentePagina(driver, "Bienvenido a la aplicaciï¿½n");
 	}
 
-	// PR06. Inicio de sesión con datos inválidos (email existente, pero contraseña incorrecta).
+	// PR06. Inicio de sesiï¿½n con datos invï¿½lidos (email existente, pero contraseï¿½a incorrecta).
 	@Test
 	public void PR06() {
-		// Vamos al formulario de login e iniciamos sesión
+		// Vamos al formulario de login e iniciamos sesiï¿½n
 		PO_LoginView.fillForm(driver, "alberto@email.com", "111111");
 		// Comprobamos que se muestra el mensaje de error.
 		SeleniumUtils.textoPresentePagina(driver, "Email o password incorrecto");
 	}
 
-	// PR07. Inicio de sesión con datos inválidos (campo email o contraseña vacíos).
+	// PR07. Inicio de sesiï¿½n con datos invï¿½lidos (campo email o contraseï¿½a vacï¿½os).
 	@Test
 	public void PR07() {
-		// Vamos al formulario de login e iniciamos sesión
+		// Vamos al formulario de login e iniciamos sesiï¿½n
 		PO_LoginView.fillForm(driver, "", "123456");
 		// Comprobamos que se muestra el mensaje de error.
-		SeleniumUtils.textoPresentePagina(driver, "Ningún campo puede estar vacío.");
-		// Vamos al formulario de login e iniciamos sesión
+		SeleniumUtils.textoPresentePagina(driver, "Ningï¿½n campo puede estar vacï¿½o.");
+		// Vamos al formulario de login e iniciamos sesiï¿½n
 		PO_LoginView.fillForm(driver, "alberto@email.com", "");
 		// Comprobamos que se muestra el mensaje de error.
-		SeleniumUtils.textoPresentePagina(driver, "Ningún campo puede estar vacío.");
+		SeleniumUtils.textoPresentePagina(driver, "Ningï¿½n campo puede estar vacï¿½o.");
 	}
 
-	// PR08. Inicio de sesión con datos inválidos (email no existente en la aplicación).
+	// PR08. Inicio de sesiï¿½n con datos invï¿½lidos (email no existente en la aplicaciï¿½n).
 	@Test
 	public void PR08() {
-		// Vamos al formulario de login e iniciamos sesión
+		// Vamos al formulario de login e iniciamos sesiï¿½n
 		PO_LoginView.fillForm(driver, "alb@email.com", "123456");
 		// Comprobamos que se muestra el mensaje de error.
 		SeleniumUtils.textoPresentePagina(driver, "Email o password incorrecto");
 	}
 
-	// PR09. Hacer click en la opción de salir de sesión y comprobar que se redirige a la página de
-	// inicio de sesión (Login).
+	// PR09. Hacer click en la opciï¿½n de salir de sesiï¿½n y comprobar que se redirige a la pï¿½gina de
+	// inicio de sesiï¿½n (Login).
 	@Test
 	public void PR09() {
-		// Iniciamos sesión con un usuario válido.
+		// Iniciamos sesiï¿½n con un usuario vï¿½lido.
 		PO_PrivateView.login(driver, "pepe@email.com", "123456");
-		// Cerramos sesión.
+		// Cerramos sesiï¿½n.
 		PO_PrivateView.logout(driver);
-		// Comprobamos que se ha cerrado sesión correctamente.
-		SeleniumUtils.textoPresentePagina(driver, "Identificación");
+		// Comprobamos que se ha cerrado sesiï¿½n correctamente.
+		SeleniumUtils.textoPresentePagina(driver, "Identificaciï¿½n");
 	}
 
-	// PR10. Comprobar que el botón cerrar sesión no está visible si el usuario no está autenticado.
+	// PR10. Comprobar que el botï¿½n cerrar sesiï¿½n no estï¿½ visible si el usuario no estï¿½ autenticado.
 	@Test
 	public void PR10() {
-		// Iniciamos sesión con un usuario válido.
+		// Iniciamos sesiï¿½n con un usuario vï¿½lido.
 		PO_PrivateView.login(driver, "pepe@email.com", "123456");
-		// Cerramos sesión.
+		// Cerramos sesiï¿½n.
 		PO_PrivateView.logout(driver);
-		// Comprobamos que ya no se muestra el texto de cerrar sesión.
-		SeleniumUtils.textoNoPresentePagina(driver, "Cierra sesión");
+		// Comprobamos que ya no se muestra el texto de cerrar sesiï¿½n.
+		SeleniumUtils.textoNoPresentePagina(driver, "Cierra sesiï¿½n");
 	}
 
 	// PR11. Mostrar el listado de usuarios y comprobar que se muestran todos los
@@ -321,21 +321,21 @@ public class SdiEntrega2Tests {
 		PO_PrivateView.userList(driver, "admin@email.com", "123456");
 		// Seleccionamos el checkbox del primero los usuarios de la lista.
 		// Viendo que se cargar los primeros 5
-		List<WebElement> elementos = PO_View.checkElement(driver, "text", "García del Monte");
+		List<WebElement> elementos = PO_View.checkElement(driver, "text", "Garcï¿½a del Monte");
 		elementos = driver.findElements(By.name("deleteUsersCheckbox"));
 		elementos.get(0).click();
-		// Hacemos click en el botón de Eliminar.
+		// Hacemos click en el botï¿½n de Eliminar.
 		WebElement button = driver.findElement(By.id("deleteButton"));
 		button.click();
-		// Esperamos a que vuelva a cargar la página.
-		elementos = PO_View.checkElement(driver, "text", "García del Monte");
-		// Comprobamos que el usuario ya no está en la lista.
+		// Esperamos a que vuelva a cargar la pï¿½gina.
+		elementos = PO_View.checkElement(driver, "text", "Garcï¿½a del Monte");
+		// Comprobamos que el usuario ya no estï¿½ en la lista.
 		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "pepe@email.com", PO_View.getTimeout());
 		// Finalmente, nos desconectamos.
 		PO_PrivateView.logout(driver);
 	}
 
-	// PR13. Ir a la lista de usuarios, borrar el último usuario de la lista,
+	// PR13. Ir a la lista de usuarios, borrar el ï¿½ltimo usuario de la lista,
 	// comprobar que la lista se
 	// actualiza y dicho usuario desaparece.
 	@Test
@@ -344,15 +344,15 @@ public class SdiEntrega2Tests {
 		PO_PrivateView.userList(driver, "admin@email.com", "123456");
 		// Seleccionamos el checkbox del primero los usuarios de la lista.
 		// Viendo que se cargar los primeros 5
-		List<WebElement> elementos = PO_View.checkElement(driver, "text", "García del Monte");
+		List<WebElement> elementos = PO_View.checkElement(driver, "text", "Garcï¿½a del Monte");
 		elementos = driver.findElements(By.name("deleteUsersCheckbox"));
 		elementos.get(elementos.size() - 1).click();
-		// Hacemos click en el botón de Eliminar.
+		// Hacemos click en el botï¿½n de Eliminar.
 		WebElement button = driver.findElement(By.id("deleteButton"));
 		button.click();
-		// Esperamos a que vuelva a cargar la página.
-		elementos = PO_View.checkElement(driver, "text", "González Almonte");
-		// Comprobamos que el usuario ya no está en la lista.
+		// Esperamos a que vuelva a cargar la pï¿½gina.
+		elementos = PO_View.checkElement(driver, "text", "Gonzï¿½lez Almonte");
+		// Comprobamos que el usuario ya no estï¿½ en la lista.
 		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "fernando@email.com", PO_View.getTimeout());
 		// Finalmente, nos desconectamos.
 		PO_PrivateView.logout(driver);
@@ -366,21 +366,21 @@ public class SdiEntrega2Tests {
 		// Vamos a la vista de la lista de usuarios como admin
 		PO_PrivateView.userList(driver, "admin@email.com", "123456");
 		// Seleccionamos el checkbox del primero los usuarios de la lista.
-		// Esperamos a que se muestre hasta el último usuario.
-		List<WebElement> elementos = PO_View.checkElement(driver, "text", "García del Monte");
+		// Esperamos a que se muestre hasta el ï¿½ltimo usuario.
+		List<WebElement> elementos = PO_View.checkElement(driver, "text", "Garcï¿½a del Monte");
 		elementos = driver.findElements(By.name("deleteUsersCheckbox"));
 		elementos.get(1).click();
 		elementos.get(2).click();
 		elementos.get(3).click();
 
-		// Hacemos click en el botón de Eliminar.
+		// Hacemos click en el botï¿½n de Eliminar.
 		WebElement button = driver.findElement(By.id("deleteButton"));
 		button.click();
 
-		// Esperamos a que vuelva a cargar la página.
-		elementos = PO_View.checkElement(driver, "text", "García del Monte");
+		// Esperamos a que vuelva a cargar la pï¿½gina.
+		elementos = PO_View.checkElement(driver, "text", "Garcï¿½a del Monte");
 
-		// Comprobamos que los usuarios ya no está en la lista.
+		// Comprobamos que los usuarios ya no estï¿½ en la lista.
 		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "juana@email.com", PO_View.getTimeout());
 		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "alberto@email.com", PO_View.getTimeout());
 		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "susana@email.com", PO_View.getTimeout());
@@ -389,13 +389,13 @@ public class SdiEntrega2Tests {
 		PO_PrivateView.logout(driver);
 	}
 
-	// PR15. Ir al formulario de alta de oferta, rellenarla con datos válidos y pulsar el botón Submit.
+	// PR15. Ir al formulario de alta de oferta, rellenarla con datos vï¿½lidos y pulsar el botï¿½n Submit.
 	// Comprobar que la oferta sale en el listado de ofertas de dicho usuario.
 	@Test
 	public void PR15() {
-		// Iniciamos sesión.
+		// Iniciamos sesiï¿½n.
 		PO_PrivateView.login(driver, "alberto@email.com", "123456");
-		// Vamos a la opción del menú de agregar oferta.
+		// Vamos a la opciï¿½n del menï¿½ de agregar oferta.
 		PO_NavView.clickDropdownMenuOption(driver, "offers-dropdown", "offers-menu", "offer/add");
 		// Rellenamos los campos y agregamos la nueva oferta.
 		PO_AddOfferView.fillForm(driver, "Hola", "Hola esto es una prueba", "15.0",false);
@@ -403,42 +403,42 @@ public class SdiEntrega2Tests {
 		PO_HomeView.checkElement(driver, "text", "Hola");
 	}
 
-	// PR16. Ir al formulario de alta de oferta, rellenarla con datos inválidos (campo título vacío y
-	// precio en negativo) y pulsar el botón Submit. Comprobar que se muestra el mensaje de campo
+	// PR16. Ir al formulario de alta de oferta, rellenarla con datos invï¿½lidos (campo tï¿½tulo vacï¿½o y
+	// precio en negativo) y pulsar el botï¿½n Submit. Comprobar que se muestra el mensaje de campo
 	// obligatorio.
 	@Test
 	public void PR16() {
-		// Iniciamos sesión.
+		// Iniciamos sesiï¿½n.
 		PO_PrivateView.login(driver, "alberto@email.com", "123456");
-		// Vamos a la opción del menú de agregar oferta.
+		// Vamos a la opciï¿½n del menï¿½ de agregar oferta.
 		PO_NavView.clickDropdownMenuOption(driver, "offers-dropdown", "offers-menu", "offer/add");
 		// Rellenamos el los campos e intentamos agregar la oferta.
 		PO_AddOfferView.fillForm(driver, "", "Hola esto es una prueba", "15.0", false);
 		// Comprobamos que se muestra el mensaje de error correspondiente.
-		SeleniumUtils.textoPresentePagina(driver, "Error al agregar la oferta: ningún campo puede estar vacío.");
+		SeleniumUtils.textoPresentePagina(driver, "Error al agregar la oferta: ningï¿½n campo puede estar vacï¿½o.");
 		// Rellenamos el los campos e intentamos agregar la oferta.
 		PO_AddOfferView.fillForm(driver, "Hola", "", "15.0", false);
 		// Comprobamos que se muestra el mensaje de error correspondiente.
-		SeleniumUtils.textoPresentePagina(driver, "Error al agregar la oferta: ningún campo puede estar vacío.");
+		SeleniumUtils.textoPresentePagina(driver, "Error al agregar la oferta: ningï¿½n campo puede estar vacï¿½o.");
 		// Rellenamos el los campos e intentamos agregar la oferta.
 		PO_AddOfferView.fillForm(driver, "Hola", "Hola esto es una prueba", "", false);
 		// Comprobamos que se muestra el mensaje de error correspondiente.
-		SeleniumUtils.textoPresentePagina(driver, "Error al agregar la oferta: ningún campo puede estar vacío.");
+		SeleniumUtils.textoPresentePagina(driver, "Error al agregar la oferta: ningï¿½n campo puede estar vacï¿½o.");
 		// Rellenamos el los campos e intentamos agregar la oferta.
 		PO_AddOfferView.fillForm(driver, "Hola", "Hola esto es una prueba", "-15.0", false);
 		// Comprobamos que se muestra el mensaje de error correspondiente.
-		SeleniumUtils.textoPresentePagina(driver, "Error al agregar la oferta: el precio debe ser un número positivo.");
+		SeleniumUtils.textoPresentePagina(driver, "Error al agregar la oferta: el precio debe ser un nï¿½mero positivo.");
 	}
 
 	// PR017. Mostrar el listado de ofertas para dicho usuario y comprobar que se muestran todas las
 	// que existen para este usuario.
 	@Test
 	public void PR17() {
-		// Iniciamos sesión.
+		// Iniciamos sesiï¿½n.
 		PO_PrivateView.login(driver, "alberto@email.com", "123456");
-		// Vamos a la opción del menú de ver ofertas del usuario.
+		// Vamos a la opciï¿½n del menï¿½ de ver ofertas del usuario.
 		PO_NavView.clickDropdownMenuOption(driver, "offers-dropdown", "offers-menu", "offer/myList");
-		// Esperamos a que se cargue la página.
+		// Esperamos a que se cargue la pï¿½gina.
 		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
 		// Comprobamos que hay tres elementos.
 		assertTrue(elementos.size() == 3);
@@ -448,34 +448,34 @@ public class SdiEntrega2Tests {
 	// actualiza y que la oferta desaparece.
 	@Test
 	public void PR18() {
-		// Iniciamos sesión como el usuario pepe.
+		// Iniciamos sesiï¿½n como el usuario pepe.
 		PO_PrivateView.login(driver, "pepe@email.com", "123456");
 		// Accedemos a la vista de mis ofertas.
 		PO_NavView.clickDropdownMenuOption(driver, "offers-dropdown", "offers-menu", "offer/myList");
 		// Esperamos a que aparezca el Juguete y pinchamos en su enlace de borrado.
 		List<WebElement> elementos = PO_View.checkElement(driver, "id", "btnEliminarMyList");
 		elementos.get(0).click();
-		// Comprobamos que la oferta ya no está en la lista.
+		// Comprobamos que la oferta ya no estï¿½ en la lista.
 		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "Juguete", PO_View.getTimeout());
 	}
 
-	// PR19. Ir a la lista de ofertas, borrar la última oferta de la lista, comprobar que la lista se actualiza
+	// PR19. Ir a la lista de ofertas, borrar la ï¿½ltima oferta de la lista, comprobar que la lista se actualiza
 	// y que la oferta desaparece.
 	@Test
 	public void PR19() {
-		// Iniciamos sesión como el usuario pepe.
+		// Iniciamos sesiï¿½n como el usuario pepe.
 		PO_PrivateView.login(driver, "pepe@email.com", "123456");
 		// Accedemos a la vista de mis ofertas.
 		PO_NavView.clickDropdownMenuOption(driver, "offers-dropdown", "offers-menu", "offer/myList");
 		// Esperamos a que aparezca los Rotuladores y pinchamos en su enlace de borrado.
 		List<WebElement> elementos = PO_View.checkElement(driver, "id", "btnEliminarMyList");
 		elementos.get(elementos.size() - 1).click();
-		// Comprobamos que la oferta ya no está en la lista.
+		// Comprobamos que la oferta ya no estï¿½ en la lista.
 		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "Rotuladores", PO_View.getTimeout());
 	}
 
-	// P20. Hacer una búsqueda con el campo vacío y comprobar que se muestra la
-	// página que
+	// P20. Hacer una bï¿½squeda con el campo vacï¿½o y comprobar que se muestra la
+	// pï¿½gina que
 	// corresponde con el listado de las ofertas existentes en el sistema
 	@Test
 	public void PR20() {
@@ -492,9 +492,9 @@ public class SdiEntrega2Tests {
 		assertTrue(elementos.size() == 2);
 	}
 
-	// PR21. Hacer una búsqueda escribiendo en el campo un texto que no exista y
+	// PR21. Hacer una bï¿½squeda escribiendo en el campo un texto que no exista y
 	// comprobar que se
-	// muestra la página que corresponde, con la lista de ofertas vacía.
+	// muestra la pï¿½gina que corresponde, con la lista de ofertas vacï¿½a.
 	@Test
 	public void PR21() {
 		PO_PrivateView.offerList(driver, "alberto@email.com", "123456");
@@ -502,18 +502,18 @@ public class SdiEntrega2Tests {
 		assertTrue(driver.findElements(By.xpath("//table[@id='tableOffers']/tbody/tr")).size() == 0);
 	}
 
-	// PR22. Hacer una búsqueda escribiendo en el campo un texto en minúscula o
-	// mayúscula y
-	// comprobar que se muestra la página que corresponde, con la lista de ofertas
+	// PR22. Hacer una bï¿½squeda escribiendo en el campo un texto en minï¿½scula o
+	// mayï¿½scula y
+	// comprobar que se muestra la pï¿½gina que corresponde, con la lista de ofertas
 	// que contengan
-	// dicho texto, independientemente que el título esté almacenado en minúsculas o
-	// mayúscula
+	// dicho texto, independientemente que el tï¿½tulo estï¿½ almacenado en minï¿½sculas o
+	// mayï¿½scula
 	@Test
 	public void PR22() {
 		PO_PrivateView.offerList(driver, "alberto@email.com", "123456");
 		PO_PrivateView.searchOffer(driver, "VES");
 		assertTrue(driver.findElements(By.xpath("//table[@id='tableOffers']/tbody/tr")).size() == 1);
-		// Comprobamos que la oferta ahora está en la lista de ofertas compradas.
+		// Comprobamos que la oferta ahora estï¿½ en la lista de ofertas compradas.
 		SeleniumUtils.textoPresentePagina(driver, "Vestido");
 		SeleniumUtils.textoPresentePagina(driver, "Vestido azul");
 		SeleniumUtils.textoPresentePagina(driver, "20");
@@ -521,7 +521,7 @@ public class SdiEntrega2Tests {
 		PO_PrivateView.logout(driver);
 	}
 
-	// PR23.Sobre una búsqueda determinada (a elección de desarrollador), comprar
+	// PR23.Sobre una bï¿½squeda determinada (a elecciï¿½n de desarrollador), comprar
 	// una oferta que deja un saldo positivo en el contador del comprobador. Y
 	// comprobar que el
 	// contador se actualiza correctamente en la vista del comprador.
@@ -534,10 +534,10 @@ public class SdiEntrega2Tests {
 		List<WebElement> elementos = PO_View.checkElement(driver, "free",
 				"//td[contains(text(), 'Vestido')]/following-sibling::*/a[contains(@href, 'offer/buy')]");
 		elementos.get(0).click();
-		// Vamos a la lista de compras para ver que está comprada
+		// Vamos a la lista de compras para ver que estï¿½ comprada
 
 		PO_NavView.clickDropdownMenuOption(driver, "offers-dropdown", "offers-menu", "offer/buyed");
-		// Comprobamos que la oferta ahora está en la lista de ofertas compradas.
+		// Comprobamos que la oferta ahora estï¿½ en la lista de ofertas compradas.
 		SeleniumUtils.textoPresentePagina(driver, "Vestido");
 		SeleniumUtils.textoPresentePagina(driver, "Vestido azul");
 		SeleniumUtils.textoPresentePagina(driver, "susana@email.com");
@@ -548,14 +548,14 @@ public class SdiEntrega2Tests {
 		PO_PrivateView.logout(driver);
 	}
 
-	// PR24. Sobre una búsqueda determinada (a elección de desarrollador), comprar
+	// PR24. Sobre una bï¿½squeda determinada (a elecciï¿½n de desarrollador), comprar
 	// una oferta que
 	// deja un saldo 0 en el contador del comprobador. Y comprobar que el contador
 	// se actualiza
 	// correctamente en la vista del comprador.
 	@Test
 	public void PR24() {
-		// Vamos a la página de ofertas
+		// Vamos a la pï¿½gina de ofertas
 		PO_PrivateView.offerList(driver, "juana@email.com", "123456");
 		// Buscamos el texto "vest" en el buscador.
 		PO_PrivateView.searchOffer(driver, "VES");
@@ -563,10 +563,10 @@ public class SdiEntrega2Tests {
 		List<WebElement> elementos = PO_View.checkElement(driver, "free",
 				"//td[contains(text(), 'Vestido')]/following-sibling::*/a[contains(@href, 'offer/buy')]");
 		elementos.get(0).click();
-		// Vamos a la lista de compras para ver que está comprada
+		// Vamos a la lista de compras para ver que estï¿½ comprada
 
 		PO_NavView.clickDropdownMenuOption(driver, "offers-dropdown", "offers-menu", "offer/buyed");
-		// Comprobamos que la oferta ahora está en la lista de ofertas compradas.
+		// Comprobamos que la oferta ahora estï¿½ en la lista de ofertas compradas.
 		SeleniumUtils.textoPresentePagina(driver, "Vestido");
 		SeleniumUtils.textoPresentePagina(driver, "Vestido azul");
 		SeleniumUtils.textoPresentePagina(driver, "juana@email.com");
@@ -574,12 +574,12 @@ public class SdiEntrega2Tests {
 		SeleniumUtils.textoPresentePagina(driver, "0");
 	}
 
-	// PR25. Sobre una búsqueda determinada (a elección de desarrollador), intentar comprar una
-	// oferta que esté por encima de saldo disponible del comprador. Y comprobar que se muestra el
+	// PR25. Sobre una bï¿½squeda determinada (a elecciï¿½n de desarrollador), intentar comprar una
+	// oferta que estï¿½ por encima de saldo disponible del comprador. Y comprobar que se muestra el
 	// mensaje de saldo no suficiente.
 	@Test
 	public void PR25() {
-		// Vamos a la página de ofertas
+		// Vamos a la pï¿½gina de ofertas
 		PO_PrivateView.offerList(driver, "alberto@email.com", "123456");
 		// Buscamos el texto "vest" en el buscador.
 		PO_PrivateView.searchOffer(driver, "VES");
@@ -591,13 +591,13 @@ public class SdiEntrega2Tests {
 		SeleniumUtils.textoPresentePagina(driver, "Saldo insuficiente");
 	}
 
-	// PR26. Ir a la opción de ofertas compradas del usuario y mostrar la lista.
+	// PR26. Ir a la opciï¿½n de ofertas compradas del usuario y mostrar la lista.
 	// Comprobar que aparecen las ofertas que deben aparecer.
 	@Test
 	public void PR26() {
-		// Vamos a la página de ofertas compradas
+		// Vamos a la pï¿½gina de ofertas compradas
 		PO_PrivateView.offerListBought(driver, "pepe@email.com", "123456");
-		// Comprobamos que las ofertas compradas están en la lista.
+		// Comprobamos que las ofertas compradas estï¿½n en la lista.
 		SeleniumUtils.textoPresentePagina(driver, "Pato");
 		SeleniumUtils.textoPresentePagina(driver, "Pato de goma");
 		SeleniumUtils.textoPresentePagina(driver, "alberto@email.com");
@@ -608,16 +608,16 @@ public class SdiEntrega2Tests {
 		PO_PrivateView.logout(driver);
 	}
 
-	// PR27. Al crear una oferta marcar dicha oferta como destacada y a continuación comprobar: i)
+	// PR27. Al crear una oferta marcar dicha oferta como destacada y a continuaciï¿½n comprobar: i)
 	// que aparece en el listado de ofertas destacadas para los usuarios y que el saldo del usuario se
 	// actualiza adecuadamente en la vista del ofertante (-20).
 	@Test
 	public void PR27() {
-		// Iniciamos sesión.
+		// Iniciamos sesiï¿½n.
 		PO_PrivateView.login(driver, "pepe@email.com", "123456");
 		// Obtenemos el dinero que tiene en este momento el usuario.
 		String money = driver.findElement(By.id("dinero")).getText();
-		// Vamos a la opción del menú de agregar oferta.
+		// Vamos a la opciï¿½n del menï¿½ de agregar oferta.
 		PO_NavView.clickDropdownMenuOption(driver, "offers-dropdown", "offers-menu", "offer/add");
 		// Rellenamos el los campos e intentamos agregar la oferta.
 		PO_AddOfferView.fillForm(driver, "Hola", "Hola esto es una prueba", "15.0", true);
@@ -628,23 +628,23 @@ public class SdiEntrega2Tests {
 		String newmoney = driver.findElement(By.id("dinero")).getText();
 		// Comprobamos que el dinero que tiene actualmente el usuario es el anterior menos 20.
 		assertEquals(Double.parseDouble(money) - 20, Double.parseDouble(newmoney), 0.1);
-		// Comprobamos que la oferta en cuestión se muestra en la lista de destacadas.
+		// Comprobamos que la oferta en cuestiï¿½n se muestra en la lista de destacadas.
 		PO_HomeView.checkElement(driver, "text", "Hola");
 	}
 
-	// PR028. Sobre el listado de ofertas de un usuario con más de 20 euros de saldo, pinchar en el
-	// enlace Destacada y a continuación comprobar: i) que aparece en el listado de ofertas destacadas
+	// PR028. Sobre el listado de ofertas de un usuario con mï¿½s de 20 euros de saldo, pinchar en el
+	// enlace Destacada y a continuaciï¿½n comprobar: i) que aparece en el listado de ofertas destacadas
 	// para los usuarios y que el saldo del usuario se actualiza adecuadamente en la vista del ofertante (-
 	// 20).
 	@Test
 	public void PR28() {
-		// Iniciamos sesión.
+		// Iniciamos sesiï¿½n.
 		PO_PrivateView.login(driver, "pepe@email.com", "123456");
 		// Obtenemos el dinero que tiene en este momento el usuario.
 		String money = driver.findElement(By.id("dinero")).getText();
-		// Vamos a la opción del menú de lista de ofertas del usuario.
+		// Vamos a la opciï¿½n del menï¿½ de lista de ofertas del usuario.
 		PO_NavView.clickDropdownMenuOption(driver, "offers-dropdown", "offers-menu", "offer/myList");
-		// Se hace click en el botón de destacar.
+		// Se hace click en el botï¿½n de destacar.
 		List<WebElement> elements = driver.findElements(By.id("btnNormal"));
 		elements.get(0).click();
 		// Vamos a la vista /home.
@@ -654,38 +654,38 @@ public class SdiEntrega2Tests {
 		String newmoney = driver.findElement(By.id("dinero")).getText();
 		// Comprobamos que el dinero que tiene actualmente el usuario es el anterior menos 20.
 		assertEquals(Double.parseDouble(money) - 20, Double.parseDouble(newmoney), 0.1);
-		// Comprobamos que la oferta en cuestión se muestra en la lista de destacadas.
+		// Comprobamos que la oferta en cuestiï¿½n se muestra en la lista de destacadas.
 		PO_HomeView.checkElement(driver, "text", "Juguete");
 	}
 	
 	// PR029. Sobre el listado de ofertas de un usuario con menos de 20 euros de saldo, pinchar en el
-	// enlace Destacada y a continuación comprobar que se muestra el mensaje de saldo no suficiente.
+	// enlace Destacada y a continuaciï¿½n comprobar que se muestra el mensaje de saldo no suficiente.
 	@Test
 	public void PR29() {
-		// Iniciamos sesión.
+		// Iniciamos sesiï¿½n.
 		PO_PrivateView.login(driver, "alberto@email.com", "123456");
-		// Vamos a la opción del menú de lista de ofertas del usuario.
+		// Vamos a la opciï¿½n del menï¿½ de lista de ofertas del usuario.
 		PO_NavView.clickDropdownMenuOption(driver, "offers-dropdown", "offers-menu", "offer/myList");
-		// Se hace click en el botón de destacar.
+		// Se hace click en el botï¿½n de destacar.
 		List<WebElement> elements = driver.findElements(By.id("btnNormal"));
 		elements.get(0).click();
 		// Comprobamos que sale un mensaje de saldo insuficiente.
 		SeleniumUtils.textoPresentePagina(driver, "Error: no dispone del suficiente saldo.");
 	}
 
-	// PR030.Inicio de sesión con datos válidos
+	// PR030.Inicio de sesiï¿½n con datos vï¿½lidos
 	@Test
 	public void PR30() {
 		// Vamos al formulario para loguearnos
 		// Rellenamos el formulario
 		PO_LoginView.loginRest(driver, "pepe@email.com", "123456");
-		//Espremos que cargue la página
+		//Espremos que cargue la pï¿½gina
 		SeleniumUtils.EsperaCargaPagina(driver, "id", "tableOffers", 4000);
-		//Miramos que estamos en la página de ofertas de la página
-		SeleniumUtils.textoPresentePagina(driver, "Ofertas disponibles en la aplicación");
+		//Miramos que estamos en la pï¿½gina de ofertas de la pï¿½gina
+		SeleniumUtils.textoPresentePagina(driver, "Ofertas disponibles en la aplicaciï¿½n");
 	}
 
-	// PR031.Inicio de sesión con datos inválidos (email existente, pero contraseña incorrecta)
+	// PR031.Inicio de sesiï¿½n con datos invï¿½lidos (email existente, pero contraseï¿½a incorrecta)
 	@Test
 	public void PR31() {
 		PO_LoginView.loginRest(driver, "pepe@email.com", "123");
@@ -694,7 +694,7 @@ public class SdiEntrega2Tests {
 		SeleniumUtils.textoPresentePagina(driver, "Las credenciales introducidas no son correctas");
 	}
 
-	// PR032. Inicio de sesión con datos válidos (campo email o contraseña vacíos).
+	// PR032. Inicio de sesiï¿½n con datos vï¿½lidos (campo email o contraseï¿½a vacï¿½os).
 	@Test
 	public void PR32() {
 		PO_LoginView.loginRest(driver, "", "123456");
@@ -709,7 +709,7 @@ public class SdiEntrega2Tests {
 	public void PR33() {
 		PO_LoginView.loginRest(driver, "alberto@email.com", "123456");
 		//Miramos que estan las ofertas deseadas
-		SeleniumUtils.EsperaCargaPagina(driver, "text", "Título", 300);
+		SeleniumUtils.EsperaCargaPagina(driver, "text", "Tï¿½tulo", 300);
 		List<WebElement> elementos;
 		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
 		assertTrue(elementos.size() == 12);
@@ -719,15 +719,15 @@ public class SdiEntrega2Tests {
 		SeleniumUtils.textoNoPresentePagina(driver, "Vestido");
 	}
 
-	// PR034. Sobre una búsqueda determinada de ofertas (a elección de desarrollador), enviar un
-	// mensaje a una oferta concreta. Se abriría dicha conversación por primera vez. Comprobar que el
+	// PR034. Sobre una bï¿½squeda determinada de ofertas (a elecciï¿½n de desarrollador), enviar un
+	// mensaje a una oferta concreta. Se abrirï¿½a dicha conversaciï¿½n por primera vez. Comprobar que el
 	// mensaje aparece en el listado de mensajes.
 	@Test
 	public void PR34() {
 		assertTrue("PR34 sin hacer", false);
 	}
 	
-	// PR035. Sobre el listado de conversaciones enviar un mensaje a una conversación ya abierta.
+	// PR035. Sobre el listado de conversaciones enviar un mensaje a una conversaciï¿½n ya abierta.
 	// Comprobar que el mensaje aparece en el listado de mensajes.
 	@Test
 	public void PR35() {
@@ -748,7 +748,7 @@ public class SdiEntrega2Tests {
 		assertTrue("PR37 sin hacer", false);
 	}
 	
-	// PR038. Sobre el listado de conversaciones ya abiertas. Pinchar el enlace Eliminar de la última y
+	// PR038. Sobre el listado de conversaciones ya abiertas. Pinchar el enlace Eliminar de la ï¿½ltima y
 	// comprobar que el listado se actualiza correctamente.
 	@Test
 	public void PR38() {

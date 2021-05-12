@@ -36,9 +36,9 @@ module.exports = function (app, swig, gestorBD) {
                 precio: req.body.precio,
                 autor: req.session.usuario.email,
                 fecha: req.body.fecha,
-                destacada: req.body.destacada,
+                destacada: req.body.destacada!=undefined,
                 comprada: false,
-                usuario:req.session.usuario
+                comprador:""
             }
             gestorBD.insertarOferta(oferta, function (id) {
                 if (id == null) {
@@ -80,7 +80,8 @@ module.exports = function (app, swig, gestorBD) {
             } else {
                 let respuesta = swig.renderFile('views/offer/myList.html',
                     {
-                        ofertas : ofertas
+                        ofertas : ofertas,
+                        usuario: req.session.usuario
                     });
                 app.get("logger").info('Las ofrtas del usuario han sido listadas correctamente.');
                 res.send(respuesta);

@@ -24,13 +24,10 @@
             <td>{{ oferta.detalle }}</td>
             <td>{{ oferta.precio }}</td>
             <td>
-                {%if !oferta.comprada && oferta.autor != usuario.email %}
+                {%if usuario != undefined && oferta.comprador == "" && oferta.autor != usuario.email && usuario.rol =="estandar" %}
                 <a href="/offer/buy/{{ oferta._id.toString() }}">Comprar</a> <br>
                 {%endif%}
-                {%if !oferta.comprada && oferta.autor == usuario.email %}
-                <p>No vendida</p>
-                {%endif%}
-                {%if oferta.comprada %}
+                {%if oferta.comprador!="" %}
                 <p style="color: #ff0000">Vendida</p>
                 {%endif%}
             </td>
