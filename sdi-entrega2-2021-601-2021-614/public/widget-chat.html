@@ -1,5 +1,5 @@
 <div class="table-responsive" id="widget-chat">
-    <h2 id="cabeceraChat"></h2>
+    <h2 type="text" id="cabeceraChat"></h2>
     <table class="table table-hover" id="tablaChat">
         <thead class="table-dark">
         <tr>
@@ -10,10 +10,8 @@
         <tbody id="tablaCuerpo">
         </tbody>
     </table>
-    <form>
         <input type="text" id="textoMensaje"/>
         <button id="enviarMensaje" onclick="enviarMensaje()">Enviar</button>
-    </form>
 </div>
 
 
@@ -57,7 +55,7 @@
             type: "GET",
             data: {},
             dataType: 'json',
-            headers: {"token": token},
+            headers: {"token": token, "email": email},
             success: function (respuesta) {
                 mensajes = respuesta;
                 actualizarChat(mensajes);
@@ -71,17 +69,27 @@
     function actualizarChat(mensajesMostrar) {
         $("#tablaCuerpo").empty(); // Vaciar la tabla
         for (i = 0; i < mensajesMostrar.length; i++) {
-            $("#tablaCuerpo").append(
-                "<tr>"
-                + "<td>"
-                + "<p>"
-                + mensajesMostrar[i].texto
-                + "</p><p>"
-                + mensajesMostrar[i].fecha.toString()
-                + "</p>" +
-                "</td>" +
-                "</tr>"
-            );
+            let contenido =
+                "<td>" +
+                "<p>" + mensajesMostrar[i].texto + "</p>" +
+                "<p>" + mensajesMostrar[i].fecha.toString() + "</p>" +
+                "</td>";
+            let celdaVacia = "<td></td>";
+            if (mensajesMostrar[i].emisor === email) {
+                $("#tablaCuerpo").append(
+                    "<tr>" +
+                    celdaVacia +
+                    contenido +
+                    "</tr>"
+                );
+            } else {
+                $("#tablaCuerpo").append(
+                    "<tr>" +
+                    contenido +
+                    celdaVacia +
+                    "</tr>"
+                );
+            }
         }
     }
 
@@ -96,6 +104,7 @@
             dataType: 'json',
             headers: {"token": token},
             success: function (respuesta) {
+                $("#textoMensaje").val('');
                 cargarChat();
                 //idChatSeleccionado = respuesta.id;
                 //$("#contenedor-principal").load("widget-chat.html");

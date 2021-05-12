@@ -138,7 +138,7 @@ module.exports = function(app,swig, gestorBD) {
                     error: "Se ha producido un error"
                 });
             } else {
-                let criterio_mensajes = {"chatId": chatId};
+                let criterio_mensajes = {"chat": chatId};
                 gestorBD.obtenerMensajes(criterio_mensajes, function (mensajes) {
                     if (mensajes == null) {
                         app.get("logger").info("API: error a la hora de obtener los mensajes.");
@@ -182,15 +182,13 @@ module.exports = function(app,swig, gestorBD) {
             }
         });
 
-        let fecha = new Date();
-
         let mensaje = {
             "chat": chatId,
             "oferta": req.body.ofertaId,
             "emisor": emisor,
             "receptor": receptor,
             "texto": req.body.texto,
-            "fecha": fecha,
+            "fecha": fechaHoraActuales(),
             "leido": false
         }
 
@@ -259,7 +257,7 @@ module.exports = function(app,swig, gestorBD) {
      * Metodo que elimina el chat cuyo ID se pasa
      * como parámetro y sus mensajes asociados.
      */
-    app.get("/api/offer/chat/list/delete/:id", function (req, res) {
+    app.delete("/api/offer/chat/:id", function (req, res) {
         let chatId = gestorBD.mongo.ObjectID(req.params.id);
         let criterio_chat = { $and: [
                 {"_id": chatId},
@@ -305,5 +303,13 @@ module.exports = function(app,swig, gestorBD) {
             }
         });
     });
+
+    function fechaHoraActuales() {
+        let hoy = new Date();
+        let fecha = hoy.getDate() + "-" + (hoy.getMonth() + 1) + "-" + hoy.getFullYear();
+        let hora = hoy.getHours() + ":" + hoy.getMinutes();
+        let fechaHora = fecha + " " + hora;
+        return fechaHora;
+    }
 
 }

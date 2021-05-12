@@ -3,9 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="4ecf0e4a-6dc5-44ad-bd67-6efa5f842caa" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/routes/rofertas.js" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/routes/rofertas.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/views/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/views/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/views/offer/myList.html" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/views/offer/myList.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/public/widget-chat.html" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/public/widget-chat.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/public/widget-chats.html" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/public/widget-chats.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/routes/rapiwallapop.js" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/routes/rapiwallapop.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +26,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="UO264451_branch" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -305,7 +305,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620800725835</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Introducidas mejoras e ids.">
+      <created>1620815301913</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1620815301913</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -336,7 +343,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="W1-Regsitro_V1.0" />
     <MESSAGE value="W1-Registro_V1.1" />
     <MESSAGE value="W4-Listado _de_usuarios_V1.0" />
     <MESSAGE value="W5-Borrado_múltiple_de_usuarios_V1.0" />
@@ -361,47 +367,7 @@
     <MESSAGE value="Nuevos tests?" />
     <MESSAGE value="Nuevos tests??" />
     <MESSAGE value="W5, W6 - Chats: listar y eliminar (v0)" />
-    <option name="LAST_COMMIT_MESSAGE" value="W5, W6 - Chats: listar y eliminar (v0)" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/routes/rapiwallapop.js</url>
-          <line>163</line>
-          <option name="timeStamp" value="55" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/routes/rapiwallapop.js</url>
-          <line>170</line>
-          <option name="timeStamp" value="56" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/routes/rapiwallapop.js</url>
-          <line>177</line>
-          <option name="timeStamp" value="57" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/routes/rapiwallapop.js</url>
-          <line>179</line>
-          <option name="timeStamp" value="58" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/routes/rapiwallapop.js</url>
-          <line>184</line>
-          <option name="timeStamp" value="59" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/routes/rapiwallapop.js</url>
-          <line>198</line>
-          <option name="timeStamp" value="60" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/routes/rapiwallapop.js</url>
-          <line>204</line>
-          <option name="timeStamp" value="61" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Introducidas mejoras e ids." />
+    <option name="LAST_COMMIT_MESSAGE" value="Introducidas mejoras e ids." />
   </component>
 </project>
