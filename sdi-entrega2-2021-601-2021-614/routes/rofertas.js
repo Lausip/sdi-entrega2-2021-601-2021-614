@@ -80,7 +80,8 @@ module.exports = function (app, swig, gestorBD) {
             } else {
                 let respuesta = swig.renderFile('views/offer/myList.html',
                     {
-                        ofertas : ofertas
+                        ofertas : ofertas,
+                        usuario: req.session.usuario
                     });
                 app.get("logger").info('Las ofrtas del usuario han sido listadas correctamente.');
                 res.send(respuesta);

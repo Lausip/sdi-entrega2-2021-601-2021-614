@@ -168,5 +168,5 @@ https.createServer({
 });
 
 app.get('/', function (req, res) {
-    res.redirect('/login');
+    res.redirect('/home');
 });

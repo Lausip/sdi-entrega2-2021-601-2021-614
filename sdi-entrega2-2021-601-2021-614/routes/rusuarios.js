@@ -78,7 +78,7 @@ module.exports = function (app, swig, gestorBD) {
         if (req.body.email === undefined || req.body.email === ''
             || req.body.password === undefined || req.body.password === '') {
             app.get("logger").info('Error al identificarse: ningún dato puede estar vacío.');
-            res.redirect("/offer/add?mensaje=Ningún campo puede estar vacío.&tipoMensaje=alert-danger");
+            res.redirect("/login?mensaje=Ningún campo puede estar vacío.&tipoMensaje=alert-danger");
         } else {
             let seguro = app.get("crypto").createHmac('sha256', app.get('clave'))
                 .update(req.body.password).digest('hex');
