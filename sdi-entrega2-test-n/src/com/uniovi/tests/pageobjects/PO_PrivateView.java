@@ -63,7 +63,7 @@ public class PO_PrivateView extends PO_NavView{
 		PO_NavView.clickDropdownMenuOption(driver, "offers-dropdown", "offers-menu", "offer/buyed");
 		
 	}
-public static void searchOffer(WebDriver driver, String searchtext) {
+	public static void searchOffer(WebDriver driver, String searchtext) {
 		
 		// Pinchamos en el buscador y escribimos el texto correspondiente.
 		WebElement searchOffer = driver.findElement(By.name("busqueda"));
@@ -74,6 +74,18 @@ public static void searchOffer(WebDriver driver, String searchtext) {
 		// Pinchamos el botón de buscar
 		WebElement searchOfferButton = driver.findElement(By.name("searchOfferButton"));
 		searchOfferButton.click();
+	}
+	
+	public static void enviarMensaje(WebDriver driver, String mensaje) {
+		// Pinchamos en el input del mensaje y escribimos el texto correspondiente.
+		WebElement inputMensaje = driver.findElement(By.name("textoMensaje"));
+		inputMensaje.click();
+		inputMensaje.clear();
+		inputMensaje.sendKeys(mensaje);
+		
+		// Pinchamos el botÃ³n de enviar
+		WebElement btnEnviarMensaje = driver.findElement(By.name("enviarMensaje"));
+		btnEnviarMensaje.click();
 	}
 	
 }

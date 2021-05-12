@@ -724,7 +724,21 @@ public class SdiEntrega2Tests {
 	// mensaje aparece en el listado de mensajes.
 	@Test
 	public void PR34() {
-		assertTrue("PR34 sin hacer", false);
+        // Iniciamos sesión.
+        PO_LoginView.loginRest(driver, "pepe@email.com", "123456");
+        // Esperamos a que se cargue la página.
+        List<WebElement> elements = SeleniumUtils.EsperaCargaPagina(driver, "text", "Boli", PO_View.getTimeout());
+        // Hacemos click en el botón de contactar de la primera oferta.
+        elements = driver.findElements(By.id("btnContactar"));
+        elements.get(0).click();
+
+        // Enviamos el mensaje.
+        PO_PrivateView.enviarMensaje(driver, "Hola, soy Pepe, estoy interesado en tu Raqueta");
+
+        // Esperamos a que cargue la página.
+        SeleniumUtils.EsperaCargaPagina(driver, "text", "Hola", 300);
+        // Comprobamos que se ha envado correctamente.
+        SeleniumUtils.textoPresentePagina(driver, "Hola, soy Pepe, estoy interesado en tu Raqueta");
 	}
 	
 	// PR035. Sobre el listado de conversaciones enviar un mensaje a una conversaci�n ya abierta.
