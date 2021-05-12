@@ -75,24 +75,30 @@ module.exports = function (app, swig, gestorBD) {
      * si no, muestra el error.
      */
     app.post("/login", function (req, res) {
-        let seguro = app.get("crypto").createHmac('sha256', app.get('clave'))
-            .update(req.body.password).digest('hex');
-        let criterio = {
-            email: req.body.email,
-            password: seguro
-        }
-        gestorBD.obtenerUsuarios(criterio, function (usuarios) {
-            if (usuarios == null || usuarios.length == 0) {
-                req.session.usuario = null;
-                app.get("logger").error('Error al identificar al usuario');
-                res.redirect("/login?mensaje=Email o password incorrecto&tipoMensaje=alert-danger");
-            } else {
-                req.session.usuario = usuarios[0];
-                delete req.session.usuario.password;
-                app.get("logger").info('Usuario identificado como ' + req.body.email);
-                res.redirect("/home");
+        if (req.body.email === undefined || req.body.email === ''
+            || req.body.password === undefined || req.body.password === '') {
+            app.get("logger").info('Error al identificarse: ningún dato puede estar vacío.');
+            res.redirect("/offer/add?mensaje=Ningún campo puede estar vacío.&tipoMensaje=alert-danger");
+        } else {
+            let seguro = app.get("crypto").createHmac('sha256', app.get('clave'))
+                .update(req.body.password).digest('hex');
+            let criterio = {
+                email: req.body.email,
+                password: seguro
             }
-        });
+            gestorBD.obtenerUsuarios(criterio, function (usuarios) {
+                if (usuarios == null || usuarios.length == 0) {
+                    req.session.usuario = null;
+                    app.get("logger").error('Error al identificar al usuario');
+                    res.redirect("/login?mensaje=Email o password incorrecto&tipoMensaje=alert-danger");
+                } else {
+                    req.session.usuario = usuarios[0];
+                    delete req.session.usuario.password;
+                    app.get("logger").info('Usuario identificado como ' + req.body.email);
+                    res.redirect("/home");
+                }
+            });
+        }
     });
 
     /**
