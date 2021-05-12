@@ -96,7 +96,7 @@
     <div class="text-right">
         <p>Usuario Autenticado como: {{usuario.email}}</p>
         {% if  usuario.rol== 'estandar' %}
-        <p id="balance">Dinero actual: {{usuario.dinero}} €</p>
+        <p id="balance">Dinero actual:<span id="dinero">{{usuario.dinero}}</span> €</p>
     </div>
     {% endif %}{% endif %}
     <!-- Contenido -->

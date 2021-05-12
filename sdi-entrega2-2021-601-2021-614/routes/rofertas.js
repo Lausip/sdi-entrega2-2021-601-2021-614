@@ -19,7 +19,7 @@ module.exports = function (app, swig, gestorBD) {
             || req.body.detalle === undefined || req.body.detalle === ''
             || req.body.precio === undefined || req.body.precio === '') {
             app.get("logger").info('Error al agregar oferta: ningún dato puede estar vacío.');
-            res.redirect("/offer/add?mensaje=Error al agregar la oferta: ningún dato puede estar vacío.&tipoMensaje=alert-danger");
+            res.redirect("/offer/add?mensaje=Error al agregar la oferta: ningún campo puede estar vacío.&tipoMensaje=alert-danger");
         } else if (req.body.titulo.length > 20) {
             app.get("logger").info('Error al agregar oferta: el título debe tener como máximo 20 caracteres.');
             res.redirect("/offer/add?mensaje=Error al agregar la oferta: el título debe tener como máximo 20 caracteres.&tipoMensaje=alert-danger");

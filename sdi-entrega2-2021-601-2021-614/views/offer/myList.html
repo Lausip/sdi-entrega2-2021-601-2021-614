@@ -31,15 +31,15 @@
             </td>
             <td>
                 {%if !oferta.comprada && oferta.destacada %}
-                <a href="/offer/normal/{{ oferta._id.toString() }}">Destacada</a>
+                <a href="/offer/normal/{{ oferta._id.toString() }}" id="btnDestacada">Destacada</a>
                 {%endif%}
                 {%if !oferta.comprada && !oferta.destacada %}
-                <a href="/offer/destacar/{{ oferta._id.toString() }}">Normal</a>
+                <a href="/offer/destacar/{{ oferta._id.toString() }}" id="btnNormal">Normal</a>
                 {%endif%}
             </td>
             <td>
                 {%if !oferta.comprada %}
-                <a href="/offer/delete/{{ oferta._id.toString() }}">Eliminar</a>
+                <a href="/offer/delete/{{ oferta._id.toString() }}" id="btnEliminarMyList">Eliminar</a>
                 {%endif%}
             </td>
 
