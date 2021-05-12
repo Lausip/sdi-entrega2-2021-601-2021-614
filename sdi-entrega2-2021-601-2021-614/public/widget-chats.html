@@ -1,0 +1,135 @@
+<div class="table-responsive" id="widget-chats">
+    <h2>Chats disponibles en la aplicación</h2>
+    <h3>Chats como vendedor</h3>
+    <table class="table table-hover"
+           id="tableChatsVendedor">
+        <thead>
+        <tr>
+            <th>Oferta</th>
+            <th>Interesado</th>
+            <th class="col-md-1"></th>
+            <th class="col-md-1"></th>
+        </tr>
+        </thead>
+        <tbody id="tablaCuerpoVendedor">
+        </tbody>
+    </table>
+    <h3>Chats como interesado</h3>
+    <table class="table table-hover"
+           id="tableChatsInteresado">
+        <thead>
+        <tr>
+            <th>Oferta</th>
+            <th>Vendedor</th>
+            <th class="col-md-1"></th>
+            <th class="col-md-1"></th>
+        </tr>
+        </thead>
+        <tbody id="tablaCuerpoInteresado">
+        </tbody>
+    </table>
+</div>
+
+<script>
+    window.history.pushState("", "", "/homeRest.html?w=chats");
+    var chatsComoVendedor;
+    var chatsComoInteresado;
+    cargarChatsVendedor();
+    cargarChatsInteresado();
+
+    function cargarChatsVendedor() {
+        $("#tablaCuerpo").html("");
+        $.ajax({
+            url: URLbase + "/offer/chat/list/vendedor",
+            type: "GET",
+            data: {},
+            dataType: 'json',
+            headers: {"token": token, "email": email},
+            success: function (respuesta) {
+                chatsComoVendedor = respuesta;
+                actualizarTablaChatsVendedor(chatsComoVendedor);
+            },
+            error: function (error) {
+                $("#contenedor-principal").load("widget-login.html");
+            }
+        });
+    }
+
+    function cargarChatsInteresado() {
+        $("#tablaCuerpo").html("");
+        $.ajax({
+            url: URLbase + "/offer/chat/list/interesado",
+            type: "GET",
+            data: {},
+            dataType: 'json',
+            headers: {"token": token, "email": email},
+            success: function (respuesta) {
+                chatsComoInteresado = respuesta;
+                actualizarTablaChatsInteresado(chatsComoInteresado);
+            },
+            error: function (error) {
+                $("#contenedor-principal").load("widget-login.html");
+            }
+        });
+    }
+
+    function actualizarTablaChatsVendedor(chatsMostrar) {
+        $("#tablaCuerpo").empty(); // Vaciar la tabla
+        for (i = 0; i < chatsMostrar.length; i++) {
+            $("#tablaCuerpo").append(
+                "<tr id=" + chatsMostrar[i]._id + ">" +
+                "<td>" + chatsMostrar[i].titulo + "</td>" +
+                "<td>" + chatsMostrar[i].interesado + "</td>" +
+                "<td>" +
+                "<a style=\"cursor: pointer;\" class='en-" + chatsMostrar[i]._id + "' onclick=eliminarChat('" + ofertasMostrar[i]._id + "')>Eliminar</a>" +
+                "</td>" +
+                "<td>" +
+                "<a style=\"cursor: pointer;\" class='en-" + chatsMostrar[i]._id + "' onclick=chat('" + ofertasMostrar[i]._id + "')>Ver</a>" +
+                "</td>" +
+                "</tr>"
+            )
+        }
+    }
+
+    function actualizarTablaChatsInteresado(chatsMostrar) {
+        $("#tablaCuerpo").empty(); // Vaciar la tabla
+        for (i = 0; i < chatsMostrar.length; i++) {
+            $("#tablaCuerpo").append(
+                "<tr id=" + chatsMostrar[i]._id + ">" +
+                "<td>" + chatsMostrar[i].titulo + "</td>" +
+                "<td>" + chatsMostrar[i].vendedor + "</td>" +
+                "<td>" +
+                "<a style=\"cursor: pointer;\" class='en-" + chatsMostrar[i].title + "' onclick=eliminarChat('" + chatsMostrar[i]._id + "')>Eliminar</a>" +
+                "</td>" +
+                "<td>" +
+                "<a style=\"cursor: pointer;\" class='en-" + chatsMostrar[i].title + "' onclick=chat('" + chatsMostrar[i]._id + "')>Ver</a>" +
+                "</td>" +
+                "</tr>"
+            )
+        }
+    }
+
+    function chat( _id ) {
+        idOfertaSeleccionada = null;
+        idChatSeleccionado = _id;
+        $( "#contenedor-principal" ).load( "widget-chat.html");
+    }
+
+    function eliminarChat( _id ) {
+        $.ajax({
+            url: URLbase + "/offer/chat/delete" + _id,
+            type: "GET",
+            data: {},
+            dataType: 'json',
+            headers: {"token": token, "email": email},
+            success: function (respuesta) {
+                cargarChatsVendedor();
+                cargarChatsInteresado();
+            },
+            error: function (error) {
+                $("#contenedor-principal").load("widget-login.html");
+            }
+        });
+    }
+
+</script>

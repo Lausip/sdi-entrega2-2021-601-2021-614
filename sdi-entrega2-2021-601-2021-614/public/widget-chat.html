@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Chat</title>
-</head>
-<body>
-<div class="table-responsive" id="widget-contactar">
+<div class="table-responsive" id="widget-chat">
     <h2 id="cabeceraChat"></h2>
     <table class="table table-hover" id="tablaChat">
         <thead class="table-dark">
@@ -23,16 +16,18 @@
     </form>
 </div>
 
-</body>
-</html>
 
 <script>
     window.history.pushState("", "", "/homeRest.html?w=chat");
     var mensajes;
     var chat;
 
-    crearObtenerChatPorOfertaUsuario();
-    cargarChat();
+    if (idChatSeleccionado == null) {
+        crearObtenerChatPorOfertaUsuario();
+    } else {
+        chat = idChatSeleccionado;
+        cargarChat();
+    }
 
     function crearObtenerChatPorOfertaUsuario() {
         $("#tablaCuerpo").html("");
@@ -58,7 +53,7 @@
     function cargarChat() {
         $("#tablaCuerpo").html("");
         $.ajax({
-            url: URLbase + "/offer/chat/load/" + chat._id,
+            url: URLbase + "/offer/chat/load/" + chat,
             type: "GET",
             data: {},
             dataType: 'json',
@@ -77,26 +72,26 @@
         $("#tablaCuerpo").empty(); // Vaciar la tabla
         for (i = 0; i < mensajesMostrar.length; i++) {
             $("#tablaCuerpo").append(
-                "<td>"
+                "<tr>"
+                + "<td>"
                 + "<p>"
                 + mensajesMostrar[i].texto
                 + "</p><p>"
                 + mensajesMostrar[i].fecha.toString()
                 + "</p>" +
-                "</td>"
+                "</td>" +
+                "</tr>"
             );
         }
     }
 
     function enviarMensaje() {
-        var mensaje = $("#textoMensaje").valueAsString;
         $.ajax({
-            url: URLbase + "/offer/chat/" + chat._id,
+            url: URLbase + "/offer/chat/" + chat,
             type: "POST",
             data: {
-                chat: chat,
                 ofertaId: idOfertaSeleccionada,
-                texto: mensaje
+                texto: $("#textoMensaje").val()
             },
             dataType: 'json',
             headers: {"token": token},

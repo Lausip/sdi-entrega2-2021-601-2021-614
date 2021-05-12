@@ -121,6 +121,9 @@ module.exports = function (app, swig, gestorBD) {
                                     if (nuevoSaldo == null) {
                                         app.get("logger").info('Error al realizar el pago.');
                                         res.redirect("/offer/myList?mensaje=Error al realizar el pago.&tipoMensaje=alert-danger");
+                                    } else if (nuevoSaldo < 0) {
+                                        app.get("logger").info('Error: el usuario no dispone del suficiente saldo.');
+                                        res.redirect("/offer/myList?mensaje=Error: no dispone del suficiente saldo.&tipoMensaje=alert-danger");
                                     } else {
                                         req.session.usuario.dinero = nuevoSaldo;
                                         app.get("logger").info("La oferta ha sido marcada como destacada con éxito.");

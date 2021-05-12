@@ -271,12 +271,35 @@ module.exports = {
             if (err) {
                 funcionCallback(null);
             } else {
-                let collection = db.collection('ofertas');
+                let collection = db.collection('chats');
                 collection.insertOne(chat, function(err, result) {
                     if (err) {
                         funcionCallback(null);
                     } else {
                         funcionCallback(result.ops[0]._id);
+                    }
+                    db.close();
+                });
+            }
+        });
+    },
+
+    /**
+     * Elimina el chat según el criterio pasado como parametro
+     * @param criterio
+     * @param funcionCallback
+     */
+    eliminarChat: function (criterio, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                let collection = db.collection('chats');
+                collection.remove(criterio, function (err, result) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(result);
                     }
                     db.close();
                 });
@@ -317,12 +340,35 @@ module.exports = {
             if (err) {
                 funcionCallback(null);
             } else {
-                let collection = db.collection('mensaje');
+                let collection = db.collection('mensajes');
                 collection.insertOne(mensaje, function(err, result) {
                     if (err) {
                         funcionCallback(null);
                     } else {
                         funcionCallback(result.ops[0]._id);
+                    }
+                    db.close();
+                });
+            }
+        });
+    },
+
+    /**
+     * Elimina un mensaje según el criterio pasado como parametro
+     * @param criterio
+     * @param funcionCallback
+     */
+    eliminarMensaje: function (criterio, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                let collection = db.collection('mensajes');
+                collection.remove(criterio, function (err, result) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(result);
                     }
                     db.close();
                 });
