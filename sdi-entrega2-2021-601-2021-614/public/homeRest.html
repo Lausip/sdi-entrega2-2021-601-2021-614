@@ -54,7 +54,7 @@
      * OConversaciones del usuario
      */
     function getConversaciones(){
-    //    $( "#contenedor-principal" ).load( "widget-chat?.html");
+        $( "#contenedor-principal" ).load( "widget-chats.html");
     }
 
 
@@ -68,9 +68,12 @@
         if (w === "ofertas") {
             $("#contenedor-principal").load("widget-offers.html");
         }
-          if ( w === "chats"){
+        if ( w === "chat"){
+            $( "#contenedor-principal" ).load("widget-chat.html");
+        }
+        if ( w === "chats"){
               $( "#contenedor-principal" ).load("widget-chats.html");
-         }
+        }
     }
 </script>
 

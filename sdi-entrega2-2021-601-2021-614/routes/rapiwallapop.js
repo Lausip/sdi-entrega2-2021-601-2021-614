@@ -110,13 +110,13 @@ module.exports = function(app,swig, gestorBD) {
                             } else {
                                 app.get("logger").info("API: chat creado correctamente.");
                                 res.status(200);
-                                res.send(JSON.stringify(chat));
+                                res.send(JSON.stringify(idNuevoChat));
                             }
                         });
                     } else {
                         app.get("logger").info("API: chat cargado correctamente.");
                         res.status(200);
-                        res.send(JSON.stringify(chats[0]));
+                        res.send(JSON.stringify(chats[0]._id));
                     }
                 });
             }
@@ -162,15 +162,25 @@ module.exports = function(app,swig, gestorBD) {
      */
     app.post("/api/offer/chat/:id", function (req, res) {
         let chatId = gestorBD.mongo.ObjectID(req.params.id);
-        let chat = req.body.chat;
         let emisor = res.usuario;
         let receptor = res.usuario;
 
-        if (chat.interesado === res.usuario) {
-            receptor = chat.vendedor;
-        } else {
-            emisor = chat.vendedor;
-        }
+        let criterio_chat = {"_id": chatId};
+        gestorBD.obtenerChats(criterio_chat, function (chats) {
+            if (chats == null || chats.length === 0) {
+                app.get("logger").info("API: error al obtener el chat seleccionado.");
+                res.status(500);
+                res.json({
+                    error: "Se ha producido un error"
+                });
+            } else {
+                if (chats[0].interesado === res.usuario) {
+                    receptor = chats[0].vendedor;
+                } else {
+                    emisor = chats[0].vendedor;
+                }
+            }
+        });
 
         let fecha = new Date();
 
@@ -195,6 +205,103 @@ module.exports = function(app,swig, gestorBD) {
                 app.get("logger").info("API: mensaje creado correctamente.");
                 res.status(200);
                 res.send(JSON.stringify(mensaje));
+            }
+        });
+    });
+
+    /**
+     * Metodo que lsita todos los chats que tiene
+     * iniciados el usuario como vendedor.
+     */
+    app.get("/api/offer/chat/list/vendedor", function (req, res) {
+        let criterio = {
+            vendedor: res.usuario
+        };
+        gestorBD.obtenerChats(criterio, function (chats) {
+            if (chats == null) {
+                app.get("logger").error(" API:Error a la hora de listar los chats como vendedor.");
+                res.status(500);
+                res.json({
+                    error: "API:Error a la hora de listar los chats como vendedor."
+                });
+            } else {
+                app.get("logger").info("API: usuario ha listado los chats como vendedor.");
+                res.status(200);
+                res.send(JSON.stringify(chats));
+            }
+        });
+    });
+
+    /**
+     * Metodo que lsita todos los chats que tiene
+     * iniciados el usuario como interesado.
+     */
+    app.get("/api/offer/chat/list/interesado", function (req, res) {
+        let criterio = {
+            interesado: res.usuario
+        };
+        gestorBD.obtenerChats(criterio, function (chats) {
+            if (chats == null) {
+                app.get("logger").error(" API:Error a la hora de listar los chats como interesado.");
+                res.status(500);
+                res.json({
+                    error: "API:Error a la hora de listar los chats como interesado."
+                });
+            } else {
+                app.get("logger").info("API: usuario ha listado los chats como interesado.");
+                res.status(200);
+                res.send(JSON.stringify(chats));
+            }
+        });
+    });
+
+    /**
+     * Metodo que elimina el chat cuyo ID se pasa
+     * como parámetro y sus mensajes asociados.
+     */
+    app.get("/api/offer/chat/list/delete/:id", function (req, res) {
+        let chatId = gestorBD.mongo.ObjectID(req.params.id);
+        let criterio_chat = { $and: [
+                {"_id": chatId},
+                {$or: [
+                    {"interesado": res.usuario},
+                    {"vendedor": res.usuario}
+                ]}
+            ]
+        };
+
+        gestorBD.obtenerChats(criterio_chat, function (chats) {
+            if (chats == null || chats.length === 0) {
+                app.get("logger").error("API:Error a la hora de obtener los chats seleccionados.");
+                res.status(500);
+                res.json({
+                    error: "API:Error a la hora de obtener los chats seleccionados."
+                });
+            } else {
+                let criterio_mensaje = {"chatId": chatId};
+                gestorBD.eliminarMensaje(criterio_mensaje, function (result) {
+                    if (result == null) {
+                        app.get("logger").error("API:Error a la hora de eliminar los mensajes seleccionados.");
+                        res.status(500);
+                        res.json({
+                            error: "API:Error a la hora de eliminar los mensajes seleccionados."
+                        });
+                    } else {
+                        gestorBD.eliminarChat(criterio_chat, function (reuslt) {
+                            if (result == null) {
+                                app.get("logger").error("API:Error a la hora de eliminar el chat seleccionado.");
+                                res.status(500);
+                                res.json({
+                                    error: "API:Error a la hora de eliminar el chat seleccionado."
+                                });
+                            } else {
+                                app.get("logger").info("API: usuario ha eliminado el chat seleccionado.");
+                                res.status(200);
+                                res.send(JSON.stringify(result));
+                            }
+                        });
+                    }
+                });
             }
         });
     });

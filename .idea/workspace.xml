@@ -2,15 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4ecf0e4a-6dc5-44ad-bd67-6efa5f842caa" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/public/widget-chats.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/modules/gestorBD.js" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/modules/gestorBD.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/public/homeRest.html" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/public/homeRest.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/public/widget-chat.html" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/public/widget-chat.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/public/widget-offers.html" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/public/widget-offers.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/routes/rapiwallapop.js" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/routes/rapiwallapop.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/routes/rofertas.js" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/routes/rofertas.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/views/bsignup.html" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/views/bsignup.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/views/offer/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/views/offer/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdi-entrega2-test-n/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-test-n/.classpath" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdi-entrega2-test-n/bin/com/uniovi/tests/SdiEntrega2Tests.class" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-test-n/bin/com/uniovi/tests/SdiEntrega2Tests.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdi-entrega2-test-n/bin/com/uniovi/tests/pageobjects/PO_RegisterView.class" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-test-n/bin/com/uniovi/tests/pageobjects/PO_RegisterView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdi-entrega2-test-n/src/com/uniovi/tests/SdiEntrega2Tests.java" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-test-n/src/com/uniovi/tests/SdiEntrega2Tests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdi-entrega2-test-n/src/com/uniovi/tests/pageobjects/PO_RegisterView.java" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-test-n/src/com/uniovi/tests/pageobjects/PO_RegisterView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -360,5 +359,53 @@
     <MESSAGE value="Nuevos tests?" />
     <MESSAGE value="Nuevos tests??" />
     <option name="LAST_COMMIT_MESSAGE" value="Nuevos tests??" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/routes/rapiwallapop.js</url>
+          <line>163</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="55" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/routes/rapiwallapop.js</url>
+          <line>170</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="56" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/routes/rapiwallapop.js</url>
+          <line>177</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="57" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/routes/rapiwallapop.js</url>
+          <line>179</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="58" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/routes/rapiwallapop.js</url>
+          <line>184</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="59" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/routes/rapiwallapop.js</url>
+          <line>198</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="60" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/routes/rapiwallapop.js</url>
+          <line>204</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="61" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
