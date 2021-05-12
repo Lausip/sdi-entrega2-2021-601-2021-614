@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4ecf0e4a-6dc5-44ad-bd67-6efa5f842caa" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/modules/gestorBD.js" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/modules/gestorBD.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/routes/rusuarios.js" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/routes/rusuarios.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/views/bhome.html" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/views/bhome.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdi-entrega2-test-n/bin/com/uniovi/tests/SdiEntrega2Tests.class" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-test-n/bin/com/uniovi/tests/SdiEntrega2Tests.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdi-entrega2-test-n/src/com/uniovi/tests/SdiEntrega2Tests.java" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-test-n/src/com/uniovi/tests/SdiEntrega2Tests.java" afterDir="false" />
-    </list>
+    <list default="true" id="4ecf0e4a-6dc5-44ad-bd67-6efa5f842caa" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
