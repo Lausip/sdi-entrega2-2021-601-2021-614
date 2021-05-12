@@ -36,10 +36,11 @@ app.use(expressSession({
     resave: true,
     saveUninitialized: true
 }))
-
+//Contraseña
 let crypto = require('crypto');
 let fileUpload = require('express-fileupload');
 app.use(fileUpload());
+//MONGO
 let mongo = require('mongodb');
 let swig = require('swig');
 
@@ -92,7 +93,6 @@ app.use("/signup", routerUsuarioNoSession);
 app.use("/login", routerUsuarioNoSession);
 
 //Roter de usuario de estandar
-
 var routerEstandar = express.Router();
 routerEstandar.use(function (req, res, next) {
     if (req.session.usuario.rol === 'estandar') {
@@ -107,7 +107,7 @@ routerEstandar.use(function (req, res, next) {
 //Aplicamos el router
 app.use("/offer/*", routerEstandar);
 //FALTA CHAT
-
+//Router para usuario con rol admin
 var routerAdmin = express.Router();
 routerAdmin.use(function (req, res, next) {
     if (req.session.usuario.rol === "admin") {
@@ -122,7 +122,7 @@ routerAdmin.use(function (req, res, next) {
 });
 //Aplicamos el router
 app.use("/user/*", routerAdmin);
-
+//Router para token de API
 var routerUsuarioToken = express.Router();
 routerUsuarioToken.use(function (req, res, next) {
 
@@ -166,7 +166,7 @@ https.createServer({
 }, app).listen(app.get('port'), function () {
     console.log("Servidor activo");
 });
-
+//Pagina principal
 app.get('/', function (req, res) {
     res.redirect('/home');
 });
