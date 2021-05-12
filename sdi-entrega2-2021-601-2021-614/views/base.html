@@ -97,8 +97,9 @@
         <p>Usuario Autenticado como: {{usuario.email}}</p>
         {% if  usuario.rol== 'estandar' %}
         <p id="balance">Dinero actual: {{usuario.dinero}} €</p>
+        {% endif %}
     </div>
-    {% endif %}{% endif %}
+    {% endif %}
     <!-- Contenido -->
     {% block contenido_principal %}
     <!-- Posible contenido por defecto -->
