@@ -294,7 +294,7 @@ module.exports = {
             if (err) {
                 funcionCallback(null);
             } else {
-                let collection = db.collection('chats');
+                let collection = db.collection('chat');
                 collection.remove(criterio, function (err, result) {
                     if (err) {
                         funcionCallback(null);

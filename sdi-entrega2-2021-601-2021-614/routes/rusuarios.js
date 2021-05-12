@@ -130,16 +130,6 @@ module.exports = function (app, swig, gestorBD) {
                 res.send(respuesta);
             }
         });
-
-
-        /*
-        var respuesta = swig.renderFile('views/bhome.html',
-            {
-                usuario: req.session.usuario
-            });
-        res.send(respuesta);
-        */
-        //res.redirect("/offer/destacadas");
     });
 
 
@@ -160,6 +150,8 @@ module.exports = function (app, swig, gestorBD) {
         gestorBD.obtenerUsuariosPg(criterio, pg, function (usuarios, total) {
             if (usuarios == null) {
                 app.get('logger').info(req.session.usuario.email + ':ha realizado un listado de usuarios: error en el listado');
+                res.redirect("/user/list" +
+                    "?mensaje=No se pudieron obtener los usuarios");
             } else {
                 let ultimaPg = total / 5;
                 if (total % 5 > 0) { // Sobran decimales
@@ -199,27 +191,55 @@ module.exports = function (app, swig, gestorBD) {
         };
         gestorBD.eliminarUsuario(criterio, function (usuarios) {
             if (usuarios == null) {
+                res.redirect("/user/list" +
+                    "?mensaje=No se pudieron borrar los usuarios");
                 app.get('logger').error(req.session.usuario.email + ':Eliminar usuarios: no se han podido eliminar');
             } else {
                 let criterio = {
                     autor: {$in: ids}
                 };
+                //borramos oferta
                 gestorBD.eliminarOferta(criterio, function (ofertas) {
                     if (ofertas == null) {
                         app.get('logger').error(req.session.usuario.email + "Fallo al eliminar ofertas creadas por los usuarios borrados");
-                        //Redireccionar
+                        res.redirect("/user/list" +
+                            "?mensaje=No se pudieron borrar las ofertas de los usuarios");
                     } else {
-
-                        app.get('logger').info(req.session.usuario.email + 'Eliminar usuarios: exito en la eliminación de usuario/s');
-                        res.redirect("/user/list" + "?mensaje=Exito en el borrado de usuario/s" +
-                            "&tipoMensaje=alert-success ");
-
+                        // borramos chats
+                        let criterioChat = {
+                            $or: [{vendedor: {$in: ids}},
+                                {interesado: {$in:  ids}}]
+                        };
+                        gestorBD.eliminarChat(criterioChat, function (conversaciones) {
+                            if (conversaciones == null){
+                                app.get('logger').error(req.session.usuario.email + "Fallo al eliminar chats de los usuarios borrados");
+                                res.redirect("/user/list" +
+                                    "?mensaje=No se pudieron borrar las conversaciones de los usuarios");
+                            }
+                            else{
+                                // borramos mensajes
+                                let criterioChat = {
+                                    $or: [{emisor: {$in: ids}},
+                                        {receptor: {$in:  ids}}]
+                                };
+                                gestorBD.eliminarMensaje(criterioChat, function (conversaciones) {
+                                    if (conversaciones == null) {
+                                        app.get('logger').error(req.session.usuario.email + "Fallo al eliminar los mensajes de los usuarios borrados");
+                                        res.redirect("/user/list" +
+                                            "?mensaje=No se pudieron borrar los mensajes");
+                                    } else {
+                                        app.get('logger').info(req.session.usuario.email + 'Eliminar usuarios: exito en la eliminación de usuario/s');
+                                        res.redirect("/user/list" + "?mensaje=Exito en el borrado de usuario/s" +
+                                            "&tipoMensaje=alert-success ");
+                                    }
+                                });
+                            }
+                        });
                     }
 
                 });
             }
         });
     });
-
 
 }

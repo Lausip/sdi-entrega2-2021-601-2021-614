@@ -59,7 +59,7 @@ app.set('crypto',crypto);
 //Router de sesion
 var routerUsuarioSession = express.Router();
 routerUsuarioSession.use(function (req, res, next) {
-    console.log("routerUsuarioSession");
+    //console.log("routerUsuarioSession");
     if (req.session.usuario!=null) {
         logger.info('Usuario logeado accede a '+ req.originalUrl);
         next();

@@ -3,6 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="4ecf0e4a-6dc5-44ad-bd67-6efa5f842caa" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/modules/gestorBD.js" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/modules/gestorBD.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/routes/rusuarios.js" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/routes/rusuarios.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/views/bhome.html" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/views/bhome.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdi-entrega2-test-n/bin/com/uniovi/tests/SdiEntrega2Tests.class" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-test-n/bin/com/uniovi/tests/SdiEntrega2Tests.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdi-entrega2-test-n/src/com/uniovi/tests/SdiEntrega2Tests.java" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-test-n/src/com/uniovi/tests/SdiEntrega2Tests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -316,7 +322,21 @@
       <option name="project" value="LOCAL" />
       <updated>1620812261150</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="Titulo de agregar oferta cambiado">
+      <created>1620814858479</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1620814858479</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Cambiado el listado ofertas destacadas en el comprar">
+      <created>1620816265149</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1620816265149</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -347,9 +367,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="W4-Listado _de_usuarios_V1.0" />
-    <MESSAGE value="W5-Borrado_múltiple_de_usuarios_V1.0" />
-    <MESSAGE value="W4-Listado_de_usarios_V1.1_Con_paginación" />
     <MESSAGE value="W9-Buscar_ofertas_v1.0" />
     <MESSAGE value="W10-Comprar_una_oferta_v1.0" />
     <MESSAGE value="W11-Ver_Listado_de_ofertas_compradas_V1.0" />
@@ -372,7 +389,10 @@
     <MESSAGE value="W5, W6 - Chats: listar y eliminar (v0)" />
     <MESSAGE value="Arreglado errores: login,home y mylist" />
     <MESSAGE value="Arreglado error: Agregar oferta destacada" />
-    <option name="LAST_COMMIT_MESSAGE" value="Arreglado error: Agregar oferta destacada" />
+    <MESSAGE value="Titulo de agregar oferta cambiado" />
+    <MESSAGE value="Admin no ve el comprar en ofertas destacadas" />
+    <MESSAGE value="Cambiado el listado ofertas destacadas en el comprar" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cambiado el listado ofertas destacadas en el comprar" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -411,24 +431,6 @@
           <url>file://$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/routes/rapiwallapop.js</url>
           <line>204</line>
           <option name="timeStamp" value="61" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/app.js</url>
-          <line>61</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="63" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/routes/rusuarios.js</url>
-          <line>67</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="65" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/app.js</url>
-          <line>80</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="68" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
