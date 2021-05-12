@@ -6,6 +6,8 @@ import java.util.List;
 //Paquetes JUnit 
 import org.junit.*;
 import org.junit.runners.MethodSorters;
+
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 //Paquetes Selenium 
 import org.openqa.selenium.*;
@@ -207,7 +209,6 @@ public class SdiEntrega2Tests {
 		// Rellenamos el formulario.
 		PO_RegisterView.fillForm(driver, "laura@email.com", "Laura", "", "123456", "123456");
 		PO_View.checkElement(driver, "text", "Es necesario completar todos los campos");
-
 	}
 
 	// PR03.Registro de Usuario con datos inválidos (repetición de contraseña
@@ -219,7 +220,6 @@ public class SdiEntrega2Tests {
 		// Rellenamos el formulario.
 		PO_RegisterView.fillForm(driver, "laura@email.com", "Laura", "Vigil Laruelo", "123456", "1234");
 		PO_View.checkElement(driver, "text", "Las contraseñas deben ser iguales");
-
 	}
 
 	// PR04. Registro de Usuario con datos inválidos (email existente).
@@ -230,7 +230,6 @@ public class SdiEntrega2Tests {
 		// Rellenamos el formulario.
 		PO_RegisterView.fillForm(driver, "pepe@email.com", "Pepe", "Alvarez Gutierrez", "123456", "123456");
 		PO_View.checkElement(driver, "text", "El email ya está registrado");
-
 	}
 
 
@@ -260,6 +259,10 @@ public class SdiEntrega2Tests {
 		PO_LoginView.fillForm(driver, "", "123456");
 		// Comprobamos que se muestra el mensaje de error.
 		SeleniumUtils.textoPresentePagina(driver, "Ningún campo puede estar vacío.");
+		// Vamos al formulario de login e iniciamos sesión
+		PO_LoginView.fillForm(driver, "alberto@email.com", "");
+		// Comprobamos que se muestra el mensaje de error.
+		SeleniumUtils.textoPresentePagina(driver, "Ningún campo puede estar vacío.");
 	}
 
 	// PR08. Inicio de sesión con datos inválidos (email no existente en la aplicación).
@@ -275,13 +278,23 @@ public class SdiEntrega2Tests {
 	// inicio de sesión (Login).
 	@Test
 	public void PR09() {
-		assertTrue("PR09 sin hacer", false);
+		// Iniciamos sesión con un usuario válido.
+		PO_PrivateView.login(driver, "pepe@email.com", "123456");
+		// Cerramos sesión.
+		PO_PrivateView.logout(driver);
+		// Comprobamos que se ha cerrado sesión correctamente.
+		SeleniumUtils.textoPresentePagina(driver, "Identificación");
 	}
 
 	// PR10. Comprobar que el botón cerrar sesión no está visible si el usuario no está autenticado.
 	@Test
 	public void PR10() {
-		assertTrue("PR10 sin hacer", false);
+		// Iniciamos sesión con un usuario válido.
+		PO_PrivateView.login(driver, "pepe@email.com", "123456");
+		// Cerramos sesión.
+		PO_PrivateView.logout(driver);
+		// Comprobamos que ya no se muestra el texto de cerrar sesión.
+		SeleniumUtils.textoNoPresentePagina(driver, "Cierra sesión");
 	}
 
 	// PR11. Mostrar el listado de usuarios y comprobar que se muestran todos los
@@ -380,7 +393,14 @@ public class SdiEntrega2Tests {
 	// Comprobar que la oferta sale en el listado de ofertas de dicho usuario.
 	@Test
 	public void PR15() {
-		assertTrue("PR15 sin hacer", false);
+		// Iniciamos sesión.
+		PO_PrivateView.login(driver, "alberto@email.com", "123456");
+		// Vamos a la opción del menú de agregar oferta.
+		PO_NavView.clickDropdownMenuOption(driver, "offers-dropdown", "offers-menu", "offer/add");
+		// Rellenamos los campos y agregamos la nueva oferta.
+		PO_AddOfferView.fillForm(driver, "Hola", "Hola esto es una prueba", "15.0",false);
+		// Comprobamos que se muestra en el listado de ofertas del usuario.
+		PO_HomeView.checkElement(driver, "text", "Hola");
 	}
 
 	// PR16. Ir al formulario de alta de oferta, rellenarla con datos inválidos (campo título vacío y
@@ -388,28 +408,70 @@ public class SdiEntrega2Tests {
 	// obligatorio.
 	@Test
 	public void PR16() {
-		assertTrue("PR16 sin hacer", false);
+		// Iniciamos sesión.
+		PO_PrivateView.login(driver, "alberto@email.com", "123456");
+		// Vamos a la opción del menú de agregar oferta.
+		PO_NavView.clickDropdownMenuOption(driver, "offers-dropdown", "offers-menu", "offer/add");
+		// Rellenamos el los campos e intentamos agregar la oferta.
+		PO_AddOfferView.fillForm(driver, "", "Hola esto es una prueba", "15.0", false);
+		// Comprobamos que se muestra el mensaje de error correspondiente.
+		SeleniumUtils.textoPresentePagina(driver, "Error al agregar la oferta: ningún campo puede estar vacío.");
+		// Rellenamos el los campos e intentamos agregar la oferta.
+		PO_AddOfferView.fillForm(driver, "Hola", "", "15.0", false);
+		// Comprobamos que se muestra el mensaje de error correspondiente.
+		SeleniumUtils.textoPresentePagina(driver, "Error al agregar la oferta: ningún campo puede estar vacío.");
+		// Rellenamos el los campos e intentamos agregar la oferta.
+		PO_AddOfferView.fillForm(driver, "Hola", "Hola esto es una prueba", "", false);
+		// Comprobamos que se muestra el mensaje de error correspondiente.
+		SeleniumUtils.textoPresentePagina(driver, "Error al agregar la oferta: ningún campo puede estar vacío.");
+		// Rellenamos el los campos e intentamos agregar la oferta.
+		PO_AddOfferView.fillForm(driver, "Hola", "Hola esto es una prueba", "-15.0", false);
+		// Comprobamos que se muestra el mensaje de error correspondiente.
+		SeleniumUtils.textoPresentePagina(driver, "Error al agregar la oferta: el precio debe ser un número positivo.");
 	}
 
 	// PR017. Mostrar el listado de ofertas para dicho usuario y comprobar que se muestran todas las
 	// que existen para este usuario.
 	@Test
 	public void PR17() {
-		assertTrue("PR17 sin hacer", false);
+		// Iniciamos sesión.
+		PO_PrivateView.login(driver, "alberto@email.com", "123456");
+		// Vamos a la opción del menú de ver ofertas del usuario.
+		PO_NavView.clickDropdownMenuOption(driver, "offers-dropdown", "offers-menu", "offer/myList");
+		// Esperamos a que se cargue la página.
+		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
+		// Comprobamos que hay tres elementos.
+		assertTrue(elementos.size() == 3);
 	}
 
 	// PR18. Ir a la lista de ofertas, borrar la primera oferta de la lista, comprobar que la lista se
 	// actualiza y que la oferta desaparece.
 	@Test
 	public void PR18() {
-		assertTrue("PR18 sin hacer", false);
+		// Iniciamos sesión como el usuario pepe.
+		PO_PrivateView.login(driver, "pepe@email.com", "123456");
+		// Accedemos a la vista de mis ofertas.
+		PO_NavView.clickDropdownMenuOption(driver, "offers-dropdown", "offers-menu", "offer/myList");
+		// Esperamos a que aparezca el Juguete y pinchamos en su enlace de borrado.
+		List<WebElement> elementos = PO_View.checkElement(driver, "id", "btnEliminarMyList");
+		elementos.get(0).click();
+		// Comprobamos que la oferta ya no está en la lista.
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "Juguete", PO_View.getTimeout());
 	}
 
 	// PR19. Ir a la lista de ofertas, borrar la última oferta de la lista, comprobar que la lista se actualiza
 	// y que la oferta desaparece.
 	@Test
 	public void PR19() {
-		assertTrue("PR19 sin hacer", false);
+		// Iniciamos sesión como el usuario pepe.
+		PO_PrivateView.login(driver, "pepe@email.com", "123456");
+		// Accedemos a la vista de mis ofertas.
+		PO_NavView.clickDropdownMenuOption(driver, "offers-dropdown", "offers-menu", "offer/myList");
+		// Esperamos a que aparezca los Rotuladores y pinchamos en su enlace de borrado.
+		List<WebElement> elementos = PO_View.checkElement(driver, "id", "btnEliminarMyList");
+		elementos.get(elementos.size() - 1).click();
+		// Comprobamos que la oferta ya no está en la lista.
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "Rotuladores", PO_View.getTimeout());
 	}
 
 	// P20. Hacer una búsqueda con el campo vacío y comprobar que se muestra la
@@ -428,7 +490,6 @@ public class SdiEntrega2Tests {
 		driver.findElements(By.xpath("//a[contains(@class, 'page-link')]")).get(2).click();
 		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
 		assertTrue(elementos.size() == 2);
-
 	}
 
 	// PR21. Hacer una búsqueda escribiendo en el campo un texto que no exista y
@@ -513,7 +574,9 @@ public class SdiEntrega2Tests {
 		SeleniumUtils.textoPresentePagina(driver, "0");
 	}
 
-	// PR25. Sin hacer /
+	// PR25. Sobre una búsqueda determinada (a elección de desarrollador), intentar comprar una
+	// oferta que esté por encima de saldo disponible del comprador. Y comprobar que se muestra el
+	// mensaje de saldo no suficiente.
 	@Test
 	public void PR25() {
 		// Vamos a la página de ofertas
@@ -526,7 +589,6 @@ public class SdiEntrega2Tests {
 		elementos.get(0).click();
 		// Vemos que nos sale un mensaje de que no tenemos saldo para comprarlo
 		SeleniumUtils.textoPresentePagina(driver, "Saldo insuficiente");
-
 	}
 
 	// PR26. Ir a la opción de ofertas compradas del usuario y mostrar la lista.
@@ -542,7 +604,6 @@ public class SdiEntrega2Tests {
 		SeleniumUtils.textoPresentePagina(driver, "Zapatos");
 		SeleniumUtils.textoPresentePagina(driver, "Zapatos de baile");
 		SeleniumUtils.textoPresentePagina(driver, "fernando@email.com");
-
 		// Finalmente, nos desconectamos.
 		PO_PrivateView.logout(driver);
 	}
@@ -552,7 +613,23 @@ public class SdiEntrega2Tests {
 	// actualiza adecuadamente en la vista del ofertante (-20).
 	@Test
 	public void PR27() {
-		assertTrue("PR27 sin hacer", false);
+		// Iniciamos sesión.
+		PO_PrivateView.login(driver, "pepe@email.com", "123456");
+		// Obtenemos el dinero que tiene en este momento el usuario.
+		String money = driver.findElement(By.id("dinero")).getText();
+		// Vamos a la opción del menú de agregar oferta.
+		PO_NavView.clickDropdownMenuOption(driver, "offers-dropdown", "offers-menu", "offer/add");
+		// Rellenamos el los campos e intentamos agregar la oferta.
+		PO_AddOfferView.fillForm(driver, "Hola", "Hola esto es una prueba", "15.0", true);
+		// Vamos a la vista /home.
+		List<WebElement> elements = driver.findElements(By.id("home"));
+		elements.get(0).click();
+		// Obtenemos el dinero que tiene en este momento el usuario.
+		String newmoney = driver.findElement(By.id("dinero")).getText();
+		// Comprobamos que el dinero que tiene actualmente el usuario es el anterior menos 20.
+		assertEquals(Double.parseDouble(money) - 20, Double.parseDouble(newmoney), 0.1);
+		// Comprobamos que la oferta en cuestión se muestra en la lista de destacadas.
+		PO_HomeView.checkElement(driver, "text", "Hola");
 	}
 
 	// PR028. Sobre el listado de ofertas de un usuario con más de 20 euros de saldo, pinchar en el
@@ -561,14 +638,39 @@ public class SdiEntrega2Tests {
 	// 20).
 	@Test
 	public void PR28() {
-		assertTrue("PR28 sin hacer", false);
+		// Iniciamos sesión.
+		PO_PrivateView.login(driver, "pepe@email.com", "123456");
+		// Obtenemos el dinero que tiene en este momento el usuario.
+		String money = driver.findElement(By.id("dinero")).getText();
+		// Vamos a la opción del menú de lista de ofertas del usuario.
+		PO_NavView.clickDropdownMenuOption(driver, "offers-dropdown", "offers-menu", "offer/myList");
+		// Se hace click en el botón de destacar.
+		List<WebElement> elements = driver.findElements(By.id("btnNormal"));
+		elements.get(0).click();
+		// Vamos a la vista /home.
+		elements = driver.findElements(By.id("home"));
+		elements.get(0).click();
+		// Obtenemos el dinero que tiene en este momento el usuario.
+		String newmoney = driver.findElement(By.id("dinero")).getText();
+		// Comprobamos que el dinero que tiene actualmente el usuario es el anterior menos 20.
+		assertEquals(Double.parseDouble(money) - 20, Double.parseDouble(newmoney), 0.1);
+		// Comprobamos que la oferta en cuestión se muestra en la lista de destacadas.
+		PO_HomeView.checkElement(driver, "text", "Juguete");
 	}
 	
 	// PR029. Sobre el listado de ofertas de un usuario con menos de 20 euros de saldo, pinchar en el
 	// enlace Destacada y a continuación comprobar que se muestra el mensaje de saldo no suficiente.
 	@Test
 	public void PR29() {
-		assertTrue("PR29 sin hacer", false);
+		// Iniciamos sesión.
+		PO_PrivateView.login(driver, "alberto@email.com", "123456");
+		// Vamos a la opción del menú de lista de ofertas del usuario.
+		PO_NavView.clickDropdownMenuOption(driver, "offers-dropdown", "offers-menu", "offer/myList");
+		// Se hace click en el botón de destacar.
+		List<WebElement> elements = driver.findElements(By.id("btnNormal"));
+		elements.get(0).click();
+		// Comprobamos que sale un mensaje de saldo insuficiente.
+		SeleniumUtils.textoPresentePagina(driver, "Error: no dispone del suficiente saldo.");
 	}
 
 	// PR030.Inicio de sesión con datos válidos
@@ -590,7 +692,6 @@ public class SdiEntrega2Tests {
 		//Miramos que sale el error
 		SeleniumUtils.EsperaCargaPagina(driver, "text", "Las", 5000);
 		SeleniumUtils.textoPresentePagina(driver, "Las credenciales introducidas no son correctas");
-		
 	}
 
 	// PR032. Inicio de sesión con datos válidos (campo email o contraseña vacíos).
@@ -600,7 +701,6 @@ public class SdiEntrega2Tests {
 		//Miramos que sale el error
 		SeleniumUtils.EsperaCargaPagina(driver, "text", "No", 5000);
 		SeleniumUtils.textoPresentePagina(driver, "No puede haber campos vacios");
-		
 	}
 	
 	// PR033.Mostrar el listado de ofertas disponibles y comprobar que se muestran todas las que 
