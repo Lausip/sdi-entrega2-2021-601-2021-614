@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="4ecf0e4a-6dc5-44ad-bd67-6efa5f842caa" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/routes/rofertas.js" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/routes/rofertas.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/views/offer/add.html" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/views/offer/add.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -311,7 +309,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620811506444</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Arreglado error: Agregar oferta destacada">
+      <created>1620812261150</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1620812261150</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -342,7 +347,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="W1-Registro_V1.1" />
     <MESSAGE value="W4-Listado _de_usuarios_V1.0" />
     <MESSAGE value="W5-Borrado_múltiple_de_usuarios_V1.0" />
     <MESSAGE value="W4-Listado_de_usarios_V1.1_Con_paginación" />
@@ -367,7 +371,8 @@
     <MESSAGE value="Nuevos tests??" />
     <MESSAGE value="W5, W6 - Chats: listar y eliminar (v0)" />
     <MESSAGE value="Arreglado errores: login,home y mylist" />
-    <option name="LAST_COMMIT_MESSAGE" value="Arreglado errores: login,home y mylist" />
+    <MESSAGE value="Arreglado error: Agregar oferta destacada" />
+    <option name="LAST_COMMIT_MESSAGE" value="Arreglado error: Agregar oferta destacada" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
