@@ -256,13 +256,19 @@ public class SdiEntrega2Tests {
 	// PR07. Inicio de sesión con datos inválidos (campo email o contraseña vacíos).
 	@Test
 	public void PR07() {
-		assertTrue("PR07 sin hacer", false);
+		// Vamos al formulario de login e iniciamos sesión
+		PO_LoginView.fillForm(driver, "", "123456");
+		// Comprobamos que se muestra el mensaje de error.
+		SeleniumUtils.textoPresentePagina(driver, "Ningún campo puede estar vacío.");
 	}
 
 	// PR08. Inicio de sesión con datos inválidos (email no existente en la aplicación).
 	@Test
 	public void PR08() {
-		assertTrue("PR08 sin hacer", false);
+		// Vamos al formulario de login e iniciamos sesión
+		PO_LoginView.fillForm(driver, "alb@email.com", "123456");
+		// Comprobamos que se muestra el mensaje de error.
+		SeleniumUtils.textoPresentePagina(driver, "Email o password incorrecto");
 	}
 
 	// PR09. Hacer click en la opción de salir de sesión y comprobar que se redirige a la página de
