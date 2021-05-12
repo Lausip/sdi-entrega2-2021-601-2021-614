@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4ecf0e4a-6dc5-44ad-bd67-6efa5f842caa" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/routes/rofertas.js" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/routes/rofertas.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/views/offer/add.html" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/views/offer/add.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -302,7 +304,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620800725835</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Arreglado errores: login,home y mylist">
+      <created>1620811506444</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1620811506444</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -333,7 +342,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="W1-Regsitro_V1.0" />
     <MESSAGE value="W1-Registro_V1.1" />
     <MESSAGE value="W4-Listado _de_usuarios_V1.0" />
     <MESSAGE value="W5-Borrado_múltiple_de_usuarios_V1.0" />
@@ -358,7 +366,8 @@
     <MESSAGE value="Nuevos tests?" />
     <MESSAGE value="Nuevos tests??" />
     <MESSAGE value="W5, W6 - Chats: listar y eliminar (v0)" />
-    <option name="LAST_COMMIT_MESSAGE" value="W5, W6 - Chats: listar y eliminar (v0)" />
+    <MESSAGE value="Arreglado errores: login,home y mylist" />
+    <option name="LAST_COMMIT_MESSAGE" value="Arreglado errores: login,home y mylist" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -403,6 +412,18 @@
           <line>61</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="63" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/routes/rusuarios.js</url>
+          <line>67</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="65" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/sdi-entrega2-2021-601-2021-614/app.js</url>
+          <line>80</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="68" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
