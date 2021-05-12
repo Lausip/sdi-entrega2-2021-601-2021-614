@@ -158,7 +158,7 @@ module.exports = function(app,swig, gestorBD) {
 
 
     /**
-     * Muestra la conversación cuyo id se recibe como parámtetro.
+     * Muestra la conversación cuyo id se recibe como parámetro.
      */
     app.post("/api/offer/chat/:id", function (req, res) {
         let chatId = gestorBD.mongo.ObjectID(req.params.id);

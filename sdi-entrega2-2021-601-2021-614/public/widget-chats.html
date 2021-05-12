@@ -37,6 +37,10 @@
     cargarChatsVendedor();
     cargarChatsInteresado();
 
+    /**
+     * Función que permite cargar todos los chats del usuario
+     * vendedor de la oferta
+     */
     function cargarChatsVendedor() {
         $("#tablaCuerpo").html("");
         $.ajax({
@@ -55,6 +59,9 @@
         });
     }
 
+    /**
+     * Función que permite cargar los chats del usuario como insterasado
+     */
     function cargarChatsInteresado() {
         $("#tablaCuerpo").html("");
         $.ajax({
@@ -73,6 +80,10 @@
         });
     }
 
+    /**
+     * Emtodo que permite actualizar los chats del usuario como vendedor
+     * @param chatsMostrar conjunto de chat que se ven en la vista
+     */
     function actualizarTablaChatsVendedor(chatsMostrar) {
         $("#tablaCuerpo").empty(); // Vaciar la tabla
         for (i = 0; i < chatsMostrar.length; i++) {
@@ -91,6 +102,10 @@
         }
     }
 
+    /**
+     * Función que permite cactualizar lso chats del usuario interesado
+     * @param chatsMostrar conjunto de chats del usuario como interesado
+     */
     function actualizarTablaChatsInteresado(chatsMostrar) {
         $("#tablaCuerpo").empty(); // Vaciar la tabla
         for (i = 0; i < chatsMostrar.length; i++) {
@@ -109,12 +124,20 @@
         }
     }
 
+    /**
+     * Función que carga la vista de chat
+     * @param _id identificación del chat a cargar
+     */
     function chat( _id ) {
         idOfertaSeleccionada = null;
         idChatSeleccionado = _id;
         $( "#contenedor-principal" ).load( "widget-chat.html");
     }
 
+    /**
+     * Funciónq ue permite eliminar el chat
+     * @param _id identificación del chat a eliminar
+     */
     function eliminarChat( _id ) {
         $.ajax({
             url: URLbase + "/offer/chat/delete" + _id,

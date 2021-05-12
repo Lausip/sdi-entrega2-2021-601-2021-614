@@ -29,6 +29,9 @@
         cargarChat();
     }
 
+    /**
+     * Función que carga el chat de la oferta sin tener mensajes previos
+     */
     function crearObtenerChatPorOfertaUsuario() {
         $("#tablaCuerpo").html("");
         $.ajax({
@@ -50,6 +53,10 @@
         });
     }
 
+    /**
+     * Función que permite cargar el chat de la oferta con un intercambio de mensajes
+     * ya anterior
+     */
     function cargarChat() {
         $("#tablaCuerpo").html("");
         $.ajax({
@@ -68,6 +75,10 @@
         });
     }
 
+    /**
+     * Función que actualiza el chat para ver los mensajes
+     * @param mensajesMostrar conjunto de mensajes que se van a cargar en la vista
+     */
     function actualizarChat(mensajesMostrar) {
         $("#tablaCuerpo").empty(); // Vaciar la tabla
         for (i = 0; i < mensajesMostrar.length; i++) {
@@ -85,6 +96,9 @@
         }
     }
 
+    /**
+     * Función que permite enviar un mensaje dentro del chat
+     */
     function enviarMensaje() {
         $.ajax({
             url: URLbase + "/offer/chat/" + chat,

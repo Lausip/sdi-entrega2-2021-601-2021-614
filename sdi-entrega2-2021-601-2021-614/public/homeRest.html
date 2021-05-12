@@ -51,13 +51,15 @@
         $( "#contenedor-principal" ).load( "widget-offers.html");
     }
     /**
-     * OConversaciones del usuario
+     * Conversaciones del usuario
      */
     function getConversaciones(){
         $( "#contenedor-principal" ).load( "widget-chats.html");
     }
 
-
+    /**
+     * Permite cargar las páginas
+     */
     if (Cookies.get('token') != null) {
         token = Cookies.get('token');
         var url = new URL(window.location.href);
