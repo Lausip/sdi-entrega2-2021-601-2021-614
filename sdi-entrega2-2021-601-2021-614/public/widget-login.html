@@ -26,6 +26,10 @@
 </div>
 <script>
     window.history.pushState("", "", "/homeRest.html?w=login");
+    /**
+     * Metodo que al hacer click en el botón mira si te puedes logear
+     * en la apliación si no es así sale el error correspondiente
+     */
     $('#boton-login').click(function () {
         $.ajax({
             url: URLbase + "/autentication",
@@ -39,7 +43,6 @@
                 console.log(respuesta.token);
                 token = respuesta.token;
                 email = $("#email").val();
-
                 Cookies.set('token', respuesta.token);
                 $("#contenedor-principal").load("widget-offers.html");
             },

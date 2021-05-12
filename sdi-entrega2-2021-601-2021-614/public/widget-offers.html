@@ -31,6 +31,9 @@
     var ofertas;
     cargarOfertas();
 
+    /**
+     * Función que carga las ofertas de la aplicación
+     */
     function cargarOfertas() {
         $("#tablaCuerpo").html("");
         $.ajax({
@@ -49,6 +52,10 @@
         });
     }
 
+    /**
+     * Función que actualiza las ofertas y las coloca en la tabla
+     * @param ofertasMostrar aquellas ofertas que se van a mostrar
+     */
     function actualizarTablaOfertas(ofertasMostrar) {
         $("#tablaCuerpo").empty(); // Vaciar la tabla
         for (i = 0; i < ofertasMostrar.length; i++) {
@@ -66,6 +73,10 @@
         }
     }
 
+    /**
+     * Función que llama a otra vsita para cargar el chat de la oferta
+     * @param _id id de la oferta sleccionada para cargar su chat
+     */
     function chat( _id ) {
         idOfertaSeleccionada = _id;
         idChatSeleccionado = null;
