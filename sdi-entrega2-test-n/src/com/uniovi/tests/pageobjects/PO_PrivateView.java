@@ -38,6 +38,16 @@ public class PO_PrivateView extends PO_NavView{
 
 	}
 
+	public static void login(WebDriver driver, String email, String password) {
+		// Vamos al formulario de logueo.
+		clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario
+		PO_LoginView.fillForm(driver, email, password);
+		// Cpmprobamos que entramos en la pagina privada
+		checkElement(driver, "text", email);
+		SeleniumUtils.esperarSegundos(driver, 1);
+	}
+	
 	public static void logout(WebDriver driver) {
 		PO_LoginView.logout(driver);
 		

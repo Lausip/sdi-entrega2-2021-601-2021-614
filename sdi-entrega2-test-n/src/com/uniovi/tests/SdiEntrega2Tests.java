@@ -27,14 +27,12 @@ public class SdiEntrega2Tests {
 	static MongoDatabase database;
 
 	// Parámetros de Laura
-	static String PathFirefox65 = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
-	static String Geckdriver024 = "C:\\Users\\laura\\Escritorio\\Uni\\3-Uni\\2Semestre\\SDI\\LAB\\Sesion05\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
+//	static String PathFirefox65 = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
+//	static String Geckdriver024 = "C:\\Users\\laura\\Escritorio\\Uni\\3-Uni\\2Semestre\\SDI\\LAB\\Sesion05\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
 
 	// Parámetros de Rut
-	// static String PathFirefox65 = "C:\\Program Files\\Mozilla
-	// Firefox\\firefox.exe";
-	// static String Geckdriver024 =
-	// "C:\\Users\\rualg\\OneDrive\\Escritorio\\SDI\\Práctica5\\PL-SDI-Sesión5-material\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
+	static String PathFirefox65 = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
+	static String Geckdriver024 = "C:\\Users\\rualg\\OneDrive\\Escritorio\\SDI\\Práctica5\\PL-SDI-Sesión5-material\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
 
 	static WebDriver driver = getDriver(PathFirefox65, Geckdriver024);
 	static String URL = "https://localhost:8081/";
@@ -53,9 +51,8 @@ public class SdiEntrega2Tests {
 	public static void removeDataTest() {
 		database.getCollection("ofertas").drop();
 		database.getCollection("usuarios").drop();
-		database.getCollection("conversaciones").drop();
+		database.getCollection("chats").drop();
 		database.getCollection("mensajes").drop();
-
 	}
 
 	/**
@@ -142,8 +139,7 @@ public class SdiEntrega2Tests {
 	 * Inicia la base de datos para las pruebas
 	 */
 	public static void initdb() {
-		mongoClient = MongoClients.create(
-				"mongodb://admin:sdi@tiendamusica-shard-00-00.nq3br.mongodb.net:27017,tiendamusica-shard-00-01.nq3br.mongodb.net:27017,tiendamusica-shard-00-02.nq3br.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-tdx28j-shard-0&authSource=admin&retryWrites=true&w=majority");
+		mongoClient = MongoClients.create("mongodb://admin:sdi@tiendamusica-shard-00-00.nq3br.mongodb.net:27017,tiendamusica-shard-00-01.nq3br.mongodb.net:27017,tiendamusica-shard-00-02.nq3br.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-tdx28j-shard-0&authSource=admin&retryWrites=true&w=majority");
 		database = mongoClient.getDatabase("myFirstDatabase");
 		removeDataTest();
 		insertData();
@@ -237,43 +233,51 @@ public class SdiEntrega2Tests {
 
 	}
 
-//
-//	// PR05. Sin hacer /
-//	@Test
-//	public void PR05() {
-//		assertTrue("PR05 sin hacer", false);
-//	}
-//
-//	// PR06. Sin hacer /
-//	@Test
-//	public void PR06() {
-//		assertTrue("PR06 sin hacer", false);
-//	}
-//
-//	// PR07. Sin hacer /
-//	@Test
-//	public void PR07() {
-//		assertTrue("PR07 sin hacer", false);
-//	}
-//
-//	// PR08. Sin hacer /
-//	@Test
-//	public void PR08() {
-//		assertTrue("PR08 sin hacer", false);
-//	}
-//
-//	// PR09. Sin hacer /
-//	@Test
-//	public void PR09() {
-//		assertTrue("PR09 sin hacer", false);
-//	}
-//
-//	// PR10. Sin hacer /
-//	@Test
-//	public void PR10() {
-//		assertTrue("PR10 sin hacer", false);
-//	}
-//
+
+	// PR05. Inicio de sesión con datos válidos.
+	@Test
+	public void PR05() {
+		// Vamos al formulario de login e iniciamos sesión
+		PO_PrivateView.login(driver, "alberto@email.com", "123456");
+		// Comprobamos que se ha iniciado correctamente y se muestra la página principal.
+		SeleniumUtils.textoPresentePagina(driver, "alberto@email.com");
+		SeleniumUtils.textoPresentePagina(driver, "Bienvenido a la aplicación");
+	}
+
+	// PR06. Inicio de sesión con datos inválidos (email existente, pero contraseña incorrecta).
+	@Test
+	public void PR06() {
+		// Vamos al formulario de login e iniciamos sesión
+		PO_LoginView.fillForm(driver, "alberto@email.com", "111111");
+		// Comprobamos que se muestra el mensaje de error.
+		SeleniumUtils.textoPresentePagina(driver, "Email o password incorrecto");
+	}
+
+	// PR07. Inicio de sesión con datos inválidos (campo email o contraseña vacíos).
+	@Test
+	public void PR07() {
+		assertTrue("PR07 sin hacer", false);
+	}
+
+	// PR08. Inicio de sesión con datos inválidos (email no existente en la aplicación).
+	@Test
+	public void PR08() {
+		assertTrue("PR08 sin hacer", false);
+	}
+
+	// PR09. Hacer click en la opción de salir de sesión y comprobar que se redirige a la página de
+	// inicio de sesión (Login).
+	@Test
+	public void PR09() {
+		assertTrue("PR09 sin hacer", false);
+	}
+
+	// PR10. Comprobar que el botón cerrar sesión no está visible si el usuario no está autenticado.
+	@Test
+	public void PR10() {
+		assertTrue("PR10 sin hacer", false);
+	}
+
 	// PR11. Mostrar el listado de usuarios y comprobar que se muestran todos los
 	// que existen en el
 	// sistema
@@ -366,36 +370,42 @@ public class SdiEntrega2Tests {
 		PO_PrivateView.logout(driver);
 	}
 
-//	// PR15. Sin hacer /
-//	@Test
-//	public void PR15() {
-//		assertTrue("PR15 sin hacer", false);
-//	}
-//
-//	// PR16. Sin hacer /
-//	@Test
-//	public void PR16() {
-//		assertTrue("PR16 sin hacer", false);
-//	}
-//
-//	// PR017. Sin hacer /
-//	@Test
-//	public void PR17() {
-//		assertTrue("PR17 sin hacer", false);
-//	}
-//
-//	// PR18. Sin hacer /
-//	@Test
-//	public void PR18() {
-//		assertTrue("PR18 sin hacer", false);
-//	}
-//
-//	// PR19. Sin hacer /
-//	@Test
-//	public void PR19() {
-//		assertTrue("PR19 sin hacer", false);
-//	}
-//
+	// PR15. Ir al formulario de alta de oferta, rellenarla con datos válidos y pulsar el botón Submit.
+	// Comprobar que la oferta sale en el listado de ofertas de dicho usuario.
+	@Test
+	public void PR15() {
+		assertTrue("PR15 sin hacer", false);
+	}
+
+	// PR16. Ir al formulario de alta de oferta, rellenarla con datos inválidos (campo título vacío y
+	// precio en negativo) y pulsar el botón Submit. Comprobar que se muestra el mensaje de campo
+	// obligatorio.
+	@Test
+	public void PR16() {
+		assertTrue("PR16 sin hacer", false);
+	}
+
+	// PR017. Mostrar el listado de ofertas para dicho usuario y comprobar que se muestran todas las
+	// que existen para este usuario.
+	@Test
+	public void PR17() {
+		assertTrue("PR17 sin hacer", false);
+	}
+
+	// PR18. Ir a la lista de ofertas, borrar la primera oferta de la lista, comprobar que la lista se
+	// actualiza y que la oferta desaparece.
+	@Test
+	public void PR18() {
+		assertTrue("PR18 sin hacer", false);
+	}
+
+	// PR19. Ir a la lista de ofertas, borrar la última oferta de la lista, comprobar que la lista se actualiza
+	// y que la oferta desaparece.
+	@Test
+	public void PR19() {
+		assertTrue("PR19 sin hacer", false);
+	}
+
 	// P20. Hacer una búsqueda con el campo vacío y comprobar que se muestra la
 	// página que
 	// corresponde con el listado de las ofertas existentes en el sistema
@@ -476,7 +486,6 @@ public class SdiEntrega2Tests {
 	// deja un saldo 0 en el contador del comprobador. Y comprobar que el contador
 	// se actualiza
 	// correctamente en la vista del comprador.
-
 	@Test
 	public void PR24() {
 		// Vamos a la página de ofertas
@@ -532,18 +541,30 @@ public class SdiEntrega2Tests {
 		PO_PrivateView.logout(driver);
 	}
 
-//	// PR27. Sin hacer /
-//	@Test
-//	public void PR27() {
-//		assertTrue("PR27 sin hacer", false);
-//	}
-//
-//	// PR029. Sin hacer /
-//	@Test
-//	public void PR29() {
-//		assertTrue("PR29 sin hacer", false);
-//	}
-//
+	// PR27. Al crear una oferta marcar dicha oferta como destacada y a continuación comprobar: i)
+	// que aparece en el listado de ofertas destacadas para los usuarios y que el saldo del usuario se
+	// actualiza adecuadamente en la vista del ofertante (-20).
+	@Test
+	public void PR27() {
+		assertTrue("PR27 sin hacer", false);
+	}
+
+	// PR028. Sobre el listado de ofertas de un usuario con más de 20 euros de saldo, pinchar en el
+	// enlace Destacada y a continuación comprobar: i) que aparece en el listado de ofertas destacadas
+	// para los usuarios y que el saldo del usuario se actualiza adecuadamente en la vista del ofertante (-
+	// 20).
+	@Test
+	public void PR28() {
+		assertTrue("PR28 sin hacer", false);
+	}
+	
+	// PR029. Sobre el listado de ofertas de un usuario con menos de 20 euros de saldo, pinchar en el
+	// enlace Destacada y a continuación comprobar que se muestra el mensaje de saldo no suficiente.
+	@Test
+	public void PR29() {
+		assertTrue("PR29 sin hacer", false);
+	}
+
 	// PR030.Inicio de sesión con datos válidos
 	@Test
 	public void PR30() {
@@ -590,10 +611,42 @@ public class SdiEntrega2Tests {
 		SeleniumUtils.textoNoPresentePagina(driver, "Pato");
 		SeleniumUtils.textoNoPresentePagina(driver, "Tienda");
 		SeleniumUtils.textoNoPresentePagina(driver, "Vestido");
-	
-		
-		
 	}
 
+	// PR034. Sobre una búsqueda determinada de ofertas (a elección de desarrollador), enviar un
+	// mensaje a una oferta concreta. Se abriría dicha conversación por primera vez. Comprobar que el
+	// mensaje aparece en el listado de mensajes.
+	@Test
+	public void PR34() {
+		assertTrue("PR34 sin hacer", false);
+	}
+	
+	// PR035. Sobre el listado de conversaciones enviar un mensaje a una conversación ya abierta.
+	// Comprobar que el mensaje aparece en el listado de mensajes.
+	@Test
+	public void PR35() {
+		assertTrue("PR35 sin hacer", false);
+	}
+	
+	// PR036. Mostrar el listado de conversaciones ya abiertas. Comprobar que el listado contiene las
+	// conversaciones que deben ser.
+	@Test
+	public void PR36() {
+		assertTrue("PR36 sin hacer", false);
+	}
+	
+	// PR037. Sobre el listado de conversaciones ya abiertas. Pinchar el enlace Eliminar de la primera y
+	// comprobar que el listado se actualiza correctamente.
+	@Test
+	public void PR37() {
+		assertTrue("PR37 sin hacer", false);
+	}
+	
+	// PR038. Sobre el listado de conversaciones ya abiertas. Pinchar el enlace Eliminar de la última y
+	// comprobar que el listado se actualiza correctamente.
+	@Test
+	public void PR38() {
+		assertTrue("PR38 sin hacer", false);
+	}
 
 }
