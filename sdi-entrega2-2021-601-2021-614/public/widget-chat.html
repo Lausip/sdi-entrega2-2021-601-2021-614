@@ -10,8 +10,8 @@
         <tbody id="tablaCuerpo">
         </tbody>
     </table>
-        <input type="text" id="textoMensaje"/>
-        <button id="enviarMensaje" onclick="enviarMensaje()">Enviar</button>
+        <input type="text" id="textoMensaje" name="textoMensaje"/>
+    <button id="enviarMensaje" name="enviarMensaje" onclick="enviarMensaje()">Enviar</button>
 </div>
 
 
@@ -38,9 +38,6 @@
             success: function (respuesta) {
                 chat = respuesta;
                 cargarChat();
-                //actualizarChat(chat);
-                //mensajes = respuesta;
-                //actualizarChat(mensajes);
             },
             error: function (error) {
                 $("#contenedor-principal").load("widget-login.html");
@@ -106,8 +103,6 @@
             success: function (respuesta) {
                 $("#textoMensaje").val('');
                 cargarChat();
-                //idChatSeleccionado = respuesta.id;
-                //$("#contenedor-principal").load("widget-chat.html");
             },
             error: function (error) {
                 $("#contenedor-principal").load("widget-login.html");
